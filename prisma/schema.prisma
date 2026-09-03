@@ -1,0 +1,81 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id            Int     @id @default(autoincrement())
+  username      String  @unique
+  password      String
+  nickname      String
+  qqid          String? @unique
+  createdAt     DateTime
+  sessions      Session[]
+  visits        Visit[]
+  role          Role    @default(CUSTOMER)
+  balance       Int     @default(0)
+  cashBalance   Int     @default(0)
+  bonusBalance  Int     @default(0)
+  ledgerEntries Ledger[]
+  chargeMultiplier  Float   @default(1.0)
+}
+
+model Session {
+  id        Int     @id @default(autoincrement())
+  token     String  @unique
+  userId    Int
+  expiresAt DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum Role {
+  CUSTOMER
+  STAFF
+  ADMIN
+}
+
+model Visit {
+  id        Int     @id @default(autoincrement())
+  userId    Int
+  enteredAt DateTime
+  leftAt    DateTime?
+  charge    Int?
+
+  ledgerEntry Ledger?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Ledger {
+  id        Int     @id @default(autoincrement())
+  userId    Int
+  user User @relation(fields: [userId], references: [id])
+  
+  cashChange   Int @default(0)
+  bonusChange   Int @default(0)
+
+  type      LedgerEntryType
+  note      String?
+
+  visitId    Int? @unique
+  visit Visit? @relation(fields: [visitId], references: [id])
+
+  createdAt DateTime @default(now())
+}
+
+enum LedgerEntryType {
+  TOPUP
+  VISIT_CHARGE
+  REFUND
+  MANUAL
+}
