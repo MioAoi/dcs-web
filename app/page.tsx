@@ -11,7 +11,7 @@ export default async function Home() {
   return (
     <main>
       <img src="/images/logo.svg" alt="DCStream logo" />
-      <div className="master-width">
+      <div className="master-width generic-vert-grid invwindow">
         <Link href="/login" className="Button primary">登录</Link>
         <Link href="/register" className="Button">注册</Link>
         <Link href="/stafflogin" className="Button">管理</Link>

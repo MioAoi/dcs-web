@@ -13,7 +13,13 @@
   --status-color: #78c;
   --window-color: #9ae;
   --border-width: 2px;
+
   font-size: 3.5vw;
+
+  --default-margin: 0.25rem;
+  --default-padding: 0.5rem;
+  --button-padding: 0.4rem;
+  --default-border-radius: 0.5rem;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -27,6 +33,14 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)), 
+    url('/images/bg.webp');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-attachment: fixed;
 }
 
 h1 {
@@ -39,21 +53,22 @@ h1 {
 h2 {
   font-size: 2rem;
   font-weight: bold;
-  margin: 0.63rem;
+  margin-top: 0;
+  margin-bottom: 0.63rem;
   text-align: center;
 }
 
 h3 {
   font-size: 1.6rem;
   font-weight: bold;
-  margin: 0.5rem;
+  margin: 0;
   text-align: center;
 }
 
 h4 {
   font-size: 1.6rem;
   font-weight: normal;
-  margin: 0.5rem;
+  margin: 0;
   text-align: center;
 }
 
@@ -66,36 +81,31 @@ main {
   text-align: left;
 }
 
+button,
 .Button {
   font-weight: bold;
-  margin: 0.5rem;
+  margin: 0;
   border: var(--border-width) solid var(--action-color);
-  border-radius: 0.5rem;
-  padding: 0.5rem 0.5rem;
-  background-color: var(--background);
+  border-radius: var(--default-border-radius);
+  justify-content: center;
+  box-sizing: border-box;
+  align-self: center;
+  width: 100%;
+
+  display: flex;
+  padding: var(--button-padding);
+  background-color: none;
   color: var(--action-color);
   cursor: pointer;
-  justify-content: center;
-  display: flex;
-}
-
-button {
-  font-weight: bold;
-  margin: 0.5rem;
-  border: var(--border-width) solid var(--action-color);
-  border-radius: 0.5rem;
-  padding: 0.5rem 0.5rem;
-  background-color: var(--background);
-  color: var(--action-color);
-  justify-content: center;
+  
 }
 
 .fill-form {
-  width: calc(100% - 1rem);
+  width: calc(100% - 0.5rem);
 }
 
 .fill-half-form {
-  width: calc(50% - 1rem);
+  width: calc(50% - 0.5rem);
 }
 
 .escape {
@@ -124,17 +134,14 @@ button {
 }
 
 form {
-  background: #eee;
   padding: 0.5rem;
   border-radius: 0.5rem;
 }
 
-input {
-  background: var(--background);
-}
-
-div {
-  padding: 0.5rem;
+input,
+textarea {
+  background: #eee;
+  box-sizing: border-box;
 }
 
 .error {
@@ -157,9 +164,20 @@ div {
   font-weight: bold;
 }
 
+.info-value-small {
+  color: var(--status-color);
+  font-size: 1rem;
+  font-weight: bold;
+}
+
 .info-input {
   color: var(--accent-color);
   font-size: 1.25rem;
+}
+
+.info-input-small {
+  color: var(--accent-color);
+  font-size: 1rem;
 }
 
 .master-width {
@@ -168,17 +186,14 @@ div {
 }
 
 .windowlike {
-  padding: 0.5rem;
+  padding: var(--default-padding);
   border: var(--border-width) solid var(--window-color);
-  margin: 0.25rem;
-  border-radius: 0.5rem;
+  margin: var(--default-margin);
+  border-radius: var(--default-border-radius);
 }
-
-.formlike {
-  padding: 0.5rem;
-  border: var(--border-width) solid var(--status-color);
-  margin: 0.25rem;
-  border-radius: 0.5rem;
+.invwindow {
+  margin: var(--default-margin);
+  padding: var(--default-padding);
 }
 
 .username {
@@ -196,5 +211,70 @@ div {
 
 .multiplier-input {
   width: 4rem;
+}
 
+.short-input {
+  width: 8rem;
+}
+
+.bare {
+  border: none;
+  background: none;
+  color: inherit;
+  padding: 0;
+  margin: 0;
+}
+
+.bare-lr {
+  border: none;
+  background: none;
+  color: inherit;
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.change-field {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 0.5rem;
+}
+  .change-field .old-value {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .change-field .new-value {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .change-field button {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+  .change-field .misc {
+    grid-column: 1 / span 2;
+    grid-row: 3;
+  }
+
+.bipartite {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.role-edit-panel {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 0.5rem;
+}
+
+.generic-vert-grid {
+  display: grid;
+  grid-template-rows: repeat(auto-fit, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.text-token {
+  overflow-wrap: anywhere;
 }

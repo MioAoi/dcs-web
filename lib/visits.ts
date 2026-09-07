@@ -42,9 +42,9 @@ export async function completeVisit(userId: number) {
         if (!visit) throw new Error("No open visit found");
         
         const leftAt = new Date();
-        const charge = calculateCharge(visit.enteredAt, leftAt).total;
+        const charge = calculateCharge(visit.enteredAt, leftAt).total * (visit.user.chargeMultiplier ?? 1);
 
-        const bonusChange = -Math.max(charge, visit.user.bonusBalance);
+        const bonusChange = -Math.min(charge, visit.user.bonusBalance);
         const cashChange = -(charge + bonusChange);
 
         await tx.ledger.create({

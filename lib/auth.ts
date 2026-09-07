@@ -25,9 +25,17 @@ export async function getCurrentUser() {
 }
 
 export async function authenticateUser(username: string, password: string) {
-    const user = await prisma.user.findUnique({
-        where: { username },
-    });
+    const qqidRegex = /^[1-9][0-9]{4,10}$/;
+    let user;
+    if (qqidRegex.test(username)) {
+        user = await prisma.user.findUnique({
+            where: { qqid: username },
+        });
+    } else {
+        user = await prisma.user.findUnique({
+            where: { username },
+        });
+    }
 
     if (!user) {
         return null;

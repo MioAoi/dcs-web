@@ -1,0 +1,38 @@
+export const messages = {
+    e400_regUsername: 
+        "用户名格式不正确",
+    e400_regPassword: 
+        "密码格式不正确",
+    e400_qqBindVerify: 
+        "待绑QQ或验证码无效",
+    e400_alreadyInVenue:
+        "已在店",
+    e400_notInVenue:
+        "未在店",
+
+    e401: 
+        "未登录",
+    e401_loginCredentials:
+        "用户名或密码错误",
+
+    e403: 
+        "无权限",
+    e403_otherUser: 
+        "你无权操作其他用户",
+    e403_requireStaff: 
+        "你不是士大夫",
+    e403_requireAdmin: 
+        "你不是管理员",
+
+    e409_regUsername: 
+        "用户名已存在",
+
+    e500: 
+        "服务器错误",
+    e500_qqBindInitiate: 
+        "QQ绑定申请失败",
+    e500_qqBindVerify: 
+        "QQ绑定验证失败",
+    e500_generalUserEdit: 
+        "用户信息编辑失败"
+}

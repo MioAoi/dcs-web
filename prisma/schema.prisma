@@ -18,6 +18,8 @@ model User {
   password      String
   nickname      String
   qqid          String? @unique
+  pendingQqid   String? @unique
+  qqBindToken   String?
   createdAt     DateTime
   sessions      Session[]
   visits        Visit[]
@@ -26,7 +28,7 @@ model User {
   cashBalance   Int     @default(0)
   bonusBalance  Int     @default(0)
   ledgerEntries Ledger[]
-  chargeMultiplier  Float   @default(1.0)
+  chargeMultiplier  Float   @default(1.0) 
 }
 
 model Session {

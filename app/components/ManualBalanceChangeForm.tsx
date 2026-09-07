@@ -67,8 +67,10 @@ export default function ManualBalanceChangeForm({
                 onChange={(e) => setNote(e.target.value)}
                 className="info-input note-input"
             ></textarea><br />
-            <button type="submit" className="fill-half-form" onClick={handleBonusChange}>赠点变动</button>
-            <button type="submit" className="danger fill-half-form" onClick={handleCashChange}>现金变动</button>
+            <div className="bipartite">
+            <button type="submit" onClick={handleBonusChange}>赠点变动</button>
+            <button type="submit" className="danger" onClick={handleCashChange}>现金变动</button>
+            </div>
         </div>
     );
 }

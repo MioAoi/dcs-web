@@ -1,17 +1,18 @@
-import { NextResponse } from "next/server";
 import { getCurrentUser } from "@/lib/auth";
-import { completeVisit } from "@/lib/visits";
+import { getCurrentVisit, completeVisit } from "@/lib/visits";
+import { messages } from "@/lib/messages";
 
 export async function POST(request: Request) {
     const user = await getCurrentUser();
     if (!user) {
-        return NextResponse.json({ success: false }, { status: 401 });
+        return Response.json({ success: false, error: messages.e401 }, { status: 401 });
+    }
+    
+    const currentVisit = await getCurrentVisit(user.id);
+    if (!currentVisit) {
+        return Response.json({ success: false, error: messages.e400_notInVenue }, { status: 400 });
     }
 
-    try {
-        const result = await completeVisit(user.id);
-        return NextResponse.json({ success: true });
-    } catch (error) {
-        return NextResponse.json({ success: false, message: error instanceof Error ? error.message : String(error) }, { status: 500 });
-    }
+    await completeVisit(user.id);
+    return Response.json({ success: true });
 }

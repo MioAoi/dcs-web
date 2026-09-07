@@ -1,28 +1,28 @@
-import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { messages } from "@/lib/messages";
 import argon2 from "argon2";
 
 export async function POST(request: Request) {
     const { username, password, nickname } = await request.json();
 
     if (!validateUsername(username)) {
-        return NextResponse.json(
-            { success: false, error: "USERNAME_INVALID" },
+        return Response.json(
+            { success: false, error: messages.e400_regUsername },
             { status: 400 }
         );
     }
 
     if (typeof password !== "string" || password.length < 6) {
-        return NextResponse.json(
-            { success: false, error: "PASSWORD_INVALID" },
+        return Response.json(
+            { success: false, error: messages.e400_regPassword },
             { status: 400 }
         );
     }
 
     const existingUser = await checkExistingUser(username);
     if (existingUser) {
-        return NextResponse.json(
-            { success: false, error: "USERNAME_EXISTS" },
+        return Response.json(
+            { success: false, error: messages.e409_regUsername },
             { status: 409 }
         );
     }
@@ -38,7 +38,7 @@ export async function POST(request: Request) {
         },
     });
 
-    return NextResponse.json(
+    return Response.json(
         { success: true },
         { status: 201 }
     );

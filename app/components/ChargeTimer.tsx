@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { calculateCharge } from "@/lib/pricing";
 import { formatMoneyFen } from "@/lib/money";
 
-export default function ChargeTimer({ enterTime }: { enterTime: number}) {
+export default function ChargeTimer({ enterTime, chargeMultiplier }: { enterTime: number, chargeMultiplier: number}) {
     const [charge, setCharge] = useState(0);
 
     if (!enterTime) {
@@ -16,7 +16,7 @@ export default function ChargeTimer({ enterTime }: { enterTime: number}) {
     useEffect(() => {
         function updateCharge() {
             const now = new Date();
-            const charge = calculateCharge(new Date(enterTime), now).total;
+            const charge = calculateCharge(new Date(enterTime), now).total * chargeMultiplier;
             setCharge(charge);
         }
         updateCharge();

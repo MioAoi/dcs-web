@@ -43,59 +43,45 @@ export default function Register() {
                 router.push("/");
             }, 3000);
         } else {
-            if (result.error === "USERNAME_INVALID") {
-                setError("用户名格式不正确");
-            } else if (result.error === "PASSWORD_INVALID") {
-                setError("密码格式不正确");
-            } else if (result.error === "USERNAME_EXISTS") {
-                setError("用户名已存在");
-            }
+            setError(result.error);
         }
     }
 
     return (
-        <main>
-            <h1>注册</h1>
+        <main><h2>注册</h2>
 
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>用户名</label><br/>
+            <form className="windowlike generic-vert-grid" onSubmit={handleSubmit}>
+                <div><label className="info-label">用户名</label><br/>
                     <input
                         type="text"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label>显示名</label><br/>
+                /> </div>
+                <div><label className="info-label">显示名</label><br/>
                     <input
                         type="text"
                         value={nickname}
                         onChange={(e) => setNickname(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label>密码</label><br/>
+                /></div>
+                <div><label className="info-label">密码</label><br/>
                     <input
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label>再次输入密码</label><br/>
+                /></div>
+                <div><label className="info-label">再次输入密码</label><br/>
                     <input
                         type="password"
                         value={password2}
                         onChange={(e) => setPassword2(e.target.value)}
-                    />
-                </div>
+                /></div>
+                
                 <div onClick={handleSubmit} className="Button primary">注册</div>
                 <p className="error">{error}</p>
                 <p className="success">{message}</p>
             </form>
             
-            <div className="master-width">
+            <div className="master-width invwindow">
                 <Link href="/" className="Button escape">返回</Link>
             </div>
         </main>

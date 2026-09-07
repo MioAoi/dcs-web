@@ -1,7 +1,8 @@
-import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { authenticateUser } from "@/lib/auth";
 import crypto from "crypto";
+import { messages } from "@/lib/messages";
+import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
     const body = await request.json();
@@ -10,7 +11,7 @@ export async function POST(request: Request) {
 
     if (!user || (user.role !== "STAFF" && user.role !== "ADMIN")) {
         return NextResponse.json(
-            { success: false, error: "INVALID_CREDENTIALS" },
+            { success: false, error: messages.e401_loginCredentials },
             { status: 401 }
         );
     }

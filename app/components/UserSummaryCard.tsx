@@ -1,10 +1,11 @@
 import { formatMoneyFen } from "@/lib/money"
-import Link from "next/dist/client/link";
+import Link from "next/link";
+import UserOneline from "./UserOneline";
 
-export default async function UserSummaryCard({ user }) {
+export default async function UserSummaryCard({ user } : { user: { id: number, username: string, nickname: string, role: string, balance: number } }) {
     return (
         <Link href={`/manage/users/${user.id}`} className="windowlike master-width">
-            <span className="nickname">{user.nickname}</span> <span className="username">{user.username}</span><br/>
+            <UserOneline user={user} /><br/>
             <span className="info-label">余额：</span><span className="info-value">{formatMoneyFen(user.balance)}</span>
         </Link>
     );

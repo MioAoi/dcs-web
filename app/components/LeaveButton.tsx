@@ -16,8 +16,8 @@ export default function LeaveButton() {
     }
 
     return (
-        <div className="Button" onClick={leave}>
+        <button onClick={leave}>
             离店
-        </div>
+        </button>
     );
 }

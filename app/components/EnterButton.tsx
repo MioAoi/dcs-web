@@ -16,8 +16,8 @@ export default function EnterButton() {
     }
 
     return (
-        <div className="Button primary" onClick={enter}>
+        <button className="primary" onClick={enter}>
             进店
-        </div>
+        </button>
     );
 }

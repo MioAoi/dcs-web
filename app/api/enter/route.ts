@@ -1,23 +1,17 @@
-import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
-import {getCurrentVisit} from "@/lib/visits";
+import { getCurrentVisit } from "@/lib/visits";
+import { messages } from "@/lib/messages";
 
 export async function POST(request: Request) {
     const user = await getCurrentUser();
     if (!user) {
-        return NextResponse.json(
-            { success: false, error: "NOT_LOGGEDIN" },
-            { status: 401 }
-        );
+        return Response.json({ success: false, error: messages.e401 }, { status: 401 });
     }
 
     const currentVisit = await getCurrentVisit(user.id);
     if (currentVisit) {
-        return NextResponse.json(
-            { success: false, error: "ALREADY_INVENUE" },
-            { status: 400 }
-        );
+        return Response.json({ success: false, error: messages.e400_alreadyInVenue }, { status: 400 });
     }
 
     await prisma.visit.create({
@@ -26,5 +20,5 @@ export async function POST(request: Request) {
             enteredAt: new Date(),
         },
     });
-    return NextResponse.json({ success: true });
+    return Response.json({ success: true });
 }

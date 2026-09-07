@@ -1,8 +1,8 @@
 import { prisma } from "@/lib/prisma";
-import Link from "next/dist/client/link";
+import Link from "next/link";
 import UserSummaryCard from "@/app/components/UserSummaryCard";
 
-export default async function UsersPage(
+export default async function UsersLookupPage(
     { searchParams,} : { searchParams: Promise<{ q?: string }> }
  ) {
     const { q } = await searchParams;
@@ -22,10 +22,8 @@ export default async function UsersPage(
         })
         : [];
     return (
-        <main>
-            <h2>用户查询</h2>
-
-            <form>
+        <main><h2>用户查询</h2>
+            <form className="windowlike generic-vert-grid">
                 <input name="q" defaultValue={q} placeholder="用户名 | 昵称 | QQ" />
                 <button type="submit" className="fill-form">查询</button>
             </form>
@@ -33,8 +31,8 @@ export default async function UsersPage(
             {users.map(user => (
                 <UserSummaryCard key={user.id} user={user} />
             ))}
-            <div className="master-width">
-                <Link href="/manage" className="Button escape">返回管理</Link>
+            <div className="master-width invwindow generic-vert-grid">
+                <Link href="/manage" className="Button escape">▲返回管理</Link>
             </div>
         </main>
     );
