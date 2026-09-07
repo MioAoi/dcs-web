@@ -14,16 +14,12 @@ export async function POST(req: Request) {
         return Response.json({ success: false, error: messages.e403_otherUser }, { status: 403 });
     }
     const token = bytesToBase260(crypto.randomBytes(32));
-    try {
-        await prisma.user.update({
-            where: { id: userId },
-            data: {
-                qqBindToken: token,
-                pendingQqid: qqid
-            }
-        });
-        return Response.json({ success: true, token }, { status: 200 });
-    } catch (error) {
-        return Response.json({ success: false, error: messages.e500_qqBindInitiate }, { status: 500 });
-    }
+    await prisma.user.update({
+        where: { id: userId },
+        data: {
+            qqBindToken: token,
+            pendingQqid: qqid
+        }
+    });
+    return Response.json({ success: true, token }, { status: 200 });
 }
