@@ -196,6 +196,20 @@ textarea {
   padding: var(--default-padding);
 }
 
+.radio-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: var(--default-padding);
+  padding-left: var(--default-padding);
+  padding-right: var(--default-padding);
+  padding-bottom: 0;
+  border: var(--border-width) solid var(--action-color);
+  border-radius: 0;
+  cursor: pointer;
+}
+
 .username {
   font-style: italic;
 }

@@ -25,17 +25,13 @@ export async function POST(request: Request) {
         return new Response(JSON.stringify({ success: false, error: messages.e403_requireAdmin }), { status: 403 });
     }
 
-    try {
-        await prisma.user.update({
-            where: { id: userId },
-            data: { 
-                role: role,
-                chargeMultiplier: chargeMultiplier,
-                nickname: nickname,
-            }
-        });
-        return new Response(JSON.stringify({ success: true }), { status: 200 });
-    } catch (error) {
-        return new Response(JSON.stringify({ success: false, error: messages.e500_generalUserEdit }), { status: 500 });
-    }
+    await prisma.user.update({
+        where: { id: userId },
+        data: { 
+            role: role,
+            chargeMultiplier: chargeMultiplier,
+            nickname: nickname,
+        }
+    });
+    return Response.json({ success: true }, { status: 200 });
 }

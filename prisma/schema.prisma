@@ -72,11 +72,23 @@ model Ledger {
   visitId    Int? @unique
   visit Visit? @relation(fields: [visitId], references: [id])
 
+  deposit Deposit?
+
+  createdAt DateTime @default(now())
+}
+
+model Deposit {
+  id        Int     @id @default(autoincrement())
+  userId    Int
+  dietName  String
+  ledgerEntryId Int @unique
+  ledgerEntry   Ledger @relation(fields: [ledgerEntryId], references: [id])
+  manualTimeStamp String?
   createdAt DateTime @default(now())
 }
 
 enum LedgerEntryType {
-  TOPUP
+  DEPOSIT
   VISIT_CHARGE
   REFUND
   MANUAL

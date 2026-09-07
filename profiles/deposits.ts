@@ -1,4 +1,4 @@
-const DEPOSIT_DIETS = [
+export const DEPOSIT_DIETS = [
     {
         name: "c30b0",
         cash: 3000,

@@ -6,6 +6,8 @@ import Link from "next/dist/client/link";
 import { getCurrentUser } from "@/lib/auth";
 import RoleEditPanel from "@/app/components/RoleEditPanel";
 import UserOneline from "@/app/components/UserOneline";
+import DepositDietsPanel from "@/app/components/DepositDietsPanel";
+import { DEPOSIT_DIETS } from "@/profiles/deposits"
 
 export default async function CurrentUserPage({
     params,
@@ -52,6 +54,7 @@ export default async function CurrentUserPage({
                 扣费倍率：<span className="info-value-small">{user.chargeMultiplier}</span><br/>
             </div>
 
+            <DepositDietsPanel diets={DEPOSIT_DIETS} userId={user.id} />
             <ManualBalanceChangeForm userId={user.id} />
 
             { currentUser && currentUser.role === "ADMIN" && <RoleEditPanel userId={user.id} userCurrentRole={user.role} chargeMultiplier={user.chargeMultiplier} /> }

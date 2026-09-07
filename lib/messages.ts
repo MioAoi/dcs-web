@@ -9,6 +9,8 @@ export const messages = {
         "已在店",
     e400_notInVenue:
         "未在店",
+    e400_manualDeposit:
+        "这笔钱已经上过账了",
 
     e401: 
         "未登录",

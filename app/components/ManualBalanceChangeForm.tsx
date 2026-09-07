@@ -53,7 +53,7 @@ export default function ManualBalanceChangeForm({
 
     return (
         <div className="windowlike">
-            <h3>余额变动</h3>
+            <h3>手动余额变动</h3>
             <label className="info-label">变动金额：</label>
             <input
                 type="string"
