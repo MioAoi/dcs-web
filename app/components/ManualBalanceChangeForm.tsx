@@ -52,7 +52,7 @@ export default function ManualBalanceChangeForm({
     }
 
     return (
-        <div className="formlike">
+        <div className="windowlike">
             <h3>余额变动</h3>
             <label className="info-label">变动金额：</label>
             <input
@@ -65,7 +65,7 @@ export default function ManualBalanceChangeForm({
             <textarea
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
-                className="info-input note-input"
+                className="info-input-small"
             ></textarea><br />
             <div className="bipartite">
             <button type="submit" onClick={handleBonusChange}>赠点变动</button>

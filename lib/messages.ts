@@ -15,6 +15,9 @@ export const messages = {
     e401_loginCredentials:
         "用户名或密码错误",
 
+    e402_enter:
+        "余额低于最低入场值",
+
     e403: 
         "无权限",
     e403_otherUser: 
@@ -29,10 +32,4 @@ export const messages = {
 
     e500: 
         "服务器错误",
-    e500_qqBindInitiate: 
-        "QQ绑定申请失败",
-    e500_qqBindVerify: 
-        "QQ绑定验证失败",
-    e500_generalUserEdit: 
-        "用户信息编辑失败"
 }

@@ -1,3 +1,4 @@
+const ADMISSION_BALANCE = 0; // 只要不欠钱就给进
 // 费率均为分钱每分钟
 const CIRCADY_RATES = [
     {   // 日首平价
@@ -32,4 +33,4 @@ const CIRCADY_RATES = [
 
 const GLOBAL_DISCOUNT = 0.7;
 
-export { CIRCADY_RATES, GLOBAL_DISCOUNT };
+export { CIRCADY_RATES, GLOBAL_DISCOUNT, ADMISSION_BALANCE };

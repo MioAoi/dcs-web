@@ -7,6 +7,7 @@ import StayTimer from "../components/StayTimer";
 import { requireUserOrRedirect } from "@/lib/auth";
 import { formatMoneyFen } from "@/lib/money";
 import ChargeTimer from "@/app/components/ChargeTimer";
+import { ADMISSION_BALANCE } from "@/profiles/rates";
 
 export default async function Dashboard() {
     const user = await requireUserOrRedirect();
@@ -20,7 +21,7 @@ export default async function Dashboard() {
     const condManageButton = user.role === "STAFF" || user.role === "ADMIN" ? (
         <Link href="/manage" className="Button">▶管理页</Link>
     ) : null;
-    const condEnterBUtton = notInVenue ? <EnterButton/> : <div className="Button disabled">进店</div>;
+    const condEnterBUtton = notInVenue && (user.balance >= ADMISSION_BALANCE || user.chargeMultiplier == 0) ? <EnterButton/> : <div className="Button disabled">进店</div>;
     const condLeaveButton = !notInVenue ? <LeaveButton/> : <div className="Button disabled">离店</div>;
     const condStayTimer = !notInVenue ? <StayTimer enterTime={currentVisit?.enteredAt?.getTime() ?? 0}/> : <span className="info-value">不在店</span>;
     const condChargeTimer = !notInVenue ? <ChargeTimer enterTime={currentVisit?.enteredAt?.getTime() ?? 0} chargeMultiplier={user.chargeMultiplier ?? 1}/> : <span className="info-value"/>;
@@ -28,7 +29,7 @@ export default async function Dashboard() {
     return (
         <main>
             <h2>概览</h2>
-            <span className="master-width">欢迎来到直流会馆，{displayName}。</span>
+            <div className="invwindow">欢迎来到直流会馆，{displayName}。</div>
             <div className="master-width windowlike">
                 当前余额：<span className="info-value">{formatBalance}</span>，其中<br/>
                 现金：<span className="info-value-small">{formatCash}</span>、
