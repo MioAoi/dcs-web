@@ -20,7 +20,7 @@ model User {
   qqid          String? @unique
   pendingQqid   String? @unique
   qqBindToken   String?
-  createdAt     DateTime
+  createdAt     DateTime @default(now())
   sessions      Session[]
   visits        Visit[]
   role          Role    @default(CUSTOMER)
