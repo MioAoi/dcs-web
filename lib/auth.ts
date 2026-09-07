@@ -50,6 +50,21 @@ export async function authenticateUser(username: string, password: string) {
     return user;
 }
 
+export async function authenticateUserById(userId: number, password: string) {
+    const user = await prisma.user.findUnique({
+        where: { id: userId },
+    });
+    if (!user) {
+        return null;
+    }
+    const passwordHash = user.password;
+    const passwordCorrect = await argon2.verify(passwordHash, password);
+    if (!passwordCorrect) {
+        return null;
+    }
+    return user;
+}
+
 export async function requireUserOrRedirect() {
     const user = await getCurrentUser();
     if (!user) {

@@ -1,6 +1,58 @@
 "use client";
+import { useState } from "react";
 
 export default function SelfInfoEditPanel({ user }: { user: { id: number, nickname: string, qqid: string, pendingQqid: string, qqBindToken: string} }) {
+    const [passwordChangeError, setPasswordChangeError] = useState("");
+    const [passwordChangeMessage, setPasswordChangeMessage] = useState("");
+
+    async function handleChange(newPartialUser : { userId: number, nickname?: string, qqid?: string }) {
+        const response = await fetch("/api/generaluseredit", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newPartialUser)
+        });
+        const result = await response.json();
+        if (result.success) {
+            location.reload();
+        }
+    }
+
+    async function handleQqChange({ userId, qqid }: { userId: number, qqid: string }) {
+        const response = await fetch("/api/qqBindInitiate", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ userId, qqid })
+        });
+        const result = await response.json();
+        if (result.success) {
+            location.reload();
+        }
+    }
+
+    async function handlePasswordChange({ userId, oldPassword, newPassword }: { userId: number, oldPassword: string, newPassword: string }) {
+        const response = await fetch("/api/passwordChange", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ userId, oldPassword, newPassword })
+        });
+        const result = await response.json();
+        if (result.success) {
+            setPasswordChangeMessage("密码修改成功，3秒后刷新");
+            setTimeout(() => {
+                location.reload();
+            }, 3000);
+        } else {
+            setPasswordChangeError(result.error || "密码修改失败");
+        }
+    }
+
+
     return (<>
         <div className="windowlike master-width">
             <div className="change-field bare">
@@ -26,33 +78,31 @@ export default function SelfInfoEditPanel({ user }: { user: { id: number, nickna
                 {user.qqBindToken ? <span className="misc">绑定验证码：<br/><span className="info-value-small text-token">{user.qqBindToken}</span><br/>请联系工作人员完成绑定</span> : null}
             </div>
         </div>
+
+        <div className="windowlike master-width">
+            <div className="change-field">
+                <span className="current-value">
+                    当前密码：<input id="oldPassword" type="password" className="info-input-small short-input"/>
+                </span>
+                <span className="new-value">
+                    <label className="info-label">&#x3000;新密码</label>：
+                    <input id="newPassword" type="password" className="info-input-small short-input"/><br/>
+                    <label className="info-label">确认密码</label>：<input id="confirmNewPassword" type="password" className="info-input-small short-input"/>
+                </span>
+                <button className="Button" type="button" onClick={async () => {
+                    const oldPassword = (document.getElementById("oldPassword") as HTMLInputElement).value;
+                    const newPassword = (document.getElementById("newPassword") as HTMLInputElement).value;
+                    const confirmNewPassword = (document.getElementById("confirmNewPassword") as HTMLInputElement).value;
+                    if (newPassword !== confirmNewPassword) {
+                        setPasswordChangeError("两次输入的密码不一致");
+                        return;
+                    }
+                    setPasswordChangeError(""); 
+                    await handlePasswordChange({ userId: user.id, oldPassword, newPassword });
+                }}>提交</button>
+                {passwordChangeError && <span className="misc error">{passwordChangeError}</span>}
+                {passwordChangeMessage && <span className="misc success">{passwordChangeMessage}</span>}
+            </div>
+        </div>
     </>);
-}
-
-async function handleChange(newPartialUser : { userId: number, nickname?: string, qqid?: string }) {
-    const response = await fetch("/api/generaluseredit", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(newPartialUser)
-    });
-    const result = await response.json();
-    if (result.success) {
-        location.reload();
-    }
-}
-
-async function handleQqChange({ userId, qqid }: { userId: number, qqid: string }) {
-    const response = await fetch("/api/qqBindInitiate", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ userId, qqid })
-    });
-    const result = await response.json();
-    if (result.success) {
-        location.reload();
-    }
 }
