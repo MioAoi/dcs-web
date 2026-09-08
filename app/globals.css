@@ -30,7 +30,7 @@
 }
 
 body {
-  background: var(--background);
+  background: white;
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 
@@ -94,18 +94,9 @@ button,
 
   display: flex;
   padding: var(--button-padding);
-  background-color: none;
+  background-color: transparent;
   color: var(--action-color);
   cursor: pointer;
-  
-}
-
-.fill-form {
-  width: calc(100% - 0.5rem);
-}
-
-.fill-half-form {
-  width: calc(50% - 0.5rem);
 }
 
 .escape {
@@ -117,20 +108,20 @@ button,
 .primary {
   border: var(--border-width) solid transparent;
   background-color: var(--accent-color);
-  color: var(--background);
+  color: white;
 }
 
 .disabled {
   border: var(--border-width) solid transparent;
   background-color: var(--epiground);
-  color: var(--background);
+  color: white;
   cursor: not-allowed;
 }
 
 .danger {
   border: var(--border-width) solid var(--error-color);
   background-color: var(--error-color);
-  color: var(--background);
+  color: white;
 }
 
 form {
