@@ -1,7 +1,8 @@
 "use client";
+import { User } from "@/generated/prisma/client";
 import { useState } from "react";
 
-export default function SelfInfoEditPanel({ user }: { user: { id: number, nickname: string, qqid: string, pendingQqid: string, qqBindToken: string} }) {
+export default function SelfInfoEditPanel({ user }: { user: User }) {
     const [passwordChangeError, setPasswordChangeError] = useState("");
     const [passwordChangeMessage, setPasswordChangeMessage] = useState("");
 
