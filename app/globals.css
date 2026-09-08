@@ -3,7 +3,7 @@
 :root {
   --background: #fff;
   --epiground: #ccc;
-  --foreground: #444;
+  --graphite: #444;
   --escape-color: #fe0;
   --accent-color: #e63;
   --field-color: #def;
@@ -31,7 +31,7 @@
 
 body {
   background: white;
-  color: var(--foreground);
+  color: var(--graphite);
   font-family: Arial, Helvetica, sans-serif;
 
   background-image:
