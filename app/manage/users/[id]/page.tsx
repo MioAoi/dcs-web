@@ -1,19 +1,22 @@
+"use server";
 import { prisma } from "@/lib/prisma";
 import { notFound} from "next/navigation";
 import { formatMoneyFen } from "@/lib/money";
 import ManualBalanceChangeForm from "@/app/components/ManualBalanceChangeForm";
-import Link from "next/dist/client/link";
 import { getCurrentUser } from "@/lib/auth";
 import RoleEditPanel from "@/app/components/RoleEditPanel";
 import UserOneline from "@/app/components/UserOneline";
 import DepositDietsPanel from "@/app/components/DepositDietsPanel";
-import { DEPOSIT_DIETS } from "@/profiles/deposits"
+import NavigateButton from "@/app/components/NavigateButton";
+import fs from "fs";
 
 export default async function CurrentUserPage({
     params,
 } : {
     params: Promise<{ id: string }>
 }) {
+    const deposit_diets = JSON.parse(fs.readFileSync('profiles/deposit_diets.json', 'utf-8'));
+
     const { id } = await params;
     const user = await prisma.user.findUnique({
         where: { id: Number(id) }
@@ -54,7 +57,7 @@ export default async function CurrentUserPage({
                 扣费倍率：<span className="info-value-small">{user.chargeMultiplier}</span><br/>
             </div>
 
-            <DepositDietsPanel diets={DEPOSIT_DIETS} userId={user.id} />
+            <DepositDietsPanel userId={user.id} diets={deposit_diets} />
             <ManualBalanceChangeForm userId={user.id} />
 
             { currentUser && currentUser.role === "ADMIN" && <RoleEditPanel userId={user.id} userCurrentRole={user.role} chargeMultiplier={user.chargeMultiplier} /> }
@@ -64,7 +67,7 @@ export default async function CurrentUserPage({
             </div>
             
             <div className="master-width invwindow">
-                <Link href="/manage/users" className="Button escape">▲返回用户查询</Link>
+                <NavigateButton href="/manage/users" buttonText="▲返回用户查询" buttonColor="escape" />
             </div>
         </main>
     );

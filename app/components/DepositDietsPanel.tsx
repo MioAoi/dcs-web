@@ -1,6 +1,6 @@
 "use client";
 import { formatMoneyFen } from "@/lib/money"
-import { useState } from "react";
+import { Key, useState } from "react";
 
 export default function DepositDietsPanel({
     userId,
@@ -8,11 +8,11 @@ export default function DepositDietsPanel({
 }: {
     userId: number,
     diets: {
-        name: string,
-        cash: number,
-        bonus: number,
-        availFrom: Date | null,
-        availTill: Date | null,
+        name: string;
+        availFrom: string | null;
+        availTill: string | null;
+        cash: number;
+        bonus: number;
     }[]
 }) {
     const [error, setError] = useState("");
@@ -43,13 +43,13 @@ export default function DepositDietsPanel({
     return (
         <div className="windowlike">
             <h3>手动定额充值</h3><div className="bipartite">
-            {diets.map(diet => (
+            {diets.map((diet: { name: string; availFrom: string | null; availTill: string | null; cash: number; bonus: number; }) => (
                 <label className="radio-card" key={diet.name}>
                 <input
                     type="radio"
                     name="deposit-diet"
                     value={diet.name}
-                    disabled={diet.availFrom !== null && diet.availFrom > now || diet.availTill !== null && diet.availTill < now}
+                    disabled={diet.availFrom !== null && new Date(diet.availFrom) > now || diet.availTill !== null && new Date(diet.availTill) < now}
                 />
                 充 {formatMoneyFen(diet.cash)}<br/>
                 赠 {formatMoneyFen(diet.bonus)}

@@ -20,13 +20,8 @@
   --default-padding: 0.5rem;
   --button-padding: 0.4rem;
   --default-border-radius: 0.5rem;
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  color-scheme: only light;
 }
 
 body {

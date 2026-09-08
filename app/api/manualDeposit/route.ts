@@ -1,6 +1,14 @@
-import { DEPOSIT_DIETS } from "@/profiles/deposits"
 import { prisma } from "@/lib/prisma"
 import { messages } from "@/lib/messages"
+import fs from 'fs'
+interface Diet {
+    name: string;
+    availFrom: string | null;
+    availTill: string | null;
+    cash: number;
+    bonus: number;
+}
+const DEPOSIT_DIETS: Diet[] = JSON.parse(fs.readFileSync('profiles/deposit_diets.json', 'utf-8'));
 
 export async function POST(req: Request) {
     const { userId, dietName, manualTimeStamp } = await req.json()
