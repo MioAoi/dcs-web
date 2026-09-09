@@ -57,6 +57,10 @@ export default async function CurrentUserPage({
                 扣费倍率：<span className="info-value-small">{user.chargeMultiplier}</span><br/>
             </div>
 
+            <div className="windowlike master-width">
+                已验证QQ号：<span className="info-value-small">{user.qqid ?? "无"}</span><br/>
+            </div>
+
             <DepositDietsPanel userId={user.id} diets={deposit_diets} />
             <ManualBalanceChangeForm userId={user.id} />
 
