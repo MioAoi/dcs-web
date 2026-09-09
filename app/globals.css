@@ -168,7 +168,7 @@ textarea {
 
 .master-width {
   width: 81.25vw;
-  max-width: min(75vw, 32rem, 100%);
+  max-width: max(32rem, 100%);
 }
 
 .windowlike {

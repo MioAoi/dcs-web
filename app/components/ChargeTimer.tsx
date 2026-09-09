@@ -4,19 +4,19 @@ import { useState, useEffect } from "react";
 import { calculateCharge } from "@/lib/pricing";
 import { formatMoneyFen } from "@/lib/money";
 
-export default function ChargeTimer({ enterTime, chargeMultiplier }: { enterTime: number, chargeMultiplier: number}) {
+export default function ChargeTimer({ enterTime, chargeMultiplier, pricing }: { enterTime: number, chargeMultiplier: number, pricing: { circadyRates: any[], globalDiscount: number } }) {
     const [charge, setCharge] = useState(0);
 
     if (!enterTime) {
         return (
-            <span className="info-value"/>
+            <span className="info-value-small"/>
         );
     }
 
     useEffect(() => {
         function updateCharge() {
             const now = new Date();
-            const charge = calculateCharge(new Date(enterTime), now).total * chargeMultiplier;
+            const charge = calculateCharge(new Date(enterTime), now, pricing).total * chargeMultiplier;
             setCharge(charge);
         }
         updateCharge();
@@ -37,7 +37,7 @@ export default function ChargeTimer({ enterTime, chargeMultiplier }: { enterTime
     }, [enterTime]);
 
     return (
-        <span className="info-value">{formatMoneyFen(charge)}</span>
+        <span className="info-value-small">{formatMoneyFen(charge)}</span>
     );
 }
 

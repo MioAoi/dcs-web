@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { calculateCharge } from "@/lib/pricing";
 import { LedgerEntryType } from "@/generated/prisma/enums";
 import { updateBalanceCache } from "@/lib/balance";
+import { loadCurrentPricing } from "@/lib/load";
 
 export async function getCurrentVisit(userID: number) {
     return await prisma.visit.findFirst({
@@ -28,7 +29,8 @@ export async function getLastVisitDuration(userID: number) {
 }
 
 export async function completeVisit(userId: number) {
-    return await prisma.$transaction(async (tx) => {
+    const currentPricing = await loadCurrentPricing();
+    await prisma.$transaction(async (tx) => {
         const visit = await tx.visit.findFirst({
             where: {
                 userId: userId,
@@ -42,7 +44,7 @@ export async function completeVisit(userId: number) {
         if (!visit) throw new Error("No open visit found");
         
         const leftAt = new Date();
-        const charge = calculateCharge(visit.enteredAt, leftAt).total * (visit.user.chargeMultiplier ?? 1);
+        const charge = calculateCharge(visit.enteredAt, leftAt, currentPricing).total * (Math.abs(visit.user.chargeMultiplier) ?? 1);
 
         const bonusChange = -Math.min(charge, visit.user.bonusBalance);
         const cashChange = -(charge + bonusChange);
@@ -66,6 +68,7 @@ export async function completeVisit(userId: number) {
                 charge: charge,
             },
         });
-        await updateBalanceCache(userId);
+        
     });
+    await updateBalanceCache(userId);
 }

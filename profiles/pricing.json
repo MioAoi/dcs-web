@@ -1,0 +1,12 @@
+[{
+    "validFrom": "2026-09-10T00:00:00.000+08:00",
+    "admissionBalance": 1000,
+    "globalDiscount": 0,
+    "circadyRates": "profiles/cr_default.json"
+},
+{
+    "validFrom": "2026-09-09T00:00:00.000+08:00",
+    "admissionBalance": 0,
+    "globalDiscount": 1,
+    "circadyRates": "profiles/cr_default.json"
+}]

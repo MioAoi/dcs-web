@@ -1,7 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import LogoutButton from "../components/LogoutButton";
-import Link from "next/link";
+import NavigateButton from "../components/NavigateButton";
 import PresentUser from "../components/PresentUser";
+import { loadCurrentPricing } from "@/lib/load";
 
 export default async function PresentUsersPage() {
     const currentVisits = await prisma.visit.findMany({
@@ -12,6 +13,7 @@ export default async function PresentUsersPage() {
             user: true,
         }
     })
+    const currentPricing = await loadCurrentPricing();
 
     const indicateNemo = currentVisits.length === 0 ? "当前没有在店用户。" : "";
 
@@ -23,16 +25,17 @@ export default async function PresentUsersPage() {
                     <PresentUser
                         key={visit.id}
                         visit={visit}
+                        pricing={currentPricing}
                     />
                 ))}
                 {indicateNemo && <p className="info">{indicateNemo}</p>}
             </div>
             <div className="master-width invwindow generic-vert-grid">
-                <Link href="/manage/users" className="Button">用户管理</Link>
-                <Link href="/manage/qqbindverify" className="Button">QQ绑定验证</Link>
-                <Link href="/chargecalc" className="Button">价格计算器</Link>
+                <NavigateButton href="/manage/users" buttonText="用户管理" />
+                <NavigateButton href="/manage/qqbindverify" buttonText="QQ绑定验证" />
+                <NavigateButton href="/chargecalc" buttonText="价格计算器" />
                 <LogoutButton/>
-                <Link href="/dashboard" className="Button">▶玩家页</Link>
+                <NavigateButton href="/dashboard" buttonText="▶玩家页" />
             </div>
         </main>
     );

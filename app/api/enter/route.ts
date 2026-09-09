@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
 import { getCurrentVisit } from "@/lib/visits";
-import { ADMISSION_BALANCE } from "@/profiles/rates";
+import { loadCurrentPricing } from "@/lib/load";
 import { messages } from "@/lib/messages";
 
 export async function POST(request: Request) {
@@ -15,7 +15,8 @@ export async function POST(request: Request) {
         return Response.json({ success: false, error: messages.e400_alreadyInVenue }, { status: 400 });
     }
 
-    if (user.balance < ADMISSION_BALANCE) {
+    const { admissionBalance } = loadCurrentPricing();
+    if (user.balance < admissionBalance) {
         return Response.json({ success: false, error: messages.e402_enter }, { status: 402 });
     }
 

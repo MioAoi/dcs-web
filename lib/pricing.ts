@@ -1,5 +1,12 @@
 import { formatMoneyFen } from "./money";
-import { CIRCADY_RATES, GLOBAL_DISCOUNT } from "../profiles/rates";
+
+type RateSegment = {
+    startMinute: number;
+    endMinute: number;
+    rate: number;
+    maxout?: number;
+    globalDiscountApply?: boolean;
+};
 
 function isSameShanghaiDay(date1: Date, date2: Date) {
     const date1o = new Date(date1.getTime() + 28800000);
@@ -12,8 +19,20 @@ function isSameShanghaiDay(date1: Date, date2: Date) {
 
 export function calculateCharge (
     enterTime: Date,
-    leaveTime: Date
+    leaveTime: Date,
+    pricing: {
+        circadyRates: RateSegment[];
+        globalDiscount: number;
+    }
 ) {
+    const { circadyRates, globalDiscount } = pricing;
+
+    function formatTimeMinutes(minutes: number) {
+        const hours = Math.floor(minutes / 60);
+        const mins = String(minutes % 60).padStart(2, "0");
+        return `${hours}:${mins}`;
+    }
+
     if (leaveTime <= enterTime) return { total: 0, priceDetail: "" };
 
     // Convert times to day-minute form
@@ -26,18 +45,18 @@ export function calculateCharge (
     let cursorMinute = enterMinute;
 
     while (true) {
-        let currentSegment = CIRCADY_RATES.find(segment => cursorMinute >= segment.startMinute && cursorMinute < segment.endMinute);
+        let currentSegment = circadyRates.find((segment: RateSegment) => cursorMinute >= segment.startMinute && cursorMinute < segment.endMinute);
         if (!currentSegment) break;
         if (isSameShanghaiDay(cursorDate, leaveTime) && leaveMinute <= currentSegment.endMinute) {
             const duration = leaveMinute - cursorMinute;
-            const segmentTotal = Math.min(duration, currentSegment.maxout ?? duration) * currentSegment.rate * (currentSegment.globalDiscountApply ? GLOBAL_DISCOUNT : 1);
+            const segmentTotal = Math.min(duration, currentSegment.maxout ?? duration) * currentSegment.rate * (currentSegment.globalDiscountApply ? globalDiscount : 1);
             total += segmentTotal;
             priceDetail += formatTimeMinutes(cursorMinute) + " 至 " + formatTimeMinutes(leaveMinute) + " 共 " + formatMoneyFen(segmentTotal) + "\n";
             break;
         } else {
             const nextMinute = currentSegment.endMinute;
             const duration = nextMinute - cursorMinute;
-            const segmentTotal = Math.min(duration, currentSegment.maxout ?? duration) * currentSegment.rate * (currentSegment.globalDiscountApply ? GLOBAL_DISCOUNT : 1);
+            const segmentTotal = Math.min(duration, currentSegment.maxout ?? duration) * currentSegment.rate * (currentSegment.globalDiscountApply ? globalDiscount : 1);
             total += segmentTotal;
             priceDetail += formatTimeMinutes(cursorMinute) + " 至 " + formatTimeMinutes(nextMinute) + " 共 " + formatMoneyFen(segmentTotal) + "\n";
             cursorMinute = nextMinute;
@@ -48,10 +67,4 @@ export function calculateCharge (
         }
     }
     return { total, priceDetail };
-}
-
-export function formatTimeMinutes(minutes: number) {
-    const hours = Math.floor(minutes / 60);
-    const mins = String(minutes % 60).padStart(2, "0");
-    return `${hours}:${mins}`;
 }
