@@ -6,7 +6,7 @@ import { getCurrentVisit } from "@/lib/visits";
 import LeaveButton from "../components/LeaveButton";
 import StayTimer from "../components/StayTimer";
 import { requireUserOrRedirect } from "@/lib/auth";
-import { formatMoneyFen } from "@/lib/money";
+import { formatMoneyFen, formatRatioZhe } from "@/lib/money";
 import ChargeTimer from "@/app/components/ChargeTimer";
 import { loadCurrentPricing } from "@/lib/load";
 import fs from "fs";
@@ -20,6 +20,7 @@ export default async function Dashboard() {
         return nowMinute >= segment.startMinute && nowMinute < segment.endMinute;
     });
     const globalDiscount = currentPricing?.globalDiscount ?? 1;
+    const globalDiscountInfo = globalDiscount < 1 ? `，已计全局折扣 ${formatRatioZhe(globalDiscount)}` : "";
     const currentRate = (currentRateSegment?.rate ?? 0) * globalDiscount;
 
     const announcements: { message4All: string[], message4Paid: string[] } = JSON.parse(fs.readFileSync("profiles/announcements.json", "utf-8"));
@@ -44,7 +45,7 @@ export default async function Dashboard() {
         <main>
             <div className="master-width windowlike">
                 欢迎来到直流会馆，<span className="nickname">{displayName}</span>。<br/>
-                进店最低余额为 <span className="info-value-small">{formatMoneyFen(admissionBalance)}</span>，时段费率为 <span className="info-value">{formatMoneyFen(currentRate * 60)}</span> &#x2215; 时。计费细则见群。<br/>
+                进店最低余额为 <span className="info-value-small">{formatMoneyFen(admissionBalance)}</span>，时段费率为 <span className="info-value">{formatMoneyFen(currentRate * 60)}</span> &#x2044; 时{globalDiscountInfo}。计费细则见群。<br/>
             </div>
             <div className="master-width windowlike">
                 {announcements.message4All.map((msg, index) => (
