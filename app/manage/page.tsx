@@ -19,6 +19,19 @@ export default async function PresentUsersPage() {
 
     return (
         <main>
+            <h2>管理面板</h2>
+            <div className="master-width invwindow generic-vert-grid">
+                <div className="bipartite">
+                    <NavigateButton href="/manage/users" buttonText="通常用户管理" />
+                    <NavigateButton href="/manage/qqbindverify" buttonText="QQ绑定验证" />
+                    <NavigateButton href="/manage/outstanding" buttonText="欠费用户一览" />
+                    <NavigateButton href="/chargecalc" buttonText="价格计算器" />
+                </div>
+                <div className="bipartite">
+                    <LogoutButton/>
+                    <NavigateButton href="/dashboard" buttonText="▶玩家页" />
+                </div>
+            </div>
             <h2>在店用户</h2>
             <div className="master-width">
                 {currentVisits.map((visit) => (
@@ -29,13 +42,6 @@ export default async function PresentUsersPage() {
                     />
                 ))}
                 {indicateNemo && <p className="info">{indicateNemo}</p>}
-            </div>
-            <div className="master-width invwindow generic-vert-grid">
-                <NavigateButton href="/manage/users" buttonText="用户管理" />
-                <NavigateButton href="/manage/qqbindverify" buttonText="QQ绑定验证" />
-                <NavigateButton href="/chargecalc" buttonText="价格计算器" />
-                <LogoutButton/>
-                <NavigateButton href="/dashboard" buttonText="▶玩家页" />
             </div>
         </main>
     );

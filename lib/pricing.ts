@@ -49,14 +49,14 @@ export function calculateCharge (
         if (!currentSegment) break;
         if (isSameShanghaiDay(cursorDate, leaveTime) && leaveMinute <= currentSegment.endMinute) {
             const duration = leaveMinute - cursorMinute;
-            const segmentTotal = Math.min(duration, currentSegment.maxout ?? duration) * currentSegment.rate * (currentSegment.globalDiscountApply ? globalDiscount : 1);
+            const segmentTotal = Math.min(duration, currentSegment.maxout ?? duration) * currentSegment.rate * (currentSegment.globalDiscountApply || globalDiscount == 0 ? globalDiscount : 1);
             total += segmentTotal;
             priceDetail += formatTimeMinutes(cursorMinute) + " 至 " + formatTimeMinutes(leaveMinute) + " 共 " + formatMoneyFen(segmentTotal) + "\n";
             break;
         } else {
             const nextMinute = currentSegment.endMinute;
             const duration = nextMinute - cursorMinute;
-            const segmentTotal = Math.min(duration, currentSegment.maxout ?? duration) * currentSegment.rate * (currentSegment.globalDiscountApply ? globalDiscount : 1);
+            const segmentTotal = Math.min(duration, currentSegment.maxout ?? duration) * currentSegment.rate * (currentSegment.globalDiscountApply || globalDiscount == 0 ? globalDiscount : 1);
             total += segmentTotal;
             priceDetail += formatTimeMinutes(cursorMinute) + " 至 " + formatTimeMinutes(nextMinute) + " 共 " + formatMoneyFen(segmentTotal) + "\n";
             cursorMinute = nextMinute;

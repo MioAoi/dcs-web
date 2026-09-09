@@ -20,7 +20,7 @@ export default async function Dashboard() {
         return nowMinute >= segment.startMinute && nowMinute < segment.endMinute;
     });
     const globalDiscount = currentPricing?.globalDiscount ?? 1;
-    const globalDiscountInfo = globalDiscount < 1 ? `，已计全局折扣 ${formatRatioZhe(globalDiscount)}` : "";
+    const globalDiscountInfo = (globalDiscount < 1 && currentRateSegment?.globalDiscountApply || globalDiscount == 0) ? `，已计全局折扣 ${formatRatioZhe(globalDiscount)}` : "";
     const currentRate = (currentRateSegment?.rate ?? 0) * globalDiscount;
 
     const announcements: { message4All: string[], message4Paid: string[] } = JSON.parse(fs.readFileSync("profiles/announcements.json", "utf-8"));

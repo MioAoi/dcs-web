@@ -8,5 +8,5 @@ export function formatMoneyFen(fen: number) {
 
 export function formatRatioZhe(ratio: number) {
     let rawNumber = Math.round(ratio * 100);
-    return Math.floor(rawNumber / 10).toString() + (rawNumber % 10 != 0 ? "." + (rawNumber % 10).toString() : "") + "折";
+    return Math.floor(rawNumber / 10).toString() + (rawNumber % 10 != 0 ? "." + (rawNumber % 10).toString() : "") + " 折";
 }
