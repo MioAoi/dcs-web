@@ -1,6 +1,6 @@
-import { prisma } from "@/lib/prisma";
-import Link from "next/link";
+import NavigateButton from "@/app/components/NavigateButton";
 import UserSummaryCard from "@/app/components/UserSummaryCard";
+import { userQuery } from "@/lib/users"
 import { redirect } from "next/dist/client/components/navigation";
 
 export default async function UsersLookupPage(
@@ -8,33 +8,11 @@ export default async function UsersLookupPage(
  ) {
     const { q, mode } = await searchParams;
 
-    const users = q ?
-        await prisma.user.findMany({
-            where: {
-                OR: [
-                    { username: { contains: q } },
-                    { nickname: { contains: q } },
-                    { qqid: { contains: q } },
-                ],
-            },
-            take: 35,
-            orderBy: {
-                createdAt: "desc",
-            },
-        })
-        : [];
-
-    if (mode === "auto") {
-        const exact = users.find(
-            user => user.username === q || user.qqid === q
-        )
-        if (exact) {
-            redirect(`/manage/users/${exact.id}`);
-        }
-        if (users.length === 1) {
-            redirect(`/manage/users/${users[0].id}`);
-        }
+    const { users, exact } = q ? await userQuery(q, (mode === "auto")) : { users: [], exact: false };
+    if (exact) {
+        redirect(`/manage/users/${users[0].id}`);
     }
+
     const indicateNemo = users.length === 0 && q ? <p>未找到匹配的用户</p> : null;
     return (
         <main><h2>用户查询</h2>
@@ -46,12 +24,12 @@ export default async function UsersLookupPage(
                 </div>
             </form>
             {indicateNemo}
+            <div className="master-width invwindow generic-vert-grid">
+                <NavigateButton href="/manage" buttonColor="escape" buttonText="▲返回管理" />
+            </div>
             {users.map(user => (
                 <UserSummaryCard key={user.id} user={user} />
             ))}
-            <div className="master-width invwindow generic-vert-grid">
-                <Link href="/manage" className="Button escape">▲返回管理</Link>
-            </div>
         </main>
     );
 }

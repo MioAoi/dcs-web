@@ -29,8 +29,10 @@ export default function PresentUser({ visit, pricing } : {
                 <span className="info-label">&#x3000;预计扣费：</span><span className="info-value-small">{formatMoneyFen(calculateCharge(visit.enteredAt, new Date(), pricing).total * visit.user.chargeMultiplier)}</span><br/>
                 <span className="info-label">原余额：</span><span className="info-value-small">{formatMoneyFen(visit.user.balance)}</span><br/>
             </div>
-            <button className="fill-half-form" onClick={() => router.push(`/manage/users/${visit.user.id}`)}>查看信息</button>
-            <button className="danger fill-half-form" onClick={handleForceLeave}>手动离店</button>
+            <div className="bipartite">
+                <button className="fill-half-form" onClick={() => router.push(`/manage/users/${visit.user.id}`)}>查看信息</button>
+                <button className="danger fill-half-form" onClick={handleForceLeave}>手动离店</button>
+            </div>
         </div>
     )
 }

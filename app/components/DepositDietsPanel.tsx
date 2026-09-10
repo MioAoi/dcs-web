@@ -41,32 +41,36 @@ export default function DepositDietsPanel({
     }
 
     return (
-        <div className="windowlike">
-            <h3>手动定额充值</h3><div className="bipartite">
-            {diets.map((diet: { name: string; availFrom: string | null; availTill: string | null; cash: number; bonus: number; }) => (
-                <label className="radio-card" key={diet.name}>
-                <input
-                    type="radio"
-                    name="deposit-diet"
-                    value={diet.name}
-                    disabled={diet.availFrom !== null && new Date(diet.availFrom) > now || diet.availTill !== null && new Date(diet.availTill) < now}
-                />
-                充 {formatMoneyFen(diet.cash)}<br/>
-                赠 {formatMoneyFen(diet.bonus)}
-                </label>
-            ))}
+        <div className="windowlike master-width"><h3>手动定额充值</h3>
+            <div className="generic-vert-grid">
+            <div className="tripartite">
+                {diets.map((diet: { name: string; availFrom: string | null; availTill: string | null; cash: number; bonus: number; }) => (
+                    <label className="radio-card" key={diet.name}>
+                    <input
+                        type="radio"
+                        name="deposit-diet"
+                        value={diet.name}
+                        disabled={diet.availFrom !== null && new Date(diet.availFrom) > now || diet.availTill !== null && new Date(diet.availTill) < now}
+                    />
+                    充 {formatMoneyFen(diet.cash)}<br/>
+                    赠 {formatMoneyFen(diet.bonus)}
+                    </label>
+                ))}
             </div>
-            <label><span className="info-label">到账时间戳</span>（请补全分钟）：<br/>
-            <input type="text" inputMode="numeric" className="info-input" defaultValue={todayString} /></label><br/>
-            <button className="Button" onClick={() => {
-                const selectedDiet = (document.querySelector('input[name="deposit-diet"]:checked') as HTMLInputElement)?.value;
-                const manualTimeStamp = (document.querySelector('input.info-input') as HTMLInputElement)?.value;
-                if (selectedDiet && manualTimeStamp) {
-                    handleSubmit({ userId, dietName: selectedDiet, manualTimeStamp });
-                }
-            }}>提交</button>
+            <div className="bipartite">
+                <label><span className="info-label">到账时间戳</span>（请补全分钟）：<br/>
+                <input type="text" inputMode="numeric" className="info-input" defaultValue={todayString} /></label>
+                <button className="Button" onClick={() => {
+                    const selectedDiet = (document.querySelector('input[name="deposit-diet"]:checked') as HTMLInputElement)?.value;
+                    const manualTimeStamp = (document.querySelector('input.info-input') as HTMLInputElement)?.value;
+                    if (selectedDiet && manualTimeStamp) {
+                        handleSubmit({ userId, dietName: selectedDiet, manualTimeStamp });
+                    }
+                }}>提交</button>
+            </div>
             {error && <p className="error">{error}</p>}
             {message && <p className="success">{message}</p>}
+            </div>
         </div>
 
     );

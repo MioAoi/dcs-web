@@ -8,7 +8,7 @@
   --accent-color: #e63;
   --field-color: #def;
   --error-color: #f35;
-  --success-color: #0c0;
+  --success-color: #090;
   --action-color: #56a;
   --status-color: #78c;
   --window-color: #9ae;
@@ -102,31 +102,37 @@ button,
   color: var(--action-color);
   cursor: pointer;
 }
-
-.escape {
-  border: var(--border-width) solid transparent;
-  background-color: var(--escape-color);
-  color: var(--accent-color);
-}
-
-.primary {
-  border: var(--border-width) solid transparent;
-  background-color: var(--accent-color);
-  color: white;
-}
-
-.disabled {
-  border: var(--border-width) solid transparent;
-  background-color: var(--epiground);
-  color: white;
-  cursor: not-allowed;
-}
-
-.danger {
-  border: var(--border-width) solid var(--error-color);
-  background-color: var(--error-color);
-  color: white;
-}
+  .escape {
+    border: var(--border-width) solid transparent;
+    background-color: var(--escape-color);
+    color: var(--accent-color);
+  }
+  .primary {
+    border: var(--border-width) solid transparent;
+    background-color: var(--accent-color);
+    color: white;
+  }
+  .disabled {
+    border: var(--border-width) solid transparent;
+    background-color: var(--epiground);
+    color: white;
+    cursor: not-allowed;
+  }
+  .danger {
+    border: var(--border-width) solid var(--error-color);
+    background-color: var(--error-color);
+    color: white;
+  }
+  .accept {
+    border: var(--border-width) solid var(--success-color);
+    background-color: transparent;
+    color: var(--success-color);
+  }
+  .decline {
+    border: var(--border-width) solid var(--error-color);
+    background-color: transparent;
+    color: var(--error-color);
+  }
 
 form {
   padding: 0.5rem;
@@ -137,6 +143,10 @@ input,
 textarea {
   background: #eee;
   box-sizing: border-box;
+}
+
+textarea {
+  width: 100%;
 }
 
 .error {
@@ -206,7 +216,7 @@ textarea {
 }
 
 .username {
-  font-style: italic;
+  font-family: var(--font-display);
 }
 
 .nickname {
@@ -269,6 +279,11 @@ textarea {
 .bipartite {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+.tripartite {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 0.5rem;
 }
 

@@ -35,6 +35,8 @@ export default async function CurrentUserPage({
         )
     }
 
+    const adminOperates = currentUser.role === "ADMIN";
+
     const lastVisit = await prisma.visit.findFirst({
         where: { userId: Number(id) },
         orderBy: { enteredAt: "desc" }
@@ -62,7 +64,7 @@ export default async function CurrentUserPage({
             </div>
 
             <DepositDietsPanel userId={user.id} diets={deposit_diets} />
-            <ManualBalanceChangeForm userId={user.id} />
+            <ManualBalanceChangeForm userId={user.id} adminOperates={adminOperates} />
 
             { currentUser && currentUser.role === "ADMIN" && <RoleEditPanel userId={user.id} userCurrentRole={user.role} chargeMultiplier={user.chargeMultiplier} /> }
 
