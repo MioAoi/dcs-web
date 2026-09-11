@@ -1,6 +1,10 @@
-export function formatMoneyFen(fen: number) {
+export function formatMoneyFen(fen: number, toFen = true) {
     if (fen < 1000000) {
-        return "\u00a5" + (fen < 0 ? "\u2212" : "") + (Math.abs(fen) / 100).toFixed(2);
+        if (toFen) {
+            return "\u00a5" + (fen < 0 ? "\u2212" : "") + (Math.abs(fen) / 100).toFixed(2);
+        } else {
+            return "\u00a5" + (fen < 0 ? "\u2212" : "") + (Math.abs(fen) / 100).toFixed(0);
+        }
     } else {
         return "\u00a5" + (fen < 0 ? "\u2212" : "") + (Math.abs(fen) / 1000000).toFixed(1) + "万";
     }

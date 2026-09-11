@@ -34,3 +34,32 @@ export async function userQuery(q: string, smart: boolean): Promise<{users: user
 
     return { users, exact: false };
 }
+
+export async function getInVenueCount(): Promise<number> {
+    const count = await prisma.visit.count({
+        where: {
+            leftAt: null
+        }
+    });
+    return count;
+}
+
+export async function getInVenueList() {
+    const visits = await prisma.visit.findMany({
+        where: {
+            leftAt: null
+        },
+        include: {
+            user: true
+        }
+    });
+    return visits.map(visit => ({
+        id: visit.user.id,
+        username: visit.user.username,
+        nickname: visit.user.nickname,
+        role: visit.user.role,
+        balance: visit.user.balance,
+
+        enteredAt: visit.enteredAt
+    }));
+}

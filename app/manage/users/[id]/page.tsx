@@ -9,6 +9,7 @@ import UserOneline from "@/app/components/UserOneline";
 import DepositDietsPanel from "@/app/components/DepositDietsPanel";
 import NavigateButton from "@/app/components/NavigateButton";
 import fs from "fs";
+import { formatFLTToMinutes } from "@/lib/datetime"
 
 export default async function CurrentUserPage({
     params,
@@ -43,9 +44,9 @@ export default async function CurrentUserPage({
     });
     const isInVenue = lastVisit && !lastVisit.leftAt;
     const enteredOrLeftInfo = isInVenue ?
-        <>本次进店：<span className="info-value-small">{lastVisit?.enteredAt.toLocaleString()}</span></>
+        <>本次进店：<span className="info-value-small">{formatFLTToMinutes(lastVisit?.enteredAt.getTime())}</span></>
         : lastVisit?.leftAt ?
-        <>上次离店：<span className="info-value-small">{lastVisit?.leftAt?.toLocaleString()}</span></>
+        <>上次离店：<span className="info-value-small">{formatFLTToMinutes(lastVisit?.leftAt.getTime())}</span></>
         : <>未曾进店</>;
 
     return (

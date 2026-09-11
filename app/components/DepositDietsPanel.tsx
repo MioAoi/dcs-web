@@ -1,6 +1,7 @@
 "use client";
 import { formatMoneyFen } from "@/lib/money"
 import { Key, useState } from "react";
+import { toFLTStamp } from "@/lib/datetime"
 
 export default function DepositDietsPanel({
     userId,
@@ -19,7 +20,7 @@ export default function DepositDietsPanel({
     const [message, setMessage] = useState("");
     // precompute date part as default for manual timestamp input
     const now = new Date();
-    const todayString = now.toISOString().split('T')[0].replace(/-/g, '');
+    const todayString = toFLTStamp(now.getTime()).slice(0, 8);
 
     async function handleSubmit({ userId, dietName, manualTimeStamp } : { userId: number, dietName: string, manualTimeStamp: string }) {
         const response = await fetch('/api/manualDeposit', {
@@ -43,7 +44,7 @@ export default function DepositDietsPanel({
     return (
         <div className="windowlike master-width"><h3>手动定额充值</h3>
             <div className="generic-vert-grid">
-            <div className="tripartite">
+            <div className="bipartite">
                 {diets.map((diet: { name: string; availFrom: string | null; availTill: string | null; cash: number; bonus: number; }) => (
                     <label className="radio-card" key={diet.name}>
                     <input
@@ -52,8 +53,7 @@ export default function DepositDietsPanel({
                         value={diet.name}
                         disabled={diet.availFrom !== null && new Date(diet.availFrom) > now || diet.availTill !== null && new Date(diet.availTill) < now}
                     />
-                    充 {formatMoneyFen(diet.cash)}<br/>
-                    赠 {formatMoneyFen(diet.bonus)}
+                    充 {formatMoneyFen(diet.cash, false)} 赠 {formatMoneyFen(diet.bonus, false)}
                     </label>
                 ))}
             </div>
