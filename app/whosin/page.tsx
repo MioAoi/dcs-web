@@ -1,8 +1,10 @@
 import { getInVenueList } from "@/lib/users";
 import PresentUserBrief from "@/app/components/PresentUserBrief";
 import NavigateButton from "@/app/components/NavigateButton";
+import { connection } from "next/server";
 
 export default async function PresentUsersBriefPage() {
+    await connection();
     const users = await getInVenueList();
     const indicateNemo = users.length === 0 ? "当前没有在店用户。" : "";
 

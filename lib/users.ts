@@ -59,6 +59,7 @@ export async function getInVenueList() {
         nickname: visit.user.nickname,
         role: visit.user.role,
         balance: visit.user.balance,
+        chargeMultiplier: visit.user.chargeMultiplier,
 
         enteredAt: visit.enteredAt
     }));

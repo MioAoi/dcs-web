@@ -1,21 +1,16 @@
-import { prisma } from "@/lib/prisma";
 import LogoutButton from "../components/LogoutButton";
 import NavigateButton from "../components/NavigateButton";
 import PresentUser from "../components/PresentUser";
 import { loadCurrentPricing } from "@/lib/load";
+import { getInVenueList } from "@/lib/users";
+import { connection } from "next/server";
 
 export default async function PresentUsersPage() {
-    const currentVisits = await prisma.visit.findMany({
-        where: {
-            leftAt: null,
-        },
-        include: {
-            user: true,
-        }
-    })
+    await connection();
+    const users = await getInVenueList();
     const currentPricing = await loadCurrentPricing();
 
-    const indicateNemo = currentVisits.length === 0 ? "当前没有在店用户。" : "";
+    const indicateNemo = users.length === 0 ? "当前没有在店用户。" : "";
 
     return (
         <main>
@@ -34,10 +29,10 @@ export default async function PresentUsersPage() {
             </div>
             <h2>在店用户</h2>
             <div className="master-width">
-                {currentVisits.map((visit) => (
+                {users.map((user) => (
                     <PresentUser
-                        key={visit.id}
-                        visit={visit}
+                        key={user.id}
+                        user={user}
                         pricing={currentPricing}
                     />
                 ))}
