@@ -6,6 +6,7 @@ type user = {
     nickname: string;
     role: string;
     balance: number;
+    chargeMultiplier: number;
 }
 
 export async function userQuery(q: string, smart: boolean): Promise<{users: user[], exact: boolean}> {
