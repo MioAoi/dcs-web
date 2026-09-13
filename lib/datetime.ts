@@ -14,9 +14,9 @@ type datetime = {
 export function toFLT(time: number): datetime {
     let ms = time + 28800000;
     let date = new Date(ms - DATE_BOUNDARY_HOUR * 3600000);
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
+    const year = date.getUTCFullYear();
+    const month = date.getUTCMonth() + 1;
+    const day = date.getUTCDate();
     
     date.setUTCHours(0, 0, 0, 0); ms -= date.getTime();
     const hour = Math.floor(ms / 3600000); ms -= hour * 3600000;
@@ -52,7 +52,7 @@ export function formatFLTToMinutes(time: number, refTime = Date.now(), relateToT
         }
 
         if (time > refTime && time - refTime <= 604800000) {
-            return "周" + ["日", "一", "二", "三", "四", "五", "六"][(new Date(time + 28800000 - DATE_BOUNDARY_HOUR * 3600000)).getDay()] + " " + hms;
+            return "周" + ["日", "一", "二", "三", "四", "五", "六"][(new Date(time + 28800000 - DATE_BOUNDARY_HOUR * 3600000)).getUTCDay()] + " " + hms;
         }
     }
     // Same day as reference
@@ -64,5 +64,7 @@ export function formatFLTToMinutes(time: number, refTime = Date.now(), relateToT
         return `${flt.month.toString()}月${flt.day.toString()}日 ${hms}`;
     }
     // Different year
-    return `${flt.year}年${flt.month.toString()}月${flt.day.toString()}日 ${hms}`;
+    return `${(flt.year).toString().padEnd(2, '0')}.${flt.month.toString().padStart(2, ' ')}.${flt.day.toString().padStart(2, ' ')} ${hms}`;
 }
+
+

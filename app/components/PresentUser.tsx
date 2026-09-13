@@ -31,14 +31,15 @@ pricing: any }) {
     }
     return (
         <div className="windowlike master-width generic-vert-grid">
-            <span><UserOneline user={user} /> 扣费倍率：<span className="info-value-small">{user.chargeMultiplier.toFixed(2)}</span></span>
-            <div>
-                进店时间：<span className="info-value-small">{formatFLTToMinutes(user.enteredAt.getTime())}</span>&#x3000;
-                已在店 <span className="info-value-small">{Math.floor((new Date().getTime() - user.enteredAt.getTime()) / 60000)} 分钟</span><br/>
-                预计扣费：<span className="info-value-small">{formatMoneyFen(calculateCharge(user.enteredAt, new Date(), pricing).total * user.chargeMultiplier)}</span>&#x3000;
-                原余额：<span className="info-value-small">{formatMoneyFen(user.balance)}</span><br/>
+            <div className="leftwide">
+                <UserOneline user={user} />
+                <span>倍率：<span className="info-value-small">{Math.round(user.chargeMultiplier * 100)}%</span></span>
             </div>
             <div className="bipartite">
+                <span>自 <span className="info-value-small">{formatFLTToMinutes(user.enteredAt.getTime())}</span>
+                <br/>已在店 <span className="info-value-small">{Math.floor((new Date().getTime() - user.enteredAt.getTime()) / 60000)} 分钟</span></span>
+                <span>原余额：<span className="info-value-small">{formatMoneyFen(user.balance)}</span>
+                <br/>预计扣费 <span className="info-value-small">{formatMoneyFen(calculateCharge(user.enteredAt, new Date(), pricing).total * user.chargeMultiplier)}</span></span>
                 <button onClick={() => router.push(`/manage/users/${user.id}`)}>查看信息</button>
                 <button className="danger" onClick={handleForceLeave}>手动离店</button>
             </div>

@@ -1,9 +1,11 @@
 import { formatFLTToMinutes } from "@/lib/datetime"
+import UserOneline from "@/app/components/UserOneline"
 
-export default function PresentUserBrief({ user }: { user: { nickname: string, enteredAt: Date } }) {
+export default function PresentUserBrief({ user }: { user: { nickname: string, role: string, enteredAt: Date, chargeMultiplier: number } }) {
     return (
-        <div className="master-width windowlike">
-            <span className="nickname">{user.nickname}</span>&#x3000;进店时间：<span className="info-value">{formatFLTToMinutes(user.enteredAt.getTime())}</span>
+        <div className="master-width windowlike bipartite">
+            <UserOneline user={{ ...user, username: null }} />
+            <span>从 <span className="info-value-small">{formatFLTToMinutes(user.enteredAt.getTime())}</span></span>
         </div>
     );
 }

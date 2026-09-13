@@ -2,8 +2,7 @@
 
 :root {
   --background: #fff;
-  --epiground: #ccc;
-  --graphite: #444;
+  --graphite: #444; /* Booty browsers hijack the words black and foreground */
   --escape-color: #fe0;
   --accent-color: #e63;
   --field-color: #def;
@@ -12,6 +11,7 @@
   --action-color: #56a;
   --status-color: #78c;
   --window-color: #9ae;
+  --disabled-color: #ccc;
   --border-width: 2px;
 
   font-size: 3.5vw;
@@ -47,34 +47,10 @@ button {
   font-family: inherit;
 }
 
-h1 {
-  font-size: 2.5rem;
-  font-weight: bold;
-  margin: 0.8rem;
-  text-align: center;
-}
-
-h2 {
-  font-size: 2rem;
-  font-weight: bold;
-  margin-top: 0;
-  margin-bottom: 0.63rem;
-  text-align: center;
-}
-
-h3 {
-  font-size: 1.6rem;
-  font-weight: bold;
-  margin: 0;
-  text-align: center;
-}
-
-h4 {
-  font-size: 1.6rem;
-  font-weight: normal;
-  margin: 0;
-  text-align: center;
-}
+h1 { font-size: 2.5rem; font-weight: bold;    margin: 0.8rem; text-align: center; }
+h2 { font-size: 2.0rem; font-weight: bold;    margin: 0; text-align: center; }
+h3 { font-size: 1.6rem; font-weight: bold;    margin: 0; text-align: center; }
+h4 { font-size: 1.6rem; font-weight: normal;  margin: 0; text-align: center; }
 
 main {
   min-height: 100vh;
@@ -102,42 +78,13 @@ button,
   color: var(--action-color);
   cursor: pointer;
 }
-  .escape {
-    border: var(--border-width) solid transparent;
-    background-color: var(--escape-color);
-    color: var(--accent-color);
-  }
-  .primary {
-    border: var(--border-width) solid transparent;
-    background-color: var(--accent-color);
-    color: white;
-  }
-  .disabled {
-    border: var(--border-width) solid transparent;
-    background-color: var(--epiground);
-    color: white;
-    cursor: not-allowed;
-  }
-  .danger {
-    border: var(--border-width) solid var(--error-color);
-    background-color: var(--error-color);
-    color: white;
-  }
-  .accept {
-    border: var(--border-width) solid var(--success-color);
-    background-color: transparent;
-    color: var(--success-color);
-  }
-  .decline {
-    border: var(--border-width) solid var(--error-color);
-    background-color: transparent;
-    color: var(--error-color);
-  }
 
-form {
-  padding: 0.5rem;
-  border-radius: 0.5rem;
-}
+.escape   {  border: var(--border-width) solid transparent;           background-color: var(--escape-color);    color: var(--accent-color); }
+.primary  {  border: var(--border-width) solid transparent;           background-color: var(--accent-color);    color: white; }
+.disabled {  border: var(--border-width) solid transparent;           background-color: var(--disabled-color);  color: white; cursor: not-allowed; }
+.danger   {  border: var(--border-width) solid var(--error-color);    background-color: var(--error-color);     color: white; }
+.accept   {  border: var(--border-width) solid var(--success-color);  background-color: transparent;            color: var(--success-color); }
+.decline  {  border: var(--border-width) solid var(--error-color);    background-color: transparent;            color: var(--error-color); }
 
 input,
 textarea {
@@ -149,45 +96,20 @@ textarea {
   width: 100%;
 }
 
-.error {
-  color: var(--error-color);
-  font-weight: bold;
-}
-
-.success {
-  color: var(--success-color);
-  font-weight: bold;
-}
+.error   { color: var(--error-color);   font-weight: bold; }
+.success { color: var(--success-color); font-weight: bold; }
 
 .info-label {
   font-weight: bold;
 }
 
-.info-value {
-  color: var(--status-color);
-  font-size: 1.25rem;
-  font-weight: bold;
-}
-
-.info-value-small {
-  color: var(--status-color);
-  font-size: 1rem;
-  font-weight: bold;
-}
-
-.info-input {
-  color: var(--accent-color);
-  font-size: 1.25rem;
-}
-
-.info-input-small {
-  color: var(--accent-color);
-  font-size: 1rem;
-}
+.info-value       { color: var(--status-color); font-size: 1.25rem; font-weight: bold; }
+.info-value-small { color: var(--status-color); font-size: 1rem;    font-weight: bold; }
+.info-input       { color: var(--accent-color); font-size: 1.25rem; }
+.info-input-small { color: var(--accent-color); font-size: 1rem;    }
 
 .master-width {
   width: 81.25vw;
-  max-width: max(32rem, 100%);
 }
 
 .windowlike {
@@ -215,76 +137,45 @@ textarea {
   cursor: pointer;
 }
 
-.username {
-  font-family: var(--font-display);
-}
+.username  { font-family: var(--font-display); }
+.nickname { font-size: 1.25rem; }
+.nickname.staff { border-left: 0.5rem solid var(--status-color); padding-left: 0.2rem; }
+.nickname.admin { border-left: 0.5rem solid var(--success-color); padding-left: 0.2rem; }
+.nickname.sponsor { border-left: 0.5rem solid var(--accent-color); padding-left: 0.2rem; }
 
-.nickname {
-  font-size: 1.25rem;
-}
+.amount-input     { width: 8rem; max-width: 100%; }
+.multiplier-input { width: 4rem; }
+.short-input      { width: 8rem; }
 
-.amount-input {
-  width: 8rem;
-  max-width: 100%;
-}
-
-.multiplier-input {
-  width: 4rem;
-}
-
-.short-input {
-  width: 8rem;
-}
-
-.bare {
-  border: none;
-  background: none;
-  color: inherit;
-  padding: 0;
-  margin: 0;
-}
-
-.bare-lr {
-  border: none;
-  background: none;
-  color: inherit;
-  padding-left: 0;
-  padding-right: 0;
-  margin-left: 0;
-  margin-right: 0;
-}
-
-.change-field {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 0.5rem;
-}
-  .change-field .old-value {
-    grid-column: 1;
-    grid-row: 1;
-  }
-  .change-field .new-value {
-    grid-column: 1;
-    grid-row: 2;
-  }
-  .change-field button {
-    grid-column: 2;
-    grid-row: 1 / span 2;
-  }
-  .change-field .misc {
-    grid-column: 1 / span 2;
-    grid-row: 3;
-  }
+.change-field { display: grid; grid-template-columns: 2fr 1fr; gap: 0.5rem; }
+  .change-field .old-value { grid-column: 1;          grid-row: 1; }
+  .change-field .new-value { grid-column: 1;          grid-row: 2; }
+  .change-field button     { grid-column: 2;          grid-row: 1 / span 2; }
+  .change-field .misc      { grid-column: 1 / span 2; grid-row: 3; }
 
 .bipartite {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0.5rem;
+  align-items: baseline;
 }
 .tripartite {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 0.5rem;
+  align-items: baseline;
+}
+.leftwide {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 0.5rem;
+  align-items: baseline;
+}
+.rightwide {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 0.5rem;
+  align-items: baseline;
 }
 
 .role-edit-panel {

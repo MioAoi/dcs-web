@@ -66,7 +66,8 @@ export default async function Dashboard() {
                 。
             </div>
             <div className="master-width windowlike bipartite">
-                <span>几？=&gt; <span className="info-value">{inVenueCount}</span></span>
+                <span>几？<br/>
+                <span className="info-value">{inVenueCount}</span></span>
                 <NavigateButton href="/whosin" buttonText="谁？" />
             </div>
             <div className="master-width windowlike generic-vert-grid">
