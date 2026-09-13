@@ -17,10 +17,7 @@ export default async function OutstandingUsersPage() {
     const userDigests = outstandingUsers.map((user) => {
         const lastVisit = user.visits.sort((a, b) => (!(b.leftAt) ? 0 : b.leftAt.getTime()) - (!(a.leftAt) ? 0 : a.leftAt.getTime()))[0];
         return {
-            id: user.id,
-            username: user.username,
-            nickname: user.nickname,
-            balance: user.balance,
+            ...user,
             enteredAt: lastVisit.enteredAt,
             leftAt: lastVisit.leftAt,
             charge: lastVisit.charge ?? 0,
