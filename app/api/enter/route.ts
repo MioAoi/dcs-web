@@ -3,6 +3,8 @@ import { getCurrentUser } from "@/lib/auth";
 import { getCurrentVisit } from "@/lib/visits";
 import { loadCurrentPricing } from "@/lib/load";
 import { messages } from "@/lib/messages";
+import { bytesToBase260 } from "@/lib/base260";
+import crypto from "crypto";
 
 export async function POST(request: Request) {
     const user = await getCurrentUser();
@@ -24,6 +26,7 @@ export async function POST(request: Request) {
         data: {
             userId: user.id,
             enteredAt: new Date(),
+            token: bytesToBase260(crypto.randomBytes(16), true),
         },
     });
     return Response.json({ success: true });

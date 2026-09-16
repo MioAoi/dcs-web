@@ -177,6 +177,18 @@ textarea {
   gap: 0.5rem;
   align-items: baseline;
 }
+.split {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.visit-time-and-qr {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.5rem;
+  align-items: start;
+}
 
 .role-edit-panel {
   display: grid;

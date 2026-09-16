@@ -52,6 +52,7 @@ model Visit {
   enteredAt DateTime
   leftAt    DateTime?
   charge    Int?
+  token     String?
 
   ledgerEntry Ledger?
 
