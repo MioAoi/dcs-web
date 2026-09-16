@@ -14,7 +14,7 @@
   --disabled-color: #ccc;
   --border-width: 2px;
 
-  font-size: 3.5vw;
+  font-size: min(3.5vw, 15.75px);
 
   --default-margin: 0.25rem;
   --default-padding: 0.5rem;
@@ -109,7 +109,7 @@ textarea {
 .info-input-small { color: var(--accent-color); font-size: 1rem;    }
 
 .master-width {
-  width: 81.25vw;
+  width: 24rem;
 }
 
 .windowlike {
