@@ -21,14 +21,19 @@ model User {
   pendingQqid   String? @unique
   qqBindToken   String?
   createdAt     DateTime @default(now())
+  chargeMultiplier  Float   @default(1.0) 
+
   sessions      Session[]
   visits        Visit[]
+  deposits      Deposit[]
+  ledgerEntries Ledger[]
+  paymentOrders  PaymentOrder[]
+  coupons       Coupon[]
+
   role          Role    @default(CUSTOMER)
   balance       Int     @default(0)
   cashBalance   Int     @default(0)
   bonusBalance  Int     @default(0)
-  ledgerEntries Ledger[]
-  chargeMultiplier  Float   @default(1.0) 
 }
 
 model Session {
@@ -74,18 +79,52 @@ model Ledger {
   visit Visit? @relation(fields: [visitId], references: [id])
 
   deposit Deposit?
-
+  paymentOrderId Int? @unique
+  paymentOrder PaymentOrder? @relation(fields: [paymentOrderId], references: [id])
+  
   createdAt DateTime @default(now())
 }
 
 model Deposit {
-  id        Int     @id @default(autoincrement())
-  userId    Int
-  dietName  String
-  ledgerEntryId Int @unique
-  ledgerEntry   Ledger @relation(fields: [ledgerEntryId], references: [id])
+  id              Int @id @default(autoincrement())
+  userId          Int
+  dietName        String
+  ledgerEntryId   Int @unique
+  ledgerEntry     Ledger @relation(fields: [ledgerEntryId], references: [id])
   manualTimeStamp String?
   createdAt DateTime @default(now())
+
+  paymentOrderId    Int? @unique
+  user            User @relation(fields: [userId], references: [id])
+}
+
+model PaymentOrder {
+  id              Int @id @default(autoincrement())
+  orderNo         String @unique
+  userId          Int
+  user            User @relation(fields: [userId], references: [id])
+  ledgerEntry     Ledger?
+  amount          Int
+  provider        String
+  purpose         PaymentPurpose
+  goodsName       String
+  status          PaymentStatus
+
+  createdAt DateTime @default(now())
+  paidAt DateTime?
+
+  payDirection String?
+  bill          String?
+  amountWcms    String?
+}
+
+model Coupon {
+  id        Int     @id @default(autoincrement())
+  token     String  @unique
+  userId    Int
+  goodsName  String
+  amount    Int
+  user      User    @relation(fields: [userId], references: [id])
 }
 
 enum LedgerEntryType {
@@ -93,4 +132,17 @@ enum LedgerEntryType {
   VISIT_CHARGE
   REFUND
   MANUAL
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  CANCELLED
+  EXPIRED
+  REFUNDED
+}
+
+enum PaymentPurpose {
+  DEPOSIT
+  OTHER
 }

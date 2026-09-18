@@ -65,3 +65,12 @@ export async function getInVenueList() {
         enteredAt: visit.enteredAt
     }));
 }
+
+export async function getUserCoupons(userId: number) {
+    const coupons = await prisma.coupon.findMany({
+        where: {
+            userId
+        }
+    });
+    return coupons;
+}

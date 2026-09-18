@@ -23,7 +23,7 @@ export default async function Dashboard() {
         return nowMinute >= segment.startMinute && nowMinute < segment.endMinute;
     });
     const globalDiscount = currentPricing?.globalDiscount ?? 1;
-    const globalDiscountInfo = (globalDiscount < 1 && currentRateSegment?.globalDiscountApply || globalDiscount == 0) ? `，已计全局折扣 ${formatRatioZhe(globalDiscount)}` : "";
+    const globalDiscountInfo = (globalDiscount < 1 && currentRateSegment?.globalDiscountApply || globalDiscount == 0) ? (<>，已计全局折扣 <span className="info-value">{formatRatioZhe(globalDiscount)}</span></>) : "";
     const currentRate = (currentRateSegment?.rate ?? 0) * (currentRateSegment?.globalDiscountApply ? globalDiscount : 1);
 
     const announcements: { message4All: string[], message4Paid: string[] } = JSON.parse(fs.readFileSync("profiles/announcements.json", "utf-8"));
@@ -32,6 +32,8 @@ export default async function Dashboard() {
 
     const user = await requireUserOrRedirect();
     const displayName = user.nickname || user.username || "棍母";
+    const personalDiscountInfo = (user.chargeMultiplier == 1) ? (<>{`，未计个人倍率 `}<span className="info-value">{Math.round((user.chargeMultiplier ?? 1) * 100)}&#x25;</span></>) : "";
+
     const currentVisit = await getCurrentVisit(user.id);
     const notInVenue = (!currentVisit || currentVisit.leftAt);
     const formatBalance = formatMoneyFen(user.balance ?? 0);
@@ -54,8 +56,9 @@ export default async function Dashboard() {
             </div>
             <div className="master-width windowlike">
                 进店最低余额为 <span className="info-value-small">{formatMoneyFen(admissionBalance, false)}</span>，
-                时段费率为 <span className="info-value">{formatMoneyFen(currentRate * 60)}</span> &#x2044; 时{globalDiscountInfo}，
-                未计个人倍率 <span className="info-value-small">{Math.round((user.chargeMultiplier ?? 1) * 100)}&#x25;</span>。
+                时段费率为 <span className="info-value">{formatMoneyFen(currentRate * 60)}</span>&#x2215;时
+                {globalDiscountInfo}
+                {personalDiscountInfo}.
             </div>
             <div className="master-width windowlike">
                 {announcements.message4All.map((msg, index) => (

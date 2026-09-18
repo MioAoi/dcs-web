@@ -103,13 +103,14 @@ textarea {
   font-weight: bold;
 }
 
-.info-value       { color: var(--status-color); font-size: 1.25rem; font-weight: bold; }
+.info-value       { color: var(--status-color); font-size: 1rem; font-weight: bold; }
 .info-value-small { color: var(--status-color); font-size: 1rem;    font-weight: bold; }
+.info-value-large { color: var(--status-color); font-size: 1.25rem; font-weight: bold; }
 .info-input       { color: var(--accent-color); font-size: 1.25rem; }
 .info-input-small { color: var(--accent-color); font-size: 1rem;    }
 
 .master-width {
-  width: 24rem;
+  width: 25rem;
 }
 
 .windowlike {
@@ -204,4 +205,12 @@ textarea {
 
 .text-token {
   overflow-wrap: anywhere;
+  font-family: var(--font-display);
+}
+
+.avatar-selection {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-auto-rows: 1fr;
+  gap: 0.5rem;
 }

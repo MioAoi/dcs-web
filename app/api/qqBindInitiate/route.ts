@@ -13,7 +13,7 @@ export async function POST(req: Request) {
     if (currentUser.id !== userId) {
         return Response.json({ success: false, error: messages.e403_otherUser }, { status: 403 });
     }
-    const token = bytesToBase260(crypto.randomBytes(32));
+    const token = bytesToBase260(crypto.randomBytes(16));
     await prisma.user.update({
         where: { id: userId },
         data: {
