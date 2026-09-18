@@ -1,6 +1,3 @@
-const MERCHANT_ID = 11970;
-const MERCHANT_KEY = "5UBW46IFcqUwBMwqHydk";
-const NOTIFY_URL = "https://dcstream.top/api/payment/rliyun/notify";
 
 import type { PaymentPurpose, PaymentStatus } from "@/generated/prisma/enums";
 import { prisma } from "@/lib/prisma";
@@ -21,7 +18,7 @@ function makeSign(
 
     return crypto
         .createHash("md5")
-        .update(signingString + MERCHANT_KEY, "utf8")
+        .update(signingString + process.env.MERCHANT_KEY, "utf8")
         .digest("hex");
 }
 
@@ -47,12 +44,12 @@ export async function initiatePayment({ userId, amount, purpose, bank, goodsName
     })
     const amountInYuanString = (amount / 100).toFixed(2);
     const params = {
-        pid: MERCHANT_ID.toString(),
+        pid: process.env.MERCHANT_ID!.toString(),
         type: bank,
         out_trade_no: orderNo,
         name: goodsName,
         money: amountInYuanString,
-        notify_url: NOTIFY_URL,
+        notify_url: process.env.NOTIFY_URL!,
         device: "mobile",
         return_url: returnUrl,
     }
