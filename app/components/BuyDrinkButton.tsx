@@ -15,7 +15,7 @@ export default function BuyDrinkButton({ user }: { user: { id: number } }) {
                 amount: 1440,
                 goodsName: "几何特调",
                 bank,
-                returnUrl: window.location.href
+                returnUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/paytest`
             })
         })).json();
         router.push(`/pay?order=${orderNo}`);

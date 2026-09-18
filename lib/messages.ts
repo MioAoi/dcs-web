@@ -29,6 +29,9 @@ export const messages = {
     e403_requireAdmin: 
         "你不是管理员",
 
+    e404_depositDiet:
+        "非可用充值套餐",
+
     e409_regUsername: 
         "用户名已存在",
 

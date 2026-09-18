@@ -10,6 +10,7 @@ import DepositDietsPanel from "@/app/components/DepositDietsPanel";
 import NavigateButton from "@/app/components/NavigateButton";
 import fs from "fs";
 import { formatFLTToMinutes } from "@/lib/datetime"
+import { getUserAvailDepositDiets } from "@/lib/users";
 
 export default async function CurrentUserPage({
     params,
@@ -64,7 +65,7 @@ export default async function CurrentUserPage({
                 已验证QQ号：<span className="info-value-small">{user.qqid ?? "无"}</span><br/>
             </div>
 
-            <DepositDietsPanel userId={user.id} diets={deposit_diets} />
+            <DepositDietsPanel userId={user.id} diets={await getUserAvailDepositDiets(deposit_diets)} manual={true} />
             <ManualBalanceChangeForm userId={user.id} adminOperates={adminOperates} />
 
             { currentUser && currentUser.role === "ADMIN" && <RoleEditPanel userId={user.id} userCurrentRole={user.role} chargeMultiplier={user.chargeMultiplier} /> }

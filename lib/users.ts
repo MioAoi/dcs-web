@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import fs from 'fs';
 
 type user = {
     id: number;
@@ -73,4 +74,42 @@ export async function getUserCoupons(userId: number) {
         }
     });
     return coupons;
+}
+
+export async function getUserAvailDepositDiets(userId: number) {
+    const allDiets = JSON.parse(fs.readFileSync('profiles/deposit_diets.json', 'utf-8'));
+    const now = new Date();
+    let availDiets = [];
+    for (const diet of allDiets) {
+        if (now < new Date(diet.availFrom)) {
+            continue;
+        }
+        if (diet.availTill && now > new Date(diet.availTill)) {
+            continue;
+        }
+        let usedCount = 0;
+        if (diet.stock !== null) {
+            // 同名充值套餐只在有效日期范围内计使用次数
+            usedCount = await prisma.deposit.count({
+                where: {
+                    userId,
+                    dietName: diet.name,
+                    createdAt: {
+                        gte: diet.availFrom ? new Date(diet.availFrom) : new Date(0),
+                        lte: diet.availTill ? new Date(diet.availTill) : new Date()
+                    }
+                }
+            });
+            if (usedCount >= diet.stock) {
+                continue;
+            }
+        }
+        availDiets.push({
+            ...diet,
+            remaining: diet.stock !== null ? diet.stock - usedCount : null
+        });
+    }
+
+    return availDiets;
+
 }

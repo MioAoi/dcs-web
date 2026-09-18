@@ -13,6 +13,6 @@ export async function POST(request: Request) {
     if (result.success) {
         return Response.json({ orderNo: result.orderNo });
     } else {
-        return new Response(null, { status: 500 });
+        return Response.json({ error: "内部错误" }, { status: 500 });
     }
 }

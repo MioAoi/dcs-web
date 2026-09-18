@@ -101,7 +101,10 @@ export default async function Dashboard() {
                 </div>
             </div>
             <div className="master-width invwindow generic-vert-grid">
-                <NavigateButton href="/selfinfo" buttonText="个人信息" />
+                <div className="bipartite">
+                    <NavigateButton href="/selfinfo" buttonText="个人信息" />
+                    <NavigateButton href="/deposit" buttonText="去充值" />
+                </div>
                 <LogoutButton/>
                 {condManageButton}
             </div>
