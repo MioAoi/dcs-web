@@ -3,6 +3,7 @@ import type { LedgerEntryType } from "@/generated/prisma/enums";
 import fs from "fs";
 import { bytesToBase260 } from "@/lib/base260";
 import crypto from "crypto";
+import { updateBalanceCache } from "@/lib/balance";
 
 const depositDiets = JSON.parse(fs.readFileSync("profiles/deposit_diets.json", "utf-8"));
 
@@ -66,6 +67,7 @@ export async function POST(request: Request) {
                 });
             }
         });
+        await updateBalanceCache(order.userId);
         return Response.json({ success: true });
     }
     return Response.json({ success: false });
