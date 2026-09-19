@@ -48,6 +48,8 @@ export default async function Dashboard() {
     const condStayTimer = !notInVenue ? <StayTimer enterTime={currentVisit?.enteredAt?.getTime() ?? 0}/> : <span className="info-value">不在店</span>;
     const condChargeTimer = !notInVenue ? <ChargeTimer enterTime={currentVisit?.enteredAt?.getTime() ?? 0} chargeMultiplier={user.chargeMultiplier ?? 1} pricing={currentPricing} /> : <span className="info-value"/>;
 
+    const webDepositUsable = (fs.readFileSync("站内充值可用否.txt", "utf8").charAt(0) === "y");
+
     return (
         <main>
             <div className="master-width invwindow split">
@@ -103,7 +105,7 @@ export default async function Dashboard() {
             <div className="master-width invwindow generic-vert-grid">
                 <div className="bipartite">
                     <NavigateButton href="/selfinfo" buttonText="个人信息" />
-                    <div className="Button disabled">去充值</div>
+                    {webDepositUsable ? <NavigateButton href="/deposit" buttonText="去充值" /> : <button className="disabled">去充值</button>}
                 </div>
                 <LogoutButton/>
                 {condManageButton}

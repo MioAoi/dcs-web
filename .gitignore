@@ -44,3 +44,5 @@ next-env.d.ts
 *.db
 .claude/
 .windsurf/
+
+站内充值可用否.txt
