@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 
 export default function ManualBalanceChangeForm({
     userId,
@@ -9,9 +8,10 @@ export default function ManualBalanceChangeForm({
     userId: number;
     adminOperates: boolean;
 }) {
-    const router = useRouter();
     const [balanceDelta, setBalanceDelta] = useState("");
-    const [note, setNote] = useState(""); 
+    const [note, setNote] = useState("");
+    const [error, setError] = useState("");
+    const [message, setMessage] = useState("");
 
     const cashChangeButtons = adminOperates ? (
         <div className="bipartite">
@@ -35,7 +35,12 @@ export default function ManualBalanceChangeForm({
         });
         const result = await response.json();
         if (result.success) {
-            router.refresh();
+            setError("");
+            setMessage("操作成功，3秒后刷新");
+            setTimeout(() => location.reload(), 3000);
+        } else {
+            setError(result.message || "操作失败");
+            setMessage("");
         }
     }
 
@@ -54,7 +59,12 @@ export default function ManualBalanceChangeForm({
         });
         const result = await response.json();
         if (result.success) {
-            router.refresh();
+            setError("");
+            setMessage("操作成功，3秒后刷新");
+            setTimeout(() => location.reload(), 3000);
+        } else {
+            setError(result.message || "操作失败");
+            setMessage("");
         }
     }
 
@@ -80,6 +90,8 @@ export default function ManualBalanceChangeForm({
                     <button type="submit" className="decline" onClick={() => handleBonusChange(false)}>赠点扣除</button>
                 </div>
                 {cashChangeButtons}
+                {error && <p className="error">{error}</p>}
+                {message && <p className="success">{message}</p>}
             </div>
         </div>
     );

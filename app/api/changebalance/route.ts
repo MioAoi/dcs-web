@@ -14,6 +14,6 @@ export async function POST(request: Request) {
             return Response.json({ success: false, message: messages.e403_requireAdmin }, { status: 403 });
         }
     }
-    const result = await changeBalance(userId, cashDelta, bonusDelta, note);
-    return Response.json({ success: true, result });
+    await changeBalance(userId, cashDelta, bonusDelta, note);
+    return Response.json({ success: true });
 }
