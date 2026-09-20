@@ -31,33 +31,45 @@ export function toFLTStamp(time: number): string {
     return isoString.replace(/[^0-9]/g, '');
 }
 
+export function dayNumber(time: number): number {
+    return (time + 28800000 - DATE_BOUNDARY_HOUR * 3600000) / 86400000 | 0;
+}
+
 export function formatFLTToMinutes(time: number, dayRelative = true, refTime = Date.now()) {
     const flt = toFLT(time);
     const fltRef = toFLT(refTime);
-    
     const hms = `${flt.hour.toString().padStart(2, '0')}:${flt.minute.toString().padStart(2, '0')}`;
 
     if (dayRelative) {
         // Today
-        if (flt.year === fltRef.year && flt.month === fltRef.month && flt.day === fltRef.day) {
+        if (dayNumber(time) === dayNumber(refTime)) {
             return hms;
         }
         // Yesterday
-        if (flt.year === fltRef.year && flt.month === fltRef.month && flt.day === fltRef.day - 1) {
+        if (dayNumber(time) === dayNumber(refTime) - 1) {
             return "昨天 " + hms;
         }
         // Ototoi
-        if (flt.year === fltRef.year && flt.month === fltRef.month && flt.day === fltRef.day - 2) {
+        if (dayNumber(time) === dayNumber(refTime) - 2) {
             return "前天 " + hms;
         }
-        if (time > refTime && time - refTime <= 604800000) {
+        if (dayNumber(time) > dayNumber(refTime) && dayNumber(time) < dayNumber(refTime) + 7) {
             return "周" + ["日", "一", "二", "三", "四", "五", "六"][(new Date(time + 28800000 - DATE_BOUNDARY_HOUR * 3600000)).getUTCDay()] + " " + hms;
+        }
+        if (flt.year === fltRef.year) {
+            return `${flt.month.toString()}月${flt.day.toString().padStart(2, ' ')}日 ${hms}`;
         }
         return `${(flt.year).toString().padEnd(2, '0')}.${flt.month.toString().padStart(2, ' ')}.${flt.day.toString().padStart(2, ' ')} ${hms}`;
     }
     
     // Non-relative, no need to make it as short as recent dates, write out 年月日
     return `${flt.year}年${flt.month.toString().padStart(2, ' ')}月${flt.day.toString().padStart(2, ' ')}日 ${hms}`;
+}
+
+export function formatRelativeFLTToMinutes(time: number, refTime: number) {
+    const dayOffset = dayNumber(time) - dayNumber(refTime);
+    const flt = toFLT(time);
+    return (dayOffset < 0 ? `(\u2212${-dayOffset})` : dayOffset > 0 ? `(+${dayOffset})` : '') + ` ${flt.hour.toString().padStart(2, '0')}:${flt.minute.toString().padStart(2, '0')}`;
 }
 
 export function greeting(time = Date.now()): string {

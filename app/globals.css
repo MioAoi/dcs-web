@@ -150,8 +150,8 @@ textarea {
   text-decoration: underline;
 }
 
-.username  { font-family: var(--font-display); }
-.nickname { font-size: 1.25rem; }
+.username  { font-family: var(--font-display); font-size: 1rem; }
+.nickname { font-size: 1.25rem; font-weight: normal; }
 .nickname.staff { border-left: 0.5rem solid var(--status-color); padding-left: 0.2rem; }
 .nickname.admin { border-left: 0.5rem solid var(--success-color); padding-left: 0.2rem; }
 .nickname.sponsor { border-left: 0.5rem solid var(--prime-color); padding-left: 0.2rem; }
@@ -239,4 +239,16 @@ textarea {
   aspect-ratio: 1;
   object-fit: cover;
   border-radius: var(--default-border-radius);
+}
+
+.visitListing {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 0.5rem;
+  align-items: baseline;
+  text-align: right;
+}
+
+.table-header {
+  font-weight: bold;
 }

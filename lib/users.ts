@@ -100,3 +100,16 @@ export async function getUserAvailDepositDiets(userId: number) {
     return availDiets;
 
 }
+
+export async function getUserLatestVisits(userId: number, limit: number = 15) {
+    const visits = await prisma.visit.findMany({
+        where: {
+            userId
+        },
+        orderBy: {
+            enteredAt: 'desc'
+        },
+        take: limit
+    });
+    return visits;
+}

@@ -1,6 +1,6 @@
 "use server";
 import { prisma } from "@/lib/prisma";
-import { notFound} from "next/navigation";
+import { notFound } from "next/navigation";
 import { formatMoneyFen } from "@/lib/money";
 import ManualBalanceChangeForm from "@/app/components/ManualBalanceChangeForm";
 import { getCurrentUser } from "@/lib/auth";
