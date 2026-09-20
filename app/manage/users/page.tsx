@@ -16,7 +16,7 @@ export default async function UsersLookupPage(
     const indicateNemo = users.length === 0 && q ? <p>未找到匹配的用户</p> : null;
     return (
         <main><h2>用户查询</h2>
-            <form className="windowlike generic-vert-grid">
+            <form className="windowlike master-width generic-vert-grid">
                 <input name="q" defaultValue={q} placeholder="用户名 | 昵称 | QQ" />
                 <div className="bipartite">
                     <button type="submit" name="mode" value="auto" className="primary">精确查询</button>

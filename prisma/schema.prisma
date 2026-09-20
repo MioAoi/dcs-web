@@ -21,7 +21,7 @@ model User {
   pendingQqid   String? @unique
   qqBindToken   String?
   createdAt     DateTime @default(now())
-  chargeMultiplier  Float   @default(1.0) 
+  avatar        String?
 
   sessions      Session[]
   visits        Visit[]
@@ -31,6 +31,7 @@ model User {
   coupons       Coupon[]
 
   role          Role    @default(CUSTOMER)
+  chargeMultiplier  Float   @default(1.0) 
   balance       Int     @default(0)
   cashBalance   Int     @default(0)
   bonusBalance  Int     @default(0)

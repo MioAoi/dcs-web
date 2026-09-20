@@ -3,7 +3,7 @@ import { requireAdmin, requireStaff, getCurrentUser } from "@/lib/auth";
 import { messages } from "@/lib/messages";
 
 export async function POST(request: Request) {
-    const { userId, role, chargeMultiplier, nickname } = await request.json();
+    const { userId, role, chargeMultiplier, nickname, avatar } = await request.json();
 
     const currentUser = await getCurrentUser();
     if (!currentUser) {
@@ -31,6 +31,7 @@ export async function POST(request: Request) {
             role: role,
             chargeMultiplier: chargeMultiplier,
             nickname: nickname,
+            avatar: avatar,
         }
     });
     return Response.json({ success: true }, { status: 200 });

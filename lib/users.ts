@@ -1,16 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import fs from 'fs';
+import type { User } from "@/generated/prisma/client";
 
-type user = {
-    id: number;
-    username: string;
-    nickname: string;
-    role: string;
-    balance: number;
-    chargeMultiplier: number;
-}
-
-export async function userQuery(q: string, smart: boolean): Promise<{users: user[], exact: boolean}> {
+export async function userQuery(q: string, smart: boolean): Promise<{users: User[], exact: boolean}> {
     // 开启智能查询时，唯一一致和完全一致的情况返回单体
     const users = await prisma.user.findMany({
         where: {
@@ -56,12 +48,7 @@ export async function getInVenueList() {
         }
     });
     return visits.map(visit => ({
-        id: visit.user.id,
-        username: visit.user.username,
-        nickname: visit.user.nickname,
-        role: visit.user.role,
-        balance: visit.user.balance,
-        chargeMultiplier: visit.user.chargeMultiplier,
+        ...visit.user,
 
         enteredAt: visit.enteredAt
     }));

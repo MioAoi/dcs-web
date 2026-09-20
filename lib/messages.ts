@@ -11,6 +11,8 @@ export const messages = {
         "未在店",
     e400_manualDeposit:
         "这笔钱已经上过账了",
+    e400_peekCommand:
+        "无效的命令",
 
     e401: 
         "未登录",
@@ -34,6 +36,9 @@ export const messages = {
 
     e409_regUsername: 
         "用户名已存在",
+
+    e415_wantJson:
+        "给我发JSON",
 
     e500: 
         "服务器错误",

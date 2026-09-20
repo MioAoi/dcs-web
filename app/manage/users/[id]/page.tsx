@@ -52,7 +52,10 @@ export default async function CurrentUserPage({
 
     return (
         <main><h2>用户信息</h2>
-            <div><UserOneline user={user} /></div>
+            <div className="card-with-avatar invwindow master-width">
+                <img className="avatar" src={user.avatar ? `/avatars/${user.avatar}` : user.qqid ? `https://q.qlogo.cn/g?b=qq&nk=${user.qqid}&s=640` : `/avatars/default.webp`} alt={user.nickname} />
+                <UserOneline user={user} />
+            </div>
 
             <div className="windowlike master-width">
                 余额：<span className="info-value">{formatMoneyFen(user.balance)}</span>，其中<br/>

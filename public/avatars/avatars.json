@@ -7,6 +7,15 @@
 { "filename": "ame_acid.webp", "desc": "酸酸" },
 
 { "filename": "beer_snow.webp", "desc": "雪花" },
+{ "filename": "beer_sun.webp", "desc": "金麦" },
 
-{ "filename": "cola_chinatsu.webp", "desc": "千夏" }
+{ "filename": "cola_chinatsu.webp", "desc": "千夏" },
+
+{ "filename": "hitomi_mizuki.webp", "desc": "水月" },
+
+{ "filename": "zlita_airi.webp", "desc": "综艺假面" },
+{ "filename": "zlita_akane.webp", "desc": "茜" },
+{ "filename": "zlita_tsubaki.webp", "desc": "椿" },
+
+{ "filename": "trepanina.webp", "desc": "锥锥" }
 ]

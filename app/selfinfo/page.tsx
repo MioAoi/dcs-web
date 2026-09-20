@@ -8,8 +8,15 @@ export default async function selfInfoPage() {
     
     return (
         <main>
-            <h2>个人信息</h2>
-            <p><UserOneline user={user} /></p>
+            <div className="card-with-avatar invwindow master-width">
+                <Link href="/selfinfo/setavatar">
+                    <img className="avatar" src={user.avatar ? `/avatars/${user.avatar}` : user.qqid ? `https://q.qlogo.cn/g?b=qq&nk=${user.qqid}&s=640` : `/avatars/default.webp`} alt={user.nickname} />
+                </Link>
+                <div>
+                    <UserOneline user={user} />
+                    <p>点击头像可更换</p>
+                </div>
+            </div>
             <SelfInfoEditPanel user={user} />
             <div className="master-width invwindow">
                 <Link href="/dashboard" className="Button escape">返回</Link>

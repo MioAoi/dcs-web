@@ -4,7 +4,7 @@
   --background: #fff;
   --graphite: #444; /* Booty browsers hijack the words black and foreground */
   --escape-color: #fe0;
-  --accent-color: #e63;
+  --prime-color: #e63;
   --field-color: #def;
   --error-color: #f35;
   --success-color: #090;
@@ -13,6 +13,8 @@
   --window-color: #9ae;
   --disabled-color: #ccc;
   --border-width: 2px;
+
+  accent-color: var(--prime-color);
 
   font-size: min(3.5vw, 15.75px);
 
@@ -79,8 +81,8 @@ button,
   cursor: pointer;
 }
 
-.escape   {  border: var(--border-width) solid transparent;           background-color: var(--escape-color);    color: var(--accent-color); }
-.primary  {  border: var(--border-width) solid transparent;           background-color: var(--accent-color);    color: white; }
+.escape   {  border: var(--border-width) solid transparent;           background-color: var(--escape-color);    color: var(--prime-color); }
+.primary  {  border: var(--border-width) solid transparent;           background-color: var(--prime-color);    color: white; }
 .disabled {  border: var(--border-width) solid transparent;           background-color: var(--disabled-color);  color: white; cursor: not-allowed; }
 .danger   {  border: var(--border-width) solid var(--error-color);    background-color: var(--error-color);     color: white; }
 .accept   {  border: var(--border-width) solid var(--success-color);  background-color: transparent;            color: var(--success-color); }
@@ -106,8 +108,8 @@ textarea {
 .info-value       { color: var(--status-color); font-size: 1rem; font-weight: bold; }
 .info-value-small { color: var(--status-color); font-size: 1rem;    font-weight: bold; }
 .info-value-large { color: var(--status-color); font-size: 1.25rem; font-weight: bold; }
-.info-input       { color: var(--accent-color); font-size: 1.25rem; }
-.info-input-small { color: var(--accent-color); font-size: 1rem;    }
+.info-input       { color: var(--prime-color); font-size: 1.25rem; }
+.info-input-small { color: var(--prime-color); font-size: 1rem;    }
 
 .master-width {
   width: 25rem;
@@ -136,13 +138,23 @@ textarea {
   border: var(--border-width) solid var(--action-color);
   border-radius: 0;
   cursor: pointer;
+
+  color: var(--action-color);
+}
+
+.radio-card:has(input:checked) {
+  border-color: var(--prime-color);
+  box-shadow: inset 0 0 0 var(--border-width) var(--prime-color);
+
+  color: var(--prime-color);
+  text-decoration: underline;
 }
 
 .username  { font-family: var(--font-display); }
 .nickname { font-size: 1.25rem; }
 .nickname.staff { border-left: 0.5rem solid var(--status-color); padding-left: 0.2rem; }
 .nickname.admin { border-left: 0.5rem solid var(--success-color); padding-left: 0.2rem; }
-.nickname.sponsor { border-left: 0.5rem solid var(--accent-color); padding-left: 0.2rem; }
+.nickname.sponsor { border-left: 0.5rem solid var(--prime-color); padding-left: 0.2rem; }
 
 .amount-input     { width: 8rem; max-width: 100%; }
 .multiplier-input { width: 4rem; }
@@ -213,4 +225,18 @@ textarea {
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-auto-rows: 1fr;
   gap: 0.5rem;
+}
+
+.card-with-avatar {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.avatar {
+  width: 4rem;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: var(--default-border-radius);
 }
