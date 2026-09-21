@@ -22,12 +22,23 @@ export async function POST(request: Request) {
         return Response.json({ success: false, error: messages.e402_enter }, { status: 402 });
     }
 
-    await prisma.visit.create({
-        data: {
-            userId: user.id,
-            enteredAt: new Date(),
-            token: bytesToBase260(crypto.randomBytes(16), true),
-        },
+    await prisma.$transaction(async (tx) => {
+        const currentVisit = await tx.visit.findFirst({
+            where: { 
+                userId: user.id,
+                leftAt: null },
+            orderBy: { enteredAt: "desc" }
+        });
+        if (currentVisit) {
+            throw new Error(messages.e400_alreadyInVenue);
+        }
+        await tx.visit.create({
+            data: {
+                userId: user.id,
+                enteredAt: new Date(),
+                token: bytesToBase260(crypto.randomBytes(16), true),
+            },
+        });
     });
     return Response.json({ success: true });
 }

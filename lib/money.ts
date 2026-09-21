@@ -38,6 +38,10 @@ export function translateLedgerType(type: string) {
             return "来店";
         case "MANUAL":
             return "手动";
+        case "DEPOSIT":
+            return "充值";
+        case "REFUND":
+            return "退款";
         default:
             return type;
     }
