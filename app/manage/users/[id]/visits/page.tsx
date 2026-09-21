@@ -4,6 +4,7 @@ import UserOneline from "@/app/components/UserOneline";
 import { getUserLatestVisits } from "@/lib/users";
 import { formatRelativeFLTToMinutes, formatFLTToMinutes } from "@/lib/datetime";
 import { formatMoneyFen } from "@/lib/money";
+import NavigateButton from "@/app/components/NavigateButton";
 
 export default async function UserVisitsPage({
     params,
@@ -22,6 +23,9 @@ export default async function UserVisitsPage({
     return (
         <main>
             <h2>来店记录 <UserOneline user={user} /></h2>
+            <div className="invwindow master-width">
+                <NavigateButton href={`/manage/users/${id}`} buttonText="▲返回用户" buttonColor="escape"/>
+            </div>
             <div className="windowlike master-width generic-vert-grid">
                 <p>只显示最近 15 条</p>
                 <div className="visitListing table-header">

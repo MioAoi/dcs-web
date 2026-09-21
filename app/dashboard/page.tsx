@@ -71,7 +71,7 @@ export default async function Dashboard() {
                 ))}
             </div>
             <div className="master-width windowlike">
-                当前余额 <span className="info-value">{formatBalance}</span>，
+                当前余额 <span className={user.balance >= admissionBalance ? "info-value" : "money-owe"}>{formatBalance}</span>，
                 含赠点 <span className="info-value-small">{formatBonus}</span>。
             </div>
             <div className="master-width windowlike bipartite">
@@ -107,8 +107,10 @@ export default async function Dashboard() {
                     <NavigateButton href="/selfinfo" buttonText="个人信息" />
                     {webDepositUsable ? <NavigateButton href="/deposit" buttonText="去充值" /> : <button className="disabled">去充值</button>}
                 </div>
-                <LogoutButton/>
-                {condManageButton}
+                <div className="bipartite">
+                    <LogoutButton/>
+                    {condManageButton}
+                </div>
             </div>
         </main>
     );

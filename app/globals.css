@@ -12,6 +12,7 @@
   --status-color: #78c;
   --window-color: #9ae;
   --disabled-color: #ccc;
+  --gain-color: #e66;
   --border-width: 2px;
 
   accent-color: var(--prime-color);
@@ -110,6 +111,9 @@ textarea {
 .info-value-large { color: var(--status-color); font-size: 1.25rem; font-weight: bold; }
 .info-input       { color: var(--prime-color); font-size: 1.25rem; }
 .info-input-small { color: var(--prime-color); font-size: 1rem;    }
+
+.money-gain { color: var(--gain-color); }
+.money-owe { color: var(--error-color); font-weight: bold; }
 
 .master-width {
   width: 25rem;
