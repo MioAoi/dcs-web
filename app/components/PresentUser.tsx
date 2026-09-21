@@ -43,10 +43,12 @@ pricing: any }) {
                     ) : null }
                 </div>
             </div>
+            { pricing && 
             <div className="bipartite">
                 <button onClick={() => router.push(`/manage/users/${user.id}`)}>查看信息</button>
                 <button className="danger" onClick={handleForceLeave}>手动离店</button>
             </div>
+            }
         </div>
     )
 }
