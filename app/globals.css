@@ -112,6 +112,9 @@ textarea {
 .info-input       { color: var(--prime-color); font-size: 1.25rem; }
 .info-input-small { color: var(--prime-color); font-size: 1rem;    }
 
+.customer-count { font-weight: bold; color: var(--action-color); }
+.staff-count { font-weight: bold; color: var(--window-color); }
+
 .money-gain { color: var(--gain-color); }
 .money-owe { color: var(--error-color); font-weight: bold; }
 
@@ -221,6 +224,7 @@ textarea {
 
 .text-token {
   overflow-wrap: anywhere;
+  font-weight: normal;
   font-family: var(--font-display);
 }
 

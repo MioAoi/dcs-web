@@ -18,7 +18,7 @@ export async function POST(request: Request) {
     }
 
     const { admissionBalance } = loadCurrentPricing();
-    if (user.balance < admissionBalance) {
+    if (user.balance < admissionBalance && user.chargeMultiplier !== 0) {
         return Response.json({ success: false, error: messages.e402_enter }, { status: 402 });
     }
 

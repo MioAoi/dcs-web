@@ -75,8 +75,11 @@ export default async function Dashboard() {
                 含赠点 <span className="info-value-small">{formatBonus}</span>。
             </div>
             <div className="master-width windowlike bipartite">
-                <span>几？<br/>
-                <span className="info-value">{inVenueCount}</span></span>
+                <div>
+                    几？<br/>
+                    <span className="customer-count">{inVenueCount.customers}p</span>
+                    {inVenueCount.staffs > 0 ? <span className="staff-count">&nbsp;+{inVenueCount.staffs}s</span> : null}
+                </div>
                 <NavigateButton href="/whosin" buttonText="谁？" />
             </div>
             <div className="master-width windowlike generic-vert-grid">

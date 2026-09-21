@@ -29,13 +29,21 @@ export async function userQuery(q: string, smart: boolean): Promise<{users: User
     return { users, exact: false };
 }
 
-export async function getInVenueCount(): Promise<number> {
-    const count = await prisma.visit.count({
-        where: {
-            leftAt: null
+export async function getInVenueCount() {
+    const users = await getInVenueList();
+    let { customers, staffs } = { customers: 0, staffs: 0 };
+    users.forEach(user => {
+        if (user.role == 'CUSTOMER') {
+            customers++;
+        } else {
+            staffs++;
         }
     });
-    return count;
+    return {
+        customers,
+        staffs,
+        total: customers + staffs
+    }
 }
 
 export async function getInVenueList() {
