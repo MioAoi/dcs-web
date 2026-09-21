@@ -68,6 +68,11 @@ export default async function CurrentUserPage({
                 已验证QQ号：<span className="info-value-small">{user.qqid ?? "无"}</span><br/>
             </div>
 
+            <div className="invwindow master-width bipartite">
+                <NavigateButton href={`/manage/users/${user.id}/ledgers`} buttonText="查看余额变动" buttonColor="action" />
+                <NavigateButton href={`/manage/users/${user.id}/visits`} buttonText="查看来店记录" buttonColor="action" />
+            </div>
+
             <DepositDietsPanel userId={user.id} diets={await getUserAvailDepositDiets(deposit_diets)} manual={true} />
             <ManualBalanceChangeForm userId={user.id} adminOperates={adminOperates} />
 

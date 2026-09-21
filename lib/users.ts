@@ -113,3 +113,16 @@ export async function getUserLatestVisits(userId: number, limit: number = 15) {
     });
     return visits;
 }
+
+export async function getUserLatestLedgers(userId: number, limit: number = 15) {
+    const ledgers = await prisma.ledger.findMany({
+        where: {
+            userId
+        },
+        orderBy: {
+            createdAt: 'desc'
+        },
+        take: limit
+    });
+    return ledgers;
+}

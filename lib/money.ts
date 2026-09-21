@@ -31,3 +31,14 @@ export function formatTimeSeconds(seconds: number) {
     }
     return secs.toString() + "s";
 }
+
+export function translateLedgerType(type: string) {
+    switch (type) {
+        case "VISIT_CHARGE":
+            return "来店";
+        case "MANUAL":
+            return "手动";
+        default:
+            return type;
+    }
+}

@@ -249,6 +249,14 @@ textarea {
   text-align: right;
 }
 
+.ledgerListing {
+  display: grid;
+  grid-template-columns: 1.5fr 0.5fr 1fr 1fr;
+  gap: 0.5rem;
+  align-items: baseline;
+  text-align: right;
+}
+
 .table-header {
   font-weight: bold;
 }
