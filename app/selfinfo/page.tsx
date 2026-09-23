@@ -1,6 +1,7 @@
 import { requireUserOrRedirect } from "@/lib/auth";
 import SelfInfoEditPanel from "@/app/components/SelfInfoEditPanel";
 import UserOneline from "@/app/components/UserOneline";
+import NavigateButton from "@/app/components/NavigateButton";
 import Link from "next/dist/client/link";
 
 export default async function selfInfoPage() {
@@ -19,7 +20,7 @@ export default async function selfInfoPage() {
             </div>
             <SelfInfoEditPanel user={user} />
             <div className="master-width invwindow">
-                <Link href="/dashboard" className="Button escape">返回</Link>
+                <NavigateButton href="/dashboard" buttonColor="escape" buttonText="^返回主界面"/>
             </div>
         </main>
     );

@@ -23,10 +23,8 @@ export default function RootLayout({
 
 const latinFont = localFont({
     src: [
-        { path: "./fonts/Aller_R.woff2", weight: "normal", style: "normal" },
-        { path: "./fonts/Aller_B.woff2", weight: "bold", style: "normal" },
-        { path: "./fonts/Aller_BI.woff2", weight: "bold", style: "italic" },
-        { path: "./fonts/Aller_I.woff2", weight: "normal", style: "italic" },
+        { path: "./fonts/xgf.woff2", weight: "normal", style: "normal" },
+        { path: "./fonts/xgf_B.woff2", weight: "bold", style: "normal" },
     ],
     variable: "--font-latin",
     display: "swap",

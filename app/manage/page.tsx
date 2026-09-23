@@ -28,16 +28,14 @@ export default async function PresentUsersPage() {
                 </div>
             </div>
             <h2>在店用户</h2>
-            <div className="master-width">
-                {users.map((user) => (
-                    <PresentUser
-                        key={user.id}
-                        user={user}
-                        pricing={currentPricing}
-                    />
-                ))}
-                {indicateNemo && <p className="info">{indicateNemo}</p>}
-            </div>
+            {users.map((user) => (
+                <PresentUser
+                    key={user.id}
+                    user={user}
+                    pricing={currentPricing}
+                />
+            ))}
+            {indicateNemo && <p className="info">{indicateNemo}</p>}
         </main>
     );
 }

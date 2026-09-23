@@ -129,8 +129,10 @@ textarea {
   border-radius: var(--default-border-radius);
 }
 .invwindow {
-  margin: var(--default-margin);
   padding: var(--default-padding);
+  border: var(--border-width) solid transparent;
+  margin: var(--default-margin);
+  border-radius: var(--default-border-radius);
 }
 
 .radio-card {
@@ -218,6 +220,7 @@ textarea {
 
 .generic-vert-grid {
   display: grid;
+  grid-template-columns: 1fr;
   grid-template-rows: repeat(auto-fit, minmax(0, 1fr));
   gap: 0.5rem;
 }
