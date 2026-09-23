@@ -95,13 +95,13 @@ export default function DepositDietsPanel({
                     </div>
                 :
                     <div className="bipartite">
-                        <div className="Button primary" onClick={() => {
+                        <div className="Button alipay" onClick={() => {
                             const selectedDiet = (document.querySelector('input[name="deposit-diet"]:checked') as HTMLInputElement)?.value;
                             if (selectedDiet) {
                                 handlePayment(selectedDiet, "alipay");
                             }
                         }}>使用支付宝</div>
-                        <div className="Button accept" onClick={() => {
+                        <div className="Button wechat" onClick={() => {
                             const selectedDiet = (document.querySelector('input[name="deposit-diet"]:checked') as HTMLInputElement)?.value;
                             if (selectedDiet) {
                                 handlePayment(selectedDiet, "wxpay");

@@ -17,7 +17,7 @@ export default function LogoutButton() {
 
     return (
         <button onClick={handleLogout} className="escape">
-            登出
+            &#x23fb;&#xfe0e; 登出
         </button>
     )
 }

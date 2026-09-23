@@ -24,7 +24,7 @@ export default async function PresentUsersPage() {
                 </div>
                 <div className="bipartite">
                     <LogoutButton/>
-                    <NavigateButton href="/dashboard" buttonText="▶玩家页" />
+                    <NavigateButton href="/dashboard" buttonText="<玩家页" buttonColor="escape2" />
                 </div>
             </div>
             <h2>在店用户</h2>

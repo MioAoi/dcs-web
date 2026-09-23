@@ -1,24 +1,31 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fff;
-  --graphite: #444; /* Booty browsers hijack the words black and foreground */
-  --escape-color: #fe0;
-  --prime-color: #e63;
-  --field-color: #def;
-  --error-color: #f35;
-  --success-color: #090;
-  --action-color: #56a;
-  --status-color: #78c;
-  --window-color: #9ae;
-  --disabled-color: #ccc;
-  --gain-color: #e66;
-  --border-width: 2px;
+  --cnt-yellow: #fe0;
+  --cnt-orange: #e63;
+  --cnt-blue3: #56a;
+  --cnt-blue2: #78c;
+  --cnt-blue1: #9ae;
 
-  accent-color: var(--prime-color);
+  
+  --graphite: #444;
+  --background: #fff;
+  --color-action: var(--cnt-blue3);
+  --color-frame: var(--cnt-blue1);
+  --color-status: var(--cnt-blue2);
+  --color-back: var(--cnt-yellow);
+  --color-prime: var(--cnt-orange);
+  --color-success: #090;
+  --color-error: #f35;
+  --color-disabled: #ccc;
+  --color-gain: #e66;
+  --color-alipay: #17f;
+  --color-wechat: #1a1;
+  accent-color: var(--cnt-orange);
 
   font-size: min(3.5vw, 15.75px);
 
+  --border-width: 2px;
   --default-margin: 0.25rem;
   --default-padding: 0.5rem;
   --button-padding: 0.4rem;
@@ -68,7 +75,7 @@ button,
 .Button {
   font-weight: bold;
   margin: 0;
-  border: var(--border-width) solid var(--action-color);
+  border: var(--border-width) solid var(--color-action);
   border-radius: var(--default-border-radius);
   justify-content: center;
   box-sizing: border-box;
@@ -78,16 +85,22 @@ button,
   display: flex;
   padding: var(--button-padding);
   background-color: transparent;
-  color: var(--action-color);
+  color: var(--color-action);
   cursor: pointer;
 }
 
-.escape   {  border: var(--border-width) solid transparent;           background-color: var(--escape-color);    color: var(--prime-color); }
-.primary  {  border: var(--border-width) solid transparent;           background-color: var(--prime-color);    color: white; }
-.disabled {  border: var(--border-width) solid transparent;           background-color: var(--disabled-color);  color: white; cursor: not-allowed; }
-.danger   {  border: var(--border-width) solid var(--error-color);    background-color: var(--error-color);     color: white; }
-.accept   {  border: var(--border-width) solid var(--success-color);  background-color: transparent;            color: var(--success-color); }
-.decline  {  border: var(--border-width) solid var(--error-color);    background-color: transparent;            color: var(--error-color); }
+.action1  { border: var(--border-width) solid var(--color-action);   background-color: transparent;            color: var(--color-action); }
+.action2  { border: var(--border-width) solid transparent;           background-color: var(--color-action);    color: var(--color-back); }
+.escape   { border: var(--border-width) solid transparent;           background-color: var(--color-back);    color: var(--color-prime); }
+.escape2  { border: var(--border-width) solid var(--color-action);   background-color: var(--color-back);    color: var(--color-action); }
+.primary  { border: var(--border-width) solid transparent;           background-color: var(--color-prime);     color: white; }
+.disabled { border: var(--border-width) solid transparent;           background-color: var(--color-disabled);  color: white; cursor: not-allowed; }
+.danger   { border: var(--border-width) solid var(--color-error);    background-color: var(--color-error);     color: white; }
+.accept   { border: var(--border-width) solid var(--color-success);  background-color: transparent;            color: var(--color-success); }
+.decline  { border: var(--border-width) solid var(--color-error);    background-color: transparent;            color: var(--color-error); }
+
+.alipay   { border: var(--border-width) solid transparent;           background-color: var(--color-alipay);    color: white; }
+.wechat   { border: var(--border-width) solid transparent;           background-color: var(--color-wechat);    color: white; }
 
 input,
 textarea {
@@ -99,24 +112,24 @@ textarea {
   width: 100%;
 }
 
-.error   { color: var(--error-color);   font-weight: bold; }
-.success { color: var(--success-color); font-weight: bold; }
+.error   { color: var(--color-error);   font-weight: bold; }
+.success { color: var(--color-success); font-weight: bold; }
 
 .info-label {
   font-weight: bold;
 }
 
-.info-value       { color: var(--status-color); font-size: 1rem; font-weight: bold; }
-.info-value-small { color: var(--status-color); font-size: 1rem;    font-weight: bold; }
-.info-value-large { color: var(--status-color); font-size: 1.25rem; font-weight: bold; }
-.info-input       { color: var(--prime-color); font-size: 1.25rem; }
-.info-input-small { color: var(--prime-color); font-size: 1rem;    }
+.info-value       { color: var(--color-status); font-size: 1rem; font-weight: bold; }
+.info-value-small { color: var(--color-status); font-size: 1rem;    font-weight: bold; }
+.info-value-large { color: var(--color-status); font-size: 1.25rem; font-weight: bold; }
+.info-input       { color: var(--color-prime); font-size: 1.25rem; }
+.info-input-small { color: var(--color-prime); font-size: 1rem;    }
 
-.customer-count { font-weight: bold; color: var(--action-color); }
-.staff-count { font-weight: bold; color: var(--window-color); }
+.customer-count { font-weight: bold; color: var(--cnt-blue3); }
+.staff-count { font-weight: bold; color: var(--cnt-blue1); }
 
-.money-gain { color: var(--gain-color); }
-.money-owe { color: var(--error-color); font-weight: bold; }
+.money-gain { color: var(--color-gain); }
+.money-owe { color: var(--color-error); font-weight: bold; }
 
 .master-width {
   width: 25rem;
@@ -124,15 +137,19 @@ textarea {
 
 .windowlike {
   padding: var(--default-padding);
-  border: var(--border-width) solid var(--window-color);
+  border: var(--border-width) solid var(--color-frame);
   margin: var(--default-margin);
   border-radius: var(--default-border-radius);
 }
 .invwindow {
-  padding: var(--default-padding);
+  padding: 0;
   border: var(--border-width) solid transparent;
   margin: var(--default-margin);
   border-radius: var(--default-border-radius);
+}
+.invwindow.master-width {
+  padding-left: var(--default-padding);
+  padding-right: var(--default-padding);
 }
 
 .radio-card {
@@ -144,26 +161,26 @@ textarea {
   padding-left: var(--default-padding);
   padding-right: var(--default-padding);
   padding-bottom: 0;
-  border: var(--border-width) solid var(--action-color);
+  border: var(--border-width) solid var(--color-action);
   border-radius: 0;
   cursor: pointer;
 
-  color: var(--action-color);
+  color: var(--color-action);
 }
 
 .radio-card:has(input:checked) {
-  border-color: var(--prime-color);
-  box-shadow: inset 0 0 0 var(--border-width) var(--prime-color);
+  border-color: var(--color-prime);
+  box-shadow: inset 0 0 0 var(--border-width) var(--color-prime);
 
-  color: var(--prime-color);
+  color: var(--color-prime);
   text-decoration: underline;
 }
 
 .username  { font-family: var(--font-display); font-size: 1rem; }
 .nickname { font-size: 1.25rem; font-weight: normal; }
-.nickname.staff { border-left: 0.5rem solid var(--status-color); padding-left: 0.2rem; }
-.nickname.admin { border-left: 0.5rem solid var(--success-color); padding-left: 0.2rem; }
-.nickname.sponsor { border-left: 0.5rem solid var(--prime-color); padding-left: 0.2rem; }
+.nickname.staff { border-left: 0.5rem solid var(--color-status); padding-left: 0.2rem; }
+.nickname.admin { border-left: 0.5rem solid var(--color-success); padding-left: 0.2rem; }
+.nickname.sponsor { border-left: 0.5rem solid var(--color-prime); padding-left: 0.2rem; }
 
 .amount-input     { width: 8rem; max-width: 100%; }
 .multiplier-input { width: 4rem; }

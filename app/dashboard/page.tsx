@@ -41,7 +41,7 @@ export default async function Dashboard() {
     const inVenueCount = await getInVenueCount();
 
     const condManageButton = user.role === "STAFF" || user.role === "ADMIN" ? (
-        <NavigateButton href="/manage" buttonText="▶管理页" />
+        <NavigateButton href="/manage" buttonText=">管理页" buttonColor="action2"/>
     ) : null;
     const condEnterButton = notInVenue && (user.balance >= admissionBalance || user.chargeMultiplier == 0) ? <EnterButton/> : <div className="Button disabled">进店</div>;
     const condLeaveButton = !notInVenue ? <LeaveButton/> : <div className="Button disabled">离店</div>;
