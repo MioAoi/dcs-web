@@ -13,19 +13,30 @@ export async function GET(
         }
     });
     if (!user) {
-        return Response.redirect(
-            new URL("/avatars/default.webp", req.url)
-        );
+        return new Response(null, {
+            status: 302,
+            headers: {
+                Location: `/avatars/default.webp`,
+            },
+        });
     }
     if (user.avatar) {
-        return Response.redirect(new URL(`/avatars/${user.avatar}`, req.url));
+        return new Response(null, {
+            status: 302,
+            headers: {
+                Location: `/avatars/${user.avatar}`,
+            },
+        });
     }
     if (user.qqid) {
         return Response.redirect(
             new URL(`https://q1.qlogo.cn/g?b=qq&nk=${user.qqid}&s=640`, req.url)
         );
     }
-    return Response.redirect(
-        new URL("/avatars/default.webp", req.url)
-    );
+    return new Response(null, {
+        status: 302,
+        headers: {
+            Location: `/avatars/default.webp`,
+        },
+    });
 }
