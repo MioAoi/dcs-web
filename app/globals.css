@@ -151,6 +151,10 @@ textarea {
   padding-left: var(--default-padding);
   padding-right: var(--default-padding);
 }
+.nulldiv {
+  padding: 0;
+  margin: 0;
+}
 
 .radio-card {
   display: flex;
@@ -268,6 +272,9 @@ textarea {
   object-fit: cover;
   border-radius: var(--default-border-radius);
 }
+.avatar.inline {
+  display: inline-block;
+}
 
 .visitListing {
   display: grid;
@@ -287,4 +294,61 @@ textarea {
 
 .table-header {
   font-weight: bold;
+}
+
+.dayVisitHistogram {
+  width: 28rem;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(24, 1fr);
+  gap: 0;
+  align-items: end;
+}
+.dayVisitHistogram .hourColumn {
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.plot {
+  height: 10rem;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+.barWithValue {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.barWithValue .value {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  margin-bottom: 0.25rem;
+  color: var(--color-status);
+  font-size: 1rem;
+  font-weight: bold;
+}
+.barWithValue .bar {
+  background-color: var(--color-status);
+  width: 63%;
+}
+.label {
+  text-align: center;
+}
+.nowLine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: var(--border-width);
+  background: var(--cnt-orange);
+  z-index: -1;
 }

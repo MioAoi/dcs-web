@@ -8,6 +8,10 @@
 
 { "filename": "beer_snow.webp", "desc": "雪花" },
 { "filename": "beer_sun.webp", "desc": "金麦" },
+{ "filename": "beer_asahi.webp", "desc": "朝日" },
+{ "filename": "jaegermeister.webp", "desc": "野格" },
+
+{ "filename": "dayao_orange.webp", "desc": "大窑橙诺" },
 
 { "filename": "cola_chinatsu.webp", "desc": "千夏" },
 

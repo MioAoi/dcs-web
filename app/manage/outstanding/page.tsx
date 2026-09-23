@@ -28,7 +28,7 @@ export default async function OutstandingUsersPage() {
         <main>
             <h2>欠费用户</h2>
             {userDigests.map((userDigest) => (
-                <OutstandingUserCard key={userDigest.id} userDigest={userDigest} />
+                <OutstandingUserCard key={userDigest.id} user={userDigest} />
             ))}
             {indicateNemo && <p className="info">{indicateNemo}</p>}
             <div className="master-width invwindow generic-vert-grid">

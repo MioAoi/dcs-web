@@ -11,7 +11,7 @@ export default async function selfInfoPage() {
         <main>
             <div className="card-with-avatar invwindow master-width">
                 <Link href="/selfinfo/setavatar">
-                    <img className="avatar" src={user.avatar ? `/avatars/${user.avatar}` : user.qqid ? `https://q.qlogo.cn/g?b=qq&nk=${user.qqid}&s=640` : `/avatars/default.webp`} alt={user.nickname} />
+                    <img className="avatar" src={`/api/avatar/${user.id}`} alt={user.nickname} />
                 </Link>
                 <div>
                     <UserOneline user={user} />

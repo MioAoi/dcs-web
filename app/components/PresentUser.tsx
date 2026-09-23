@@ -34,7 +34,7 @@ pricing: any }) {
     return (
         <div className="windowlike master-width generic-vert-grid">
             <div className="card-with-avatar">
-                <img className="avatar" src={user.avatar ? `/avatars/${user.avatar}` : user.qqid ? `https://q.qlogo.cn/g?b=qq&nk=${user.qqid}&s=640` : `/avatars/default.webp`} alt={user.nickname} />
+                <img className="avatar" src={`/api/avatar/${user.id}`} alt={user.nickname} />
                 <div>
                     <UserOneline user={user} /><br/>
                     <span>自 <span className="info-value-small">{formatFLTToMinutes(user.enteredAt.getTime())}</span></span><br/>

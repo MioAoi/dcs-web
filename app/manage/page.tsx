@@ -21,6 +21,7 @@ export default async function PresentUsersPage() {
                     <NavigateButton href="/manage/qqbindverify" buttonText="QQ绑定验证" />
                     <NavigateButton href="/manage/outstanding" buttonText="欠费用户一览" />
                     <NavigateButton href="/chargecalc" buttonText="价格计算器" />
+                    <NavigateButton href="/manage/histogram" buttonText="直方图" />
                 </div>
                 <div className="bipartite">
                     <LogoutButton/>

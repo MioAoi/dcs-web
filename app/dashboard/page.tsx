@@ -10,30 +10,56 @@ import { formatMoneyFen, formatRatioZhe } from "@/lib/money";
 import ChargeTimer from "@/app/components/ChargeTimer";
 import { loadCurrentPricing } from "@/lib/load";
 import fs from "fs";
-import { formatFLTToMinutes, greeting } from "@/lib/datetime";
+import { toFLT, formatFLTToMinutes, greeting } from "@/lib/datetime";
 import { getInVenueCount } from "@/lib/users";
 import { QRCodeSVG } from "qrcode.react";
+import ConcatPhrases from "@/app/components/ConcatPhrases";
 
 export default async function Dashboard() {
+    const now = new Date().getTime();
+
+    let admissionPhrases = [];
+
     const currentPricing = loadCurrentPricing();
+    const globalDiscount = currentPricing?.globalDiscount ?? 1;
     const admissionBalance = currentPricing?.admissionBalance ?? 0;
     const currentRateSegment = currentPricing?.circadyRates.find((segment: any) => {
-        const now = new Date();
-        const nowMinute = now.getHours() * 60 + now.getMinutes();
+        const nowFLT = toFLT(now);
+        const nowMinute = (nowFLT.hour % 24) * 60 + nowFLT.minute;
         return nowMinute >= segment.startMinute && nowMinute < segment.endMinute;
     });
-    const globalDiscount = currentPricing?.globalDiscount ?? 1;
-    const globalDiscountInfo = (globalDiscount < 1 && currentRateSegment?.globalDiscountApply || globalDiscount == 0) ? (<>，已计全局折扣 <span className="info-value">{formatRatioZhe(globalDiscount)}</span></>) : "";
-    const currentRate = (currentRateSegment?.rate ?? 0) * (currentRateSegment?.globalDiscountApply ? globalDiscount : 1);
+    const user = await requireUserOrRedirect();
+    
+    if (globalDiscount == 0) {
+        admissionPhrases = [
+            <span>当前免费入场</span>
+        ];
+    } else if (user.chargeMultiplier == 0) {
+        admissionPhrases = [
+            <span>您可免费入场</span>
+        ];
+    } else {
+        admissionPhrases.push(
+            <span>当前费率为 <span className="info-value">{formatMoneyFen(currentRateSegment.rate * 60 * user.chargeMultiplier * (currentRateSegment.globalDiscountApply ? globalDiscount : 1))}</span> 每时</span>
+        );
+        if (currentRateSegment.globalDiscountApply && globalDiscount != 1) {
+            admissionPhrases.push(
+                <span>已计全局折扣 <span className="info-value">{formatRatioZhe(globalDiscount)}</span></span>
+            );
+        }
+        if  (user.chargeMultiplier != 1) {
+            admissionPhrases.push(
+                <span>已计个人折扣 <span className="info-value">{formatRatioZhe(user.chargeMultiplier)}</span></span>
+            );
+        }
+    }
 
-    const announcements: { message4All: string[], message4Paid: string[] } = JSON.parse(fs.readFileSync("profiles/announcements.json", "utf-8"));
-    const now = new Date().getTime();
+
     const timeString = formatFLTToMinutes(now, false);
 
-    const user = await requireUserOrRedirect();
+    const announcements: { message4All: string[], message4Paid: string[] } = JSON.parse(fs.readFileSync("profiles/announcements.json", "utf-8"));
+    
     const displayName = user.nickname || user.username || "棍母";
-    const personalDiscountInfo = (user.chargeMultiplier == 1) ? (<>{`，未计个人倍率 `}<span className="info-value">{Math.round((user.chargeMultiplier ?? 1) * 100)}&#x25;</span></>) : "";
-
     const currentVisit = await getCurrentVisit(user.id);
     const notInVenue = (!currentVisit || currentVisit.leftAt);
     const formatBalance = formatMoneyFen(user.balance ?? 0);
@@ -57,10 +83,7 @@ export default async function Dashboard() {
                 <span className="info-value-small bear-right">{timeString}</span>
             </div>
             <div className="master-width windowlike">
-                进店最低余额为 <span className="info-value-small">{formatMoneyFen(admissionBalance, false)}</span>，
-                时段费率为 <span className="info-value">{formatMoneyFen(currentRate * 60)}</span>&#x2215;时
-                {globalDiscountInfo}
-                {personalDiscountInfo}.
+                <ConcatPhrases phrases={admissionPhrases} />
             </div>
             <div className="master-width windowlike">
                 {announcements.message4All.map((msg, index) => (

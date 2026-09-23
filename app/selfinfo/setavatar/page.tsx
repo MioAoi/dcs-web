@@ -10,7 +10,11 @@ export default async function SetAvatarPage() {
     return (
         <main>
             <h2>设置头像</h2>
-            <div className="master-width invwindow">
+            <div className="master-width invwindow bipartite">
+                <div>
+                    当前头像：
+                    <img className="avatar inline" src={`/api/avatar/${user.id}`} alt={user.nickname} />
+                </div>
                 <NavigateButton href="/dashboard" buttonColor="escape" buttonText="^返回主界面"/>
             </div>
             <SetAvatarPanel avatars={avatars} userId={user.id} />

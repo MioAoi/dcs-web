@@ -57,13 +57,13 @@ export function formatFLTToMinutes(time: number, dayRelative = true, refTime = D
             return "周" + ["日", "一", "二", "三", "四", "五", "六"][(new Date(time + 28800000 - DATE_BOUNDARY_HOUR * 3600000)).getUTCDay()] + " " + hms;
         }
         if (flt.year === fltRef.year) {
-            return `${flt.month.toString()}月${flt.day.toString().padStart(2, ' ')}日 ${hms}`;
+            return `${flt.month.toString()}月${flt.day.toString().padStart(2, '\u2007')}日 ${hms}`;
         }
-        return `${(flt.year).toString().padEnd(2, '0')}.${flt.month.toString().padStart(2, ' ')}.${flt.day.toString().padStart(2, ' ')} ${hms}`;
+        return `${(flt.year)}.${flt.month.toString().padStart(2, '\u2007')}.${flt.day.toString().padStart(2, '\u2007')} ${hms}`;
     }
     
     // Non-relative, no need to make it as short as recent dates, write out 年月日
-    return `${flt.year}年${flt.month.toString().padStart(2, ' ')}月${flt.day.toString().padStart(2, ' ')}日 ${hms}`;
+    return `${flt.year}年${flt.month.toString().padStart(2, '\u2007')}月${flt.day.toString().padStart(2, '\u2007')}日 ${hms}`;
 }
 
 export function formatRelativeFLTToMinutes(time: number, refTime: number) {
