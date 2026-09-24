@@ -28,7 +28,6 @@ export default async function DayVisitHistogram() {
                     ]
                 }
             ]
-            
         }
     });
     const buckets = Array.from({ length: 24 }, () => 0);
@@ -43,34 +42,28 @@ export default async function DayVisitHistogram() {
         }
     }
     const currentHourNumber = (startHour / 3600000 + 4) % 24;
+    function squish(value: number) {
+        return (Math.sqrt(value + 1) - 1) * 2.5;
+    }
     return (
         <div className="windowlike dayVisitHistogram">
-            {buckets.slice(4, 24).map((value, index) => (
-                <div key={index} className="hourColumn">
+            {buckets.slice(4, 24).concat(buckets.slice(0, 4)).map((value, index) => {
+                const hourNumber = index + 4;
+                return (
+                <div key={index} className="histogram-column">
                     <div className="plot">
                         <div className="barWithValue">
                             <span className="value">{value > 0 ? value.toFixed(2) : ""}</span>
-                            <div className="bar" style={{ height: `${value}rem` }}></div>
+                            <div className={"bar " + (hourNumber < 8 ? "morning" : hourNumber < 16 ? "noon" : hourNumber < 24 ? "evening" : "morning")} style={{ height: `${squish(value)}rem` }}></div>
                         </div>
                     </div>
-                    <span className="label">{(index % 2 == 0 ? index + 4 : "\u3000")}</span>
+                    <span className="label">{(hourNumber % 2 == 0 ? hourNumber : "\u3000")}</span>
                 </div>
-            ))}
-            {buckets.slice(0, 4).map((value, index) => (
-                <div key={index} className="hourColumn">
-                    <div className="plot">
-                        <div className="barWithValue">
-                            <span className="value">{value > 0 ? value.toFixed(2) : ""}</span>
-                            <div className="bar" style={{ height: `${value}rem` }}></div>
-                        </div>
-                    </div>
-                    <span className="label">{(index % 2 == 0 ? index + 24 : "\u3000")}</span>
-                </div>
-            ))}
-
+                );
+            })}
             <div
                 className="nowLine"
-                style={{ left: `${(currentHourNumber - 0.5) / 24 * 100}%` }}
+                style={{ gridColumn: `${currentHourNumber + 1}` }}
             />
         </div>
     );

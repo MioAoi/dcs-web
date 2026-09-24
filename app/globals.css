@@ -304,7 +304,15 @@ textarea {
   gap: 0;
   align-items: end;
 }
-.dayVisitHistogram .hourColumn {
+.weekVisitHistogram {
+  width: 25rem;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(21, 1fr);
+  gap: 0;
+  align-items: end;
+}
+.histogram-column {
   margin: 0;
   padding: 0;
   min-width: 0;
@@ -337,9 +345,17 @@ textarea {
   font-size: 1rem;
   font-weight: bold;
 }
-.barWithValue .bar {
-  background-color: var(--color-status);
+.histogram-column .barWithValue .bar {
   width: 63%;
+}
+.bar.noon {
+  background-color: var(--cnt-blue1);
+}
+.bar.morning {
+  background-color: #666;
+}
+.bar.evening {
+  background-color: var(--cnt-blue3);
 }
 .label {
   text-align: center;
