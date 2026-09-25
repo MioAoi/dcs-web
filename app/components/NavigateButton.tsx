@@ -10,3 +10,11 @@ export default function NavigateButton({ href, buttonText, buttonColor } : { hre
         </Link>
     );
 }
+
+export function WhosinButton({ inVenueCount }: { inVenueCount: { customers: number, staffs: number } }) {
+    return (
+        <Link href="/whosin" className="Button default">
+            &#x2302;&nbsp;<span className="customer-count">{inVenueCount.customers}p</span>{inVenueCount.staffs > 0 ? <span className="staff-count">+{inVenueCount.staffs}s</span> : null}
+        </Link>
+    );
+}
