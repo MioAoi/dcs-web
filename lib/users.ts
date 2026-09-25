@@ -134,3 +134,19 @@ export async function getUserLatestLedgers(userId: number, limit: number = 15) {
     });
     return ledgers;
 }
+
+export async function getUserTotalSpent(userId: number, start: Date, end: Date) {
+    const totalSpent = await prisma.visit.aggregate({
+        where: {
+            userId,
+            leftAt: {
+                gte: start,
+                lte: end
+            }
+        },
+        _sum: {
+            charge: true
+        }
+    });
+    return totalSpent._sum.charge ?? 0;
+}

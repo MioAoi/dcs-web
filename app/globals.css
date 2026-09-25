@@ -10,6 +10,7 @@
   
   --graphite: #444;
   --background: #fff;
+  --half-white: rgba(255, 255, 255, 0.8);
   --color-action: var(--cnt-blue3);
   --color-frame: var(--cnt-blue1);
   --color-status: var(--cnt-blue2);
@@ -22,32 +23,27 @@
   --color-alipay: #17f;
   --color-wechat: #1a1;
   accent-color: var(--cnt-orange);
+  --half-white: rgba(255, 255, 255, 0.6);
+  --color-shadow: #2224;
+  --shadow: 0.05rem 0.1rem var(--color-shadow);
 
-  font-size: min(3.5vw, 15.75px);
-
-  --border-width: 2px;
+  --border-width: 0.16rem;
   --default-margin: 0.25rem;
   --default-padding: 0.5rem;
   --button-padding: 0.4rem;
   --default-border-radius: 0.5rem;
 
   color-scheme: only light;
+
+  font-size: min(calc(100vw / 30), 16px)
 }
 
 body {
-  background: white;
+  background: #eee;
   color: var(--graphite);
   font-family:
     var(--font-latin),
     sans-serif;
-
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)), 
-    url('/images/bg.webp');
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-attachment: fixed;
 }
 
 input,
@@ -63,12 +59,26 @@ h3 { font-size: 1.6rem; font-weight: bold;    margin: 0; text-align: center; }
 h4 { font-size: 1.6rem; font-weight: normal;  margin: 0; text-align: center; }
 
 main {
-  min-height: 100vh;
+  position: relative;
+  
+  width: 30rem;
+  min-height: 48rem;
+  background: white;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.75)), 
+    url('/images/bg.webp');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 30rem auto;
+  background-attachment: scroll;  
+
   display: flex;
   flex-direction: column;
+  align-self: center;
   align-items: center;
-  justify-content: center;
-  text-align: left;
+  justify-content: flex-start;
+  text-align: left;  
+  margin-inline: auto;
 }
 
 button,
@@ -84,20 +94,22 @@ button,
 
   display: flex;
   padding: var(--button-padding);
-  background-color: transparent;
+  background-color: var(--half-white);
   color: var(--color-action);
   cursor: pointer;
+
+  box-shadow: var(--shadow);
 }
 
-.action1  { border: var(--border-width) solid var(--color-action);   background-color: transparent;            color: var(--color-action); }
+.action1  { border: var(--border-width) solid var(--color-action);   background-color: var(--half-white);            color: var(--color-action); }
 .action2  { border: var(--border-width) solid transparent;           background-color: var(--color-action);    color: var(--color-back); }
 .escape   { border: var(--border-width) solid transparent;           background-color: var(--color-back);    color: var(--color-prime); }
 .escape2  { border: var(--border-width) solid var(--color-action);   background-color: var(--color-back);    color: var(--color-action); }
 .primary  { border: var(--border-width) solid transparent;           background-color: var(--color-prime);     color: white; }
 .disabled { border: var(--border-width) solid transparent;           background-color: var(--color-disabled);  color: white; cursor: not-allowed; }
 .danger   { border: var(--border-width) solid var(--color-error);    background-color: var(--color-error);     color: white; }
-.accept   { border: var(--border-width) solid var(--color-success);  background-color: transparent;            color: var(--color-success); }
-.decline  { border: var(--border-width) solid var(--color-error);    background-color: transparent;            color: var(--color-error); }
+.accept   { border: var(--border-width) solid var(--color-success);  background-color: var(--half-white);            color: var(--color-success); }
+.decline  { border: var(--border-width) solid var(--color-error);    background-color: var(--half-white);            color: var(--color-error); }
 
 .alipay   { border: var(--border-width) solid transparent;           background-color: var(--color-alipay);    color: white; }
 .wechat   { border: var(--border-width) solid transparent;           background-color: var(--color-wechat);    color: white; }
@@ -134,12 +146,18 @@ textarea {
 .master-width {
   width: 25rem;
 }
+.avatarPanel {
+  width: 28rem;
+}
 
 .windowlike {
   padding: var(--default-padding);
   border: var(--border-width) solid var(--color-frame);
   margin: var(--default-margin);
   border-radius: var(--default-border-radius);
+
+  backdrop-filter: blur(0.1rem);
+  box-shadow: var(--shadow);
 }
 .invwindow {
   padding: 0;
@@ -242,7 +260,7 @@ textarea {
 .generic-vert-grid {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: repeat(auto-fit, minmax(0, 1fr));
+  grid-template-rows: repeat(auto-fit);
   gap: 0.5rem;
 }
 
@@ -254,9 +272,13 @@ textarea {
 
 .avatar-selection {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-auto-rows: 1fr;
   gap: 0.5rem;
+}
+.avatar-selection .label {
+  text-align: center;
+  font-size: 0.8rem;
 }
 
 .card-with-avatar {
@@ -367,4 +389,11 @@ textarea {
   width: var(--border-width);
   background: var(--cnt-orange);
   z-index: -1;
+}
+
+.playerNavigation {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.4rem;
+  width: 28rem;
 }

@@ -1,14 +1,17 @@
+import fs from "fs";
 import { requireUserOrRedirect } from "@/lib/auth";
 import SelfInfoEditPanel from "@/app/components/SelfInfoEditPanel";
 import UserOneline from "@/app/components/UserOneline";
 import NavigateButton from "@/app/components/NavigateButton";
 import Link from "next/dist/client/link";
+import PlayerNavigation from "../components/PlayerNavigation";
 
 export default async function selfInfoPage() {
     const user = await requireUserOrRedirect();
     
     return (
         <main>
+            <PlayerNavigation buttonManage={user.role == "STAFF" || user.role == "ADMIN"} buttonLogout={false} />
             <div className="card-with-avatar invwindow master-width">
                 <Link href="/selfinfo/setavatar">
                     <img className="avatar" src={`/api/avatar/${user.id}`} alt={user.nickname} />

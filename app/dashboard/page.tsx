@@ -1,6 +1,5 @@
 "use server";
 import NavigateButton from "@/app/components/NavigateButton";
-import LogoutButton from "@/app/components/LogoutButton";
 import EnterButton from "@/app/components/EnterButton";
 import { getCurrentVisit } from "@/lib/visits";
 import LeaveButton from "../components/LeaveButton";
@@ -11,9 +10,10 @@ import ChargeTimer from "@/app/components/ChargeTimer";
 import { loadCurrentPricing } from "@/lib/load";
 import fs from "fs";
 import { toFLT, formatFLTToMinutes, greeting } from "@/lib/datetime";
-import { getInVenueCount } from "@/lib/users";
+import { getInVenueCount, getUserTotalSpent } from "@/lib/users";
 import { QRCodeSVG } from "qrcode.react";
 import ConcatPhrases from "@/app/components/ConcatPhrases";
+import PlayerNavigation from "../components/PlayerNavigation";
 
 export default async function Dashboard() {
     const now = new Date().getTime();
@@ -53,7 +53,7 @@ export default async function Dashboard() {
             );
         }
     }
-
+    const recent30dSpent = await getUserTotalSpent(user.id, new Date(Date.now() - 30 * 24 * 60 * 60 * 1000), new Date());
 
     const timeString = formatFLTToMinutes(now, false);
 
@@ -66,24 +66,21 @@ export default async function Dashboard() {
     const formatBonus = formatMoneyFen(user.bonusBalance ?? 0);
     const inVenueCount = await getInVenueCount();
 
-    const condManageButton = user.role === "STAFF" || user.role === "ADMIN" ? (
-        <NavigateButton href="/manage" buttonText=">管理页" buttonColor="action2"/>
-    ) : null;
     const condEnterButton = notInVenue && (user.balance >= admissionBalance || user.chargeMultiplier == 0) ? <EnterButton/> : <div className="Button disabled">进店</div>;
     const condLeaveButton = !notInVenue ? <LeaveButton/> : <div className="Button disabled">离店</div>;
     const condStayTimer = !notInVenue ? <StayTimer enterTime={currentVisit?.enteredAt?.getTime() ?? 0}/> : <span className="info-value">不在店</span>;
     const condChargeTimer = !notInVenue ? <ChargeTimer enterTime={currentVisit?.enteredAt?.getTime() ?? 0} chargeMultiplier={user.chargeMultiplier ?? 1} pricing={currentPricing} /> : <span className="info-value"/>;
 
-    const webDepositUsable = (fs.readFileSync("站内充值可用否.txt", "utf8").charAt(0) === "y");
-
     return (
         <main>
+            <PlayerNavigation buttonManage={user.role === "STAFF" || user.role === "ADMIN"} buttonLogout={true} />
             <div className="master-width invwindow split">
                 <span>{greeting()}，{displayName}</span>
                 <span className="info-value-small bear-right">{timeString}</span>
             </div>
             <div className="master-width windowlike">
                 <ConcatPhrases phrases={admissionPhrases} />
+                <p>{ recent30dSpent > 0 && <span>近30天消费：<span className="info-value">{formatMoneyFen(recent30dSpent)}</span></span> }{ recent30dSpent > 30000 && <span>，您真壕！</span> }</p>
             </div>
             <div className="master-width windowlike">
                 {announcements.message4All.map((msg, index) => (
@@ -126,16 +123,6 @@ export default async function Dashboard() {
                 <div className="bipartite">
                     {condEnterButton}
                     {condLeaveButton}
-                </div>
-            </div>
-            <div className="master-width invwindow generic-vert-grid">
-                <div className="bipartite">
-                    <NavigateButton href="/selfinfo" buttonText="个人信息" />
-                    {webDepositUsable ? <NavigateButton href="/deposit" buttonText="去充值" /> : <button className="disabled">去充值</button>}
-                </div>
-                <div className="bipartite">
-                    <LogoutButton/>
-                    {condManageButton}
                 </div>
             </div>
         </main>

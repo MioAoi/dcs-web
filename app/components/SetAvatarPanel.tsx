@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 export default function SetAvatarPanel({ userId, avatars } : { userId: number, avatars: { filename: string, ext: string, desc: string }[] }) {
     const [error, setError] = useState<string | null>(null);
     const [message, setMessage] = useState<string | null>(null);
+    const [selectedAvatar, setSelectedAvatar] = useState<string | null>(null);
     const router = useRouter();
 
     async function setAvatar(filename: string | null) {
@@ -17,10 +18,10 @@ export default function SetAvatarPanel({ userId, avatars } : { userId: number, a
         });
         if (!res.ok) {
             setMessage(null);
-            setError("设置头像失败");
+            setError("设置失败");
         } else {
             setError(null);
-            setMessage("设置头像成功，3秒后返回");
+            setMessage("3秒后返回");
             setTimeout(() => {
                 router.push("/selfinfo");
             }, 3000);
@@ -29,21 +30,20 @@ export default function SetAvatarPanel({ userId, avatars } : { userId: number, a
         
 
     return (
-        <div className="master-width windowlike">
+        <div className="avatarPanel windowlike">
             <div className="avatar-selection">
-                <div onClick={() => setAvatar(null)}>
+                <div onClick={() => { setAvatar(null); setSelectedAvatar(null); }}>
                     <img src={`/avatars/default.webp`} alt="不设置" />
-                    <i>沿用QQ头像</i>
+                    {error && selectedAvatar === null ? <p className="error label">{error}</p> : message && selectedAvatar === null ? <p className="success label">{message}</p> : <p className="label">沿用QQ头像</p>}
                 </div>
                 {avatars.map((avatar) => (
-                    <div key={avatar.filename} onClick={() => setAvatar(avatar.filename)}>
+                    <div key={avatar.filename} onClick={() => { setAvatar(avatar.filename); setSelectedAvatar(avatar.filename); }}>
                         <img src={`/avatars/${avatar.filename}`} alt={avatar.desc} />
-                        <p>{avatar.desc}</p>
+                        {error && selectedAvatar === avatar.filename ? <p className="error label">{error}</p> : message && selectedAvatar === avatar.filename ? <p className="success label">{message}</p> : <p className="label">{avatar.desc}</p>}
                     </div>
                 ))}
                 
             </div>
-            {error ? <p className="error">{error}</p> : message ? <p className="success">{message}</p> : "\u3000"}
         </div>
         
     );

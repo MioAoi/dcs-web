@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 export default async function WeekVisitHistogram() {
     const endShift = ((Date.now() / 28800000) | 0) * 28800000;
-    const startShift = endShift - 7 * 28800000;
+    const startShift = endShift - 21 * 28800000;
     const relevantVisits = await prisma.visit.findMany({
         where: {
             AND: [
