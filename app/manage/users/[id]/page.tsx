@@ -11,6 +11,7 @@ import NavigateButton from "@/app/components/NavigateButton";
 import fs from "fs";
 import { formatFLTToMinutes } from "@/lib/datetime"
 import { getUserAvailDepositDiets } from "@/lib/users";
+import ManageNavigation from "@/app/components/ManageNavigation";
 
 export default async function CurrentUserPage({
     params,
@@ -45,27 +46,24 @@ export default async function CurrentUserPage({
     });
     const isInVenue = lastVisit && !lastVisit.leftAt;
     const enteredOrLeftInfo = isInVenue ?
-        <>本次进店：<span className="info-value-small">{formatFLTToMinutes(lastVisit?.enteredAt.getTime())}</span></>
+        <>本次进店：<span className="info-value">{formatFLTToMinutes(lastVisit?.enteredAt.getTime())}</span></>
         : lastVisit?.leftAt ?
-        <>上次离店：<span className="info-value-small">{formatFLTToMinutes(lastVisit?.leftAt.getTime())}</span></>
+        <>上次离店：<span className="info-value">{formatFLTToMinutes(lastVisit?.leftAt.getTime())}</span></>
         : <>未曾进店</>;
 
     return (
-        <main><h2>用户信息</h2>
+        <main>
+            <ManageNavigation buttonLogout={false} />
             <div className="card-with-avatar invwindow master-width">
                 <img className="avatar" src={user.avatar ? `/avatars/${user.avatar}` : user.qqid ? `https://q.qlogo.cn/g?b=qq&nk=${user.qqid}&s=640` : `/avatars/default.webp`} alt={user.nickname} />
                 <UserOneline user={user} />
             </div>
 
             <div className="windowlike master-width">
-                余额：<span className="info-value">{formatMoneyFen(user.balance)}</span>，其中<br/>
-                现金：<span className="info-value-small">{formatMoneyFen(user.cashBalance)}</span>、
-                赠点：<span className="info-value-small">{formatMoneyFen(user.bonusBalance)}</span>，<br/>
-                扣费倍率：<span className="info-value-small">{user.chargeMultiplier}</span><br/>
-            </div>
-
-            <div className="windowlike master-width">
-                已验证QQ号：<span className="info-value-small">{user.qqid ?? "无"}</span><br/>
+                余额：<span className="info-value">{formatMoneyFen(user.balance)}&thinsp;=&thinsp;<span className="cash">{formatMoneyFen(user.cashBalance)}</span>&thinsp;+&thinsp;<span className="bonus">{formatMoneyFen(user.bonusBalance)}</span></span>&#x3000;
+                倍率：<span className="info-value" style={user.chargeMultiplier < 1 ? { color: 'var(--cnt-orange)'} : {}}>{user.chargeMultiplier.toFixed(2)}</span><br/>
+                已验证QQ号：<span className="info-value">{user.qqid ?? "无"}</span>&#x3000;{user.pendingQqid && <>待验证：<span className="info-value" style={{ color: 'var(--color-disabled2)'}}>{user.pendingQqid}</span></>}<br/>
+                {enteredOrLeftInfo}
             </div>
 
             <div className="invwindow master-width bipartite">
@@ -76,15 +74,7 @@ export default async function CurrentUserPage({
             <DepositDietsPanel userId={user.id} diets={await getUserAvailDepositDiets(deposit_diets)} manual={true} />
             <ManualBalanceChangeForm userId={user.id} adminOperates={adminOperates} />
 
-            { currentUser && currentUser.role === "ADMIN" && <RoleEditPanel userId={user.id} userCurrentRole={user.role} chargeMultiplier={user.chargeMultiplier} /> }
-
-            <div className="windowlike master-width">
-                {enteredOrLeftInfo}
-            </div>
-            
-            <div className="master-width invwindow">
-                <NavigateButton href="/manage/users" buttonText="▲返回用户查询" buttonColor="escape" />
-            </div>
+            { currentUser.role === "ADMIN" && <RoleEditPanel userId={user.id} userCurrentRole={user.role} chargeMultiplier={user.chargeMultiplier} /> }
         </main>
     );
 }

@@ -57,7 +57,7 @@ export default function SelfInfoEditPanel({ user }: { user: User }) {
     return (<>
         <div className="windowlike master-width">
             <div className="change-field bare">
-                <span className="current-value">当前昵称：<span className="info-value-small">{user.nickname}</span></span>
+                <span className="current-value">当前昵称：<span className="info-value">{user.nickname}</span></span>
                 <span className="new-value"><label className="info-label">&#x3000;新昵称</label>：<input id="nickname" type="text" className="info-input-small short-input" defaultValue={user.nickname}/></span>
                 <button className="Button" type="button" onClick={async () => {
                     const newNickname = (document.getElementById("nickname") as HTMLInputElement).value;
@@ -68,15 +68,15 @@ export default function SelfInfoEditPanel({ user }: { user: User }) {
         <div className="windowlike master-width">
             <div className="change-field">
                 <span className="current-value">
-                    当前QQ：<span className="info-value-small">{user.qqid || "未绑定"}</span><br/>
-                    待绑QQ：<span className="info-value-small">{user.pendingQqid || "无"}</span>
+                    当前QQ：<span className="info-value">{user.qqid || "未绑定"}</span><br/>
+                    待绑QQ：<span className="info-value">{user.pendingQqid || "无"}</span>
                 </span>
                 <span className="new-value"><label className="info-label">&#x3000;新QQ</label>：<input id="qqid" type="text" className="info-input-small short-input"/></span>
                 <button className="Button" type="button" onClick={async () => {
                     const newQqid = (document.getElementById("qqid") as HTMLInputElement).value;
                     await handleQqChange({ userId: user.id, qqid: newQqid });
                 }}>提交</button>
-                {user.qqBindToken ? <span className="misc">绑定验证码：<br/><span className="info-value-small text-token">{user.qqBindToken}</span><br/>请联系工作人员完成绑定</span> : null}
+                {user.qqBindToken ? <span className="misc">绑定验证码：<br/><span className="info-value text-token">{user.qqBindToken}</span><br/>请联系工作人员完成绑定</span> : null}
             </div>
         </div>
 

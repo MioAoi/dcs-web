@@ -19,6 +19,7 @@
   --color-success: #090;
   --color-error: #f35;
   --color-disabled: #ccc;
+  --color-disabled2: #999;
   --color-gain: #e66;
   --color-alipay: #17f;
   --color-wechat: #1a1;
@@ -131,9 +132,11 @@ textarea {
   font-weight: bold;
 }
 
-.info-value       { color: var(--color-status); font-size: 1rem; font-weight: bold; }
-.info-value-small { color: var(--color-status); font-size: 1rem;    font-weight: bold; }
+.info-value { color: var(--color-status); font-size: 1rem;    font-weight: bold; }
 .info-value-large { color: var(--color-status); font-size: 1.25rem; font-weight: bold; }
+.info-value .cash { color: var(--graphite); }
+.info-value .bonus { color: var(--color-success); }
+
 .info-input       { color: var(--color-prime); font-size: 1.25rem; }
 .info-input-small { color: var(--color-prime); font-size: 1rem;    }
 

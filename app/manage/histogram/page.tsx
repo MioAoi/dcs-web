@@ -1,14 +1,12 @@
-import NavigateButton from "@/app/components/NavigateButton";
+import ManageNavigation from "@/app/components/ManageNavigation";
 export default function HistogramPage() {
     return (
         <main>
+            <ManageNavigation buttonLogout={false} />
             <h2>本日</h2>
             <DayVisitHistogram />
             <h2>本周</h2>
             <WeekVisitHistogram />
-            <div className="invwindow master-width">
-                <NavigateButton href="/manage" buttonText="^返回管理" buttonColor="escape" />
-            </div>
         </main>
     );
 }

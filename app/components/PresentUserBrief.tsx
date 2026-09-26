@@ -5,7 +5,7 @@ export default function PresentUserBrief({ user }: { user: { nickname: string, r
     return (
         <div className="master-width windowlike bipartite">
             <UserOneline user={{ ...user, username: null }} />
-            <span>从 <span className="info-value-small">{formatFLTToMinutes(user.enteredAt.getTime())}</span></span>
+            <span>从 <span className="info-value">{formatFLTToMinutes(user.enteredAt.getTime())}</span></span>
         </div>
     );
 }

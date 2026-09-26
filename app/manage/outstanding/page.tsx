@@ -1,6 +1,6 @@
 import OutstandingUserCard from "../../components/OutstandingUserCard";
-import NavigateButton from "../../components/NavigateButton";
 import { prisma } from "@/lib/prisma";
+import ManageNavigation from "@/app/components/ManageNavigation";
 
 export default async function OutstandingUsersPage() {
     const outstandingUsers = await prisma.user.findMany({
@@ -26,14 +26,12 @@ export default async function OutstandingUsersPage() {
     const indicateNemo = userDigests.length === 0 ? "当前没有欠费用户。" : "";
     return (
         <main>
+            <ManageNavigation buttonLogout={false} />
             <h2>欠费用户</h2>
             {userDigests.map((userDigest) => (
                 <OutstandingUserCard key={userDigest.id} user={userDigest} />
             ))}
             {indicateNemo && <p className="info">{indicateNemo}</p>}
-            <div className="master-width invwindow generic-vert-grid">
-                <NavigateButton href="/manage" buttonText="▲返回管理" buttonColor="escape" />
-            </div>
         </main>
     );
 }

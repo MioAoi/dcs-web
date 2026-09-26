@@ -1,4 +1,4 @@
-import NavigateButton from "@/app/components/NavigateButton";
+import ManageNavigation from "@/app/components/ManageNavigation";
 import UserSummaryCard from "@/app/components/UserSummaryCard";
 import { userQuery } from "@/lib/users"
 import { redirect } from "next/dist/client/components/navigation";
@@ -15,7 +15,9 @@ export default async function UsersLookupPage(
 
     const indicateNemo = users.length === 0 && q ? <p>未找到匹配的用户</p> : null;
     return (
-        <main><h2>用户查询</h2>
+        <main>
+            <ManageNavigation buttonLogout={true} />
+            <h2>用户查询</h2>
             <form className="windowlike master-width generic-vert-grid">
                 <input name="q" defaultValue={q} placeholder="用户名 | 昵称 | QQ" />
                 <div className="bipartite">
@@ -24,9 +26,6 @@ export default async function UsersLookupPage(
                 </div>
             </form>
             {indicateNemo}
-            <div className="master-width invwindow generic-vert-grid">
-                <NavigateButton href="/manage" buttonColor="escape" buttonText="▲返回管理" />
-            </div>
             {users.map(user => (
                 <UserSummaryCard key={user.id} user={user} />
             ))}

@@ -63,7 +63,6 @@ export default async function Dashboard() {
     const notInVenue = (!currentVisit || currentVisit.leftAt);
     const formatBalance = formatMoneyFen(user.balance ?? 0);
     const formatBonus = formatMoneyFen(user.bonusBalance ?? 0);
-    const inVenueCount = await getInVenueCount();
 
     const condEnterButton = notInVenue && (user.balance >= admissionBalance || user.chargeMultiplier == 0) ? <EnterButton/> : <div className="Button disabled">进店</div>;
     const condLeaveButton = !notInVenue ? <LeaveButton/> : <div className="Button disabled">离店</div>;
@@ -75,7 +74,7 @@ export default async function Dashboard() {
             <PlayerNavigation buttonManage={user.role === "STAFF" || user.role === "ADMIN"} buttonLogout={true} />
             <div className="master-width invwindow split">
                 <span>{greeting()}，{displayName}</span>
-                <span className="info-value-small bear-right">{timeString}</span>
+                <span className="info-value bear-right">{timeString}</span>
             </div>
             <div className="master-width windowlike">
                 <ConcatPhrases phrases={admissionPhrases} />
@@ -91,7 +90,7 @@ export default async function Dashboard() {
             </div>
             <div className="master-width windowlike">
                 当前余额 <span className={user.balance >= admissionBalance ? "info-value" : "money-owe"}>{formatBalance}</span>，
-                含赠点 <span className="info-value-small">{formatBonus}</span>。
+                含赠点 <span className="info-value">{formatBonus}</span>。
             </div>
 
             <div className="master-width windowlike generic-vert-grid">

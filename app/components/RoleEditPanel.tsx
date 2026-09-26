@@ -46,7 +46,7 @@ export default function RoleEditPanel({ userId, userCurrentRole, chargeMultiplie
             <h3>权限编辑</h3>
                 <div className="generic-vert-grid">
                 <div className="change-field">
-                    <span className="old-value">当前倍率：<span className="info-value-small">{initialChargeMultiplier}</span></span>
+                    <span className="old-value">当前倍率：<span className="info-value">{initialChargeMultiplier}</span></span>
                     <span className="new-value"><label className="info-label">扣费倍率：</label>
                     <input 
                         className="info-input-small multiplier-input"

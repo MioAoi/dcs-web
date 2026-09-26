@@ -37,7 +37,7 @@ pricing: any }) {
                 <img className="avatar" src={`/api/avatar/${user.id}`} alt={user.nickname} />
                 <div>
                     <UserOneline user={user} /><br/>
-                    <span>自 <span className="info-value-small">{formatFLTToMinutes(user.enteredAt.getTime())}</span></span><br/>
+                    <span>自 <span className="info-value">{formatFLTToMinutes(user.enteredAt.getTime())}</span></span><br/>
                     { pricing ? (
                         <span>预计余额：<span className="info-value">{formatMoneyFen(user.balance - calculateCharge(user.enteredAt, new Date(), pricing).total * user.chargeMultiplier)}</span></span>
                     ) : null }

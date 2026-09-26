@@ -36,9 +36,6 @@ export default function ChargeCalc({ pricing }: { pricing: { circadyRates: RateS
                 价格明细: <br/>
                 <span style={{ whiteSpace: "pre-wrap" }}>{price ? price.priceDetail : "未计算"}</span>
             </div>
-            <div className="master-width invwindow generic-vert-grid">
-                <NavigateButton href="/manage" buttonText="▲管理面板" buttonColor="escape" />
-            </div>
             </>
     )
 }

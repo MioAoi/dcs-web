@@ -9,7 +9,7 @@ export default function ChargeTimer({ enterTime, chargeMultiplier, pricing }: { 
 
     if (!enterTime) {
         return (
-            <span className="info-value-small"/>
+            <span className="info-value"/>
         );
     }
 
@@ -37,7 +37,7 @@ export default function ChargeTimer({ enterTime, chargeMultiplier, pricing }: { 
     }, [enterTime]);
 
     return (
-        <span className="info-value-small">{formatMoneyFen(charge)}</span>
+        <span className="info-value">{formatMoneyFen(charge)}</span>
     );
 }
 

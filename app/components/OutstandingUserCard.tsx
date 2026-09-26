@@ -11,9 +11,9 @@ export default function OutstandingUserCard(
             <img src={`/api/avatar/${user.id}`} alt={`${user.nickname} 的头像`} className="avatar" />
             <div>
                 <UserOneline user={{...user, role: null, chargeMultiplier: user.chargeMultiplier }} /><br/>
-                上次来店：<span className="info-value-small">{formatFLTToMinutes(user.enteredAt.getTime())}
+                上次来店：<span className="info-value">{formatFLTToMinutes(user.enteredAt.getTime())}
                 {user.leftAt ? ` 至 ${formatRelativeFLTToMinutes(user.leftAt.getTime(), user.enteredAt.getTime())}` : "未离"}</span><br/>
-                共扣费 <span className="info-value-small">{formatMoneyFen(user.charge)}</span>&#x3000;现余额：<span className="info-value">{formatMoneyFen(user.balance)}</span>
+                共扣费 <span className="info-value">{formatMoneyFen(user.charge)}</span>&#x3000;现余额：<span className="info-value">{formatMoneyFen(user.balance)}</span>
             </div>
         </Link>
     )
