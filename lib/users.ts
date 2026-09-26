@@ -150,3 +150,25 @@ export async function getUserTotalSpent(userId: number, start: Date, end: Date) 
     });
     return totalSpent._sum.charge ?? 0;
 }
+
+export async function getTopRecentSpenders(daysLimit = 30, userLimit = 10): Promise<{ userId: number; _sum: { charge: number | null } }[]> {
+    const since = new Date(Date.now() - daysLimit * 24 * 60 * 60 * 1000);
+    const topSpenders = await prisma.visit.groupBy({
+        by: ['userId'],
+        _sum: {
+            charge: true
+        },
+        where: {
+            leftAt: {
+                gte: since
+            }
+        },
+        orderBy: {
+            _sum: {
+                charge: 'desc'
+            }
+        },
+        take: userLimit,
+    });
+    return topSpenders;
+}

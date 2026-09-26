@@ -137,6 +137,18 @@ textarea {
 .info-value .cash { color: var(--graphite); }
 .info-value .bonus { color: var(--color-success); }
 
+.gold {
+  color: var(--cnt-yellow);
+  background: #777;
+}
+.silver {
+  color: var(--cnt-blue3);
+  background: #eee
+}
+.bronze {
+  color: var(--cnt-orange);
+}
+
 .info-input       { color: var(--color-prime); font-size: 1.25rem; }
 .info-input-small { color: var(--color-prime); font-size: 1rem;    }
 

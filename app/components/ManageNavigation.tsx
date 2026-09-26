@@ -10,7 +10,7 @@ export default async function ManageNavigation({ buttonLogout }: { buttonLogout:
             <NavigateButton href="/chargecalc" buttonText="价格试算" />
             {buttonLogout ? <LogoutButton /> : <NavigateButton href="/manage" buttonText="^返回管理" buttonColor="escape"/>}
             <NavigateButton href="/manage/histogram" buttonText="图表" />
-            <div/>
+            <NavigateButton href="/manage/leaderboard" buttonText="消费榜" />
             <NavigateButton href="/dashboard" buttonText="<玩家页" buttonColor="escape2" />
         </div>
     );
