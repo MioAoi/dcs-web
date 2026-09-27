@@ -62,16 +62,7 @@ export async function initiatePayment({ userId, amount, purpose, bank, goodsName
     })
     const result = await response.json();
     if (result.code === 1) {
-        if (result.qrcode) {
-            await prisma.paymentOrder.update({
-                where: { orderNo },
-                data: { 
-                    payDirection: "qrcode", 
-                    bill: result.qrcode,
-                    amountWcms: result.money
-                }
-            });
-        } else if (result.payurl) {
+        if (result.payurl) {
             await prisma.paymentOrder.update({
                 where: { orderNo },
                 data: { 
@@ -86,6 +77,15 @@ export async function initiatePayment({ userId, amount, purpose, bank, goodsName
                 data: { 
                     payDirection: "url", 
                     bill: result.urlscheme,
+                    amountWcms: result.money
+                }
+            });
+        } else if (result.qrcode) {
+            await prisma.paymentOrder.update({
+                where: { orderNo },
+                data: { 
+                    payDirection: "qrcode", 
+                    bill: result.qrcode,
                     amountWcms: result.money
                 }
             });
