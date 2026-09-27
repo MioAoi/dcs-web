@@ -172,3 +172,19 @@ export async function getTopRecentSpenders(daysLimit = 30, userLimit = 10): Prom
     });
     return topSpenders;
 }
+
+export async function getUserPass(userId: number) {
+    const monthTotalSpent = await getUserTotalSpent(userId, new Date(Date.now() - 30 * 86400000), new Date());
+    if (monthTotalSpent >= 30000) {
+        return 'DCPass Lite';
+    }
+    return null;
+}
+
+export async function getUserPassMultiplier(userId: number) {
+    const pass = await getUserPass(userId);
+    if (pass === 'DCPass Lite') {
+        return 0.97;
+    }
+    return 1;
+}

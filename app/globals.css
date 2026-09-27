@@ -17,7 +17,7 @@
   --color-back: var(--cnt-yellow);
   --color-prime: var(--cnt-orange);
   --color-success: #090;
-  --color-error: #f35;
+  --color-error: #e38;  
   --color-disabled: #ccc;
   --color-disabled2: #999;
   --color-gain: #e66;
@@ -58,6 +58,7 @@ h1 { font-size: 2.5rem; font-weight: bold;    margin: 0.8rem; text-align: center
 h2 { font-size: 2.0rem; font-weight: bold;    margin: 0; text-align: center; }
 h3 { font-size: 1.6rem; font-weight: bold;    margin: 0; text-align: center; }
 h4 { font-size: 1.6rem; font-weight: normal;  margin: 0; text-align: center; }
+h5 { font-size: 1.25rem; font-weight: bold; margin: 0; text-align: center; }
 
 main {
   position: relative;
@@ -115,6 +116,10 @@ button,
 .alipay   { border: var(--border-width) solid transparent;           background-color: var(--color-alipay);    color: white; }
 .wechat   { border: var(--border-width) solid transparent;           background-color: var(--color-wechat);    color: white; }
 
+.playerNavigation .Button {
+  padding: 0 var(--button-padding);
+}
+
 input,
 textarea {
   background: #eee;
@@ -133,9 +138,14 @@ textarea {
 }
 
 .info-value { color: var(--color-status); font-size: 1rem;    font-weight: bold; }
-.info-value-large { color: var(--color-status); font-size: 1.25rem; font-weight: bold; }
+.info-value.large { font-size: 1.25rem; }
 .info-value .cash { color: var(--graphite); }
 .info-value .bonus { color: var(--color-success); }
+.info-value.cash { color: var(--graphite); }
+.info-value.bonus { color: var(--color-success); }
+.disabled .info-value {
+  color: inherit;
+}
 
 .gold {
   color: var(--cnt-yellow);
@@ -143,10 +153,11 @@ textarea {
 }
 .silver {
   color: var(--cnt-blue3);
-  background: #eee
+  background: #eee;
 }
 .bronze {
   color: var(--cnt-orange);
+  background: var(--cnt-yellow);
 }
 
 .info-input       { color: var(--color-prime); font-size: 1.25rem; }
@@ -233,25 +244,25 @@ textarea {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0.5rem;
-  align-items: baseline;
+  align-items: center;
 }
 .tripartite {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 0.5rem;
-  align-items: baseline;
+  align-items: center;
 }
 .leftwide {
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 0.5rem;
-  align-items: baseline;
+  align-items: center;
 }
 .rightwide {
   display: grid;
   grid-template-columns: 1fr 2fr;
   gap: 0.5rem;
-  align-items: baseline;
+  align-items: center;
 }
 .split {
   display: flex;
@@ -411,4 +422,56 @@ textarea {
   grid-template-columns: repeat(4, 1fr);
   gap: 0.4rem;
   width: 28rem;
+}
+
+ul {
+  list-style: disc;
+  padding-left: 1rem;
+}
+li.disabled {
+  background-color: inherit;
+  color: var(--color-disabled2);
+}
+
+.strikeout {
+  text-decoration: line-through;
+}
+.entranceQr {
+  width: 10rem;
+  height: 10rem;
+  flex-shrink: 0;
+}
+
+.passCard {
+  padding: var(--default-padding);
+  border: var(--border-width) solid var(--color-frame);
+  margin: var(--default-margin);
+  border-radius: var(--default-border-radius);
+
+  width: 25rem;
+  height: 6rem;
+
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  color: #fff;
+  text-shadow: var(--shadow);
+  position: relative;
+}
+.passCard .passName {
+  position: absolute;
+  top: 0.25rem;
+  left: 0.5rem;
+  font-size: 1.25rem;
+}
+.passCard .passEffect {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.5rem;
+}
+.passCard .date {
+  position: absolute;
+  bottom: 0.25rem;
+  right: 0.5rem;
 }
