@@ -1,8 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-
-export default function LeaveButton() {
+import SvgIcon from "./SvgIcon";
+export default function LeaveButton({ disabled = false }: { disabled?: boolean }) {
     const router = useRouter();
 
     async function leave() {
@@ -16,8 +16,9 @@ export default function LeaveButton() {
     }
 
     return (
-        <button onClick={leave}>
-            离店
+        <button onClick={disabled ? undefined : leave} style={{ alignItems: "center" }} className={disabled ? "disabled" : ""}>
+            <SvgIcon name="exit" size={1.6} />
+            &thinsp;离店
         </button>
     );
 }

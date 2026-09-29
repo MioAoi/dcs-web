@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import SvgIcon from "@/app/components/SvgIcon";
 
 export default function LogoutButton() {
     const router = useRouter();
@@ -17,7 +18,7 @@ export default function LogoutButton() {
 
     return (
         <button onClick={handleLogout} className="Button escape">
-            &#x23fb;&#xfe0e; 登出
+            <SvgIcon name="logout" />&thinsp;登出
         </button>
     )
 }

@@ -32,8 +32,6 @@ export default async function Dashboard() {
     const currentVisit = await getCurrentVisit(user.id);
     const notInVenue = (!currentVisit || currentVisit.leftAt);
 
-    const condEnterButton = notInVenue && (user.balance >= admissionBalance || user.chargeMultiplier == 0) ? <EnterButton/> : <div className="Button disabled">进店</div>;
-    const condLeaveButton = !notInVenue ? <LeaveButton/> : <div className="Button disabled">离店</div>;
     const condStayTimer = !notInVenue ? <StayTimer enterTime={currentVisit?.enteredAt?.getTime() ?? 0}/> : <span className="info-value">不在店</span>;
     const condChargeTimer = !notInVenue ? <ChargeTimer enterTime={currentVisit?.enteredAt?.getTime() ?? 0} chargeMultiplier={user.chargeMultiplier ?? 1} pricing={currentPricing} /> : <span className="info-value"/>;
 
@@ -57,13 +55,13 @@ export default async function Dashboard() {
             <div className="master-width windowlike generic-vert-grid">
                 <div className="bipartite">
                     <div>
-                        {condEnterButton}
+                        <EnterButton disabled={notInVenue && (user.balance >= admissionBalance || user.chargeMultiplier == 0) ? false : true} />
                         <div>在店时长：<br/>
                         {condStayTimer}<br/>
                         
                         当前费用：<br/>
                         {condChargeTimer}<br/></div>
-                        {condLeaveButton}
+                        <LeaveButton disabled={notInVenue ? true : false} />
                     </div>
 
                     <div style={{ alignItems: "center", display: "flex", flexDirection: "column", justifyContent: "center" }}>

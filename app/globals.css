@@ -40,7 +40,7 @@
 }
 
 body {
-  background: #eee;
+  background: var(--background);
   color: var(--graphite);
   font-family:
     var(--font-latin),
@@ -65,7 +65,7 @@ main {
   
   width: 30rem;
   min-height: 48rem;
-  background: white;
+  background: var(--background);
   background-image:
     linear-gradient(rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.75)), 
     url('/images/bg.webp');
@@ -117,7 +117,7 @@ button,
 .wechat   { border: var(--border-width) solid transparent;           background-color: var(--color-wechat);    color: white; }
 
 .playerNavigation .Button {
-  padding: 0 var(--button-padding);
+  padding: 0;
 }
 
 input,
@@ -158,6 +158,9 @@ textarea {
 .bronze {
   color: var(--cnt-orange);
   background: var(--cnt-yellow);
+}
+.info-value-graphite {
+  color: var(--graphite);
 }
 
 .info-input       { color: var(--color-prime); font-size: 1.25rem; }
@@ -440,6 +443,7 @@ li.disabled {
   width: 10rem;
   height: 10rem;
   flex-shrink: 0;
+  border-radius: var(--default-border-radius);
 }
 
 .passCard {
@@ -474,4 +478,11 @@ li.disabled {
   position: absolute;
   bottom: 0.25rem;
   right: 0.5rem;
+}
+
+.inlineIcon {
+  display: inline-flex;
+  align-self: center;
+  fill: currentColor;
+  height: 1.25em;
 }

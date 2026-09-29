@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { redirect } from "next/dist/client/components/navigation";
 import { QRCodeSVG } from "qrcode.react";
 
 export default async function PayPage({ searchParams }: { searchParams: Promise<{ order: string }>}) {
@@ -29,8 +30,7 @@ export default async function PayPage({ searchParams }: { searchParams: Promise<
     if (paymentOrder.payDirection == "url") {
         // redirect
         if (paymentOrder.bill) {
-            window.location.href = paymentOrder.bill;
-            return null;
+            redirect(paymentOrder.bill);
         }
     }
     if (paymentOrder.payDirection == "qrcode") {

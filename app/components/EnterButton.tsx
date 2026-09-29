@@ -1,8 +1,9 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import SvgIcon from "./SvgIcon";
 
-export default function EnterButton() {
+export default function EnterButton({ disabled = false }: { disabled?: boolean }) {
     const router = useRouter();
 
     async function enter() {
@@ -16,8 +17,9 @@ export default function EnterButton() {
     }
 
     return (
-        <button className="primary" onClick={enter}>
-            进店
+        <button className={`primary ${disabled ? "disabled" : ""}`} onClick={disabled ? undefined : enter} style={{ alignItems: "center" }}>
+            <SvgIcon name="enter" size={1.6} />
+            &thinsp;进店
         </button>
     );
 }

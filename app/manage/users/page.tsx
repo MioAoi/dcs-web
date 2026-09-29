@@ -16,7 +16,7 @@ export default async function UsersLookupPage(
     const indicateNemo = users.length === 0 && q ? <p>未找到匹配的用户</p> : null;
     return (
         <main>
-            <ManageNavigation buttonLogout={true} />
+            <ManageNavigation buttonLogout={false} />
             <h2>用户查询</h2>
             <form className="windowlike master-width generic-vert-grid">
                 <input name="q" defaultValue={q} placeholder="用户名 | 昵称 | QQ" />
