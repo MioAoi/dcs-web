@@ -22,9 +22,6 @@ export default async function selfInfoPage() {
                 </div>
             </div>
             <SelfInfoEditPanel user={user} />
-            <div className="master-width invwindow">
-                <NavigateButton href="/dashboard" buttonColor="escape" buttonText="^返回主界面"/>
-            </div>
         </main>
     );
 }

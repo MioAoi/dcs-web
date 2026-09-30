@@ -12,7 +12,7 @@ export default async function PresentUsersBriefPage() {
     return (
         <main>
             <PlayerNavigation buttonManage={user.role === "STAFF" || user.role === "ADMIN"} buttonLogout={false} />
-            <h2>在店用户简表</h2>
+            <h2>在店用户</h2>
             {users.map((user) => (
                 <PresentUser
                     key={user.id}
@@ -21,10 +21,6 @@ export default async function PresentUsersBriefPage() {
                 />
             ))}
             {indicateNemo && <p>{indicateNemo}</p>}
-            <div className="invwindow master-width">
-                <NavigateButton href="/dashboard" buttonText="返回" buttonColor="escape" />
-            </div>
-            
         </main>
     );
 }

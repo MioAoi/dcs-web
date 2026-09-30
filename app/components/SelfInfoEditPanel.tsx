@@ -71,7 +71,7 @@ export default function SelfInfoEditPanel({ user }: { user: User }) {
                     当前QQ：<span className="info-value">{user.qqid || "未绑定"}</span><br/>
                     待绑QQ：<span className="info-value">{user.pendingQqid || "无"}</span>
                 </span>
-                <span className="new-value"><label className="info-label">&#x3000;新QQ</label>：<input id="qqid" type="text" className="info-input-small short-input"/></span>
+                <span className="new-value"><label className="info-label">&#x3000;新QQ</label>：<input id="qqid" type="text" className="info-input-small short-input" inputMode="numeric" autoComplete="one-time-code"/></span>
                 <button className="Button" type="button" onClick={async () => {
                     const newQqid = (document.getElementById("qqid") as HTMLInputElement).value;
                     await handleQqChange({ userId: user.id, qqid: newQqid });
@@ -83,12 +83,12 @@ export default function SelfInfoEditPanel({ user }: { user: User }) {
         <div className="windowlike master-width">
             <div className="change-field">
                 <span className="current-value">
-                    当前密码：<input id="oldPassword" type="password" className="info-input-small short-input"/>
+                    当前密码：<input id="oldPassword" type="password" className="info-input-small short-input" autoComplete="current-password"/>
                 </span>
                 <span className="new-value">
                     <label className="info-label">&#x3000;新密码</label>：
-                    <input id="newPassword" type="password" className="info-input-small short-input"/><br/>
-                    <label className="info-label">确认密码</label>：<input id="confirmNewPassword" type="password" className="info-input-small short-input"/>
+                    <input id="newPassword" type="password" className="info-input-small short-input" autoComplete="new-password"/><br/>
+                    <label className="info-label">确认密码</label>：<input id="confirmNewPassword" type="password" className="info-input-small short-input" autoComplete="off"/>
                 </span>
                 <button className="Button" type="button" onClick={async () => {
                     const oldPassword = (document.getElementById("oldPassword") as HTMLInputElement).value;

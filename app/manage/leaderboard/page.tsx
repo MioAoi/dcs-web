@@ -23,7 +23,7 @@ export default async function LeaderboardPage() {
     return (
         <main>
             <ManageNavigation buttonLogout={false}/>
-            <h2>消费榜</h2>
+            <h2>30日消费榜</h2>
             <div className="master-width windowlike generic-vert-grid">
                 {topSpenders.filter(spender => spender !== null).map((spender, index) => (
                     <div key={index} className="leftwide">

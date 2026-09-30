@@ -10,7 +10,7 @@ export default async function PlayerNavigation({ buttonManage, buttonLogout }: {
             <div/>
             <NavigateButton href="/deposit" buttonText="[deposit]去充值" buttonColor="action1"/>
             <div/>
-            {buttonLogout ? <LogoutButton /> : <NavigateButton href="/dashboard" buttonText="^返回" buttonColor="escape"/>}
+            {buttonLogout ? <LogoutButton /> : <NavigateButton href="/dashboard" buttonText="[back]返回" buttonColor="escape"/>}
             <WhosinButton inVenueCount={inVenueCount} />
             <div/>
             {buttonManage ? <NavigateButton href="/manage" buttonText="[key]管理页" buttonColor="action2"/> : <div/>}
