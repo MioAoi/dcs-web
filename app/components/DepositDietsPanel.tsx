@@ -76,8 +76,9 @@ export default function DepositDietsPanel({
                             value={diet.name}
                             disabled={diet.availFrom !== null && new Date(diet.availFrom) > now || diet.availTill !== null && new Date(diet.availTill) < now}
                         />
-                        <p>充 {formatMoneyFen(diet.cash, false)} 赠 {formatMoneyFen(diet.bonus, false)} </p>                        
-                        <p>{ diet.availTill ? `有效期至 ${formatFLTToMinutes((new Date(diet.availTill)).getTime())}` : "常驻" }{diet.remaining !== null ? ` 剩 ${diet.remaining} 次` : ""}</p>
+                        <p>充 <b>{formatMoneyFen(diet.cash, false)}</b> 赠 <b>{formatMoneyFen(diet.bonus, false)}</b> </p>                        
+                        <p>{diet.availTill ? `${formatFLTToMinutes((new Date(diet.availTill)).getTime())} 下架` : "常驻" }</p>
+                        <p>{diet.remaining !== null ? ` 剩 ${diet.remaining} 次` : ""}</p>
                         </label>
                     ))}
                 </div>

@@ -71,7 +71,7 @@ export default async function CurrentUserPage({
                 <NavigateButton href={`/manage/users/${user.id}/visits`} buttonText="查看来店记录" buttonColor="action" />
             </div>
 
-            <DepositDietsPanel userId={user.id} diets={await getUserAvailDepositDiets(deposit_diets)} manual={true} />
+            <DepositDietsPanel userId={user.id} diets={await getUserAvailDepositDiets(user.id)} manual={true} />
             <ManualBalanceChangeForm userId={user.id} adminOperates={adminOperates} />
 
             { currentUser.role === "ADMIN" && <RoleEditPanel userId={user.id} userCurrentRole={user.role} chargeMultiplier={user.chargeMultiplier} /> }
