@@ -56,7 +56,13 @@ export default async function CurrentUserPage({
             <ManageNavigation buttonLogout={false} />
             <div className="card-with-avatar invwindow master-width">
                 <img className="avatar" src={user.avatar ? `/avatars/${user.avatar}` : user.qqid ? `https://q.qlogo.cn/g?b=qq&nk=${user.qqid}&s=640` : `/avatars/default.webp`} alt={user.nickname} />
-                <UserOneline user={user} />
+                <div className="generic-vert-grid">
+                    <UserOneline user={user} clickable={true} />
+                    <div className="bipartite">
+                        <NavigateButton href={`/manage/users/${user.id}/ledgers`} buttonText="查看余额变动" buttonColor="action" inline={true} />
+                        <NavigateButton href={`/manage/users/${user.id}/visits`} buttonText="查看来店记录" buttonColor="action" inline={true} />
+                    </div>
+                </div>
             </div>
 
             <div className="windowlike master-width">
@@ -64,11 +70,6 @@ export default async function CurrentUserPage({
                 倍率：<span className="info-value" style={user.chargeMultiplier < 1 ? { color: 'var(--cnt-orange)'} : {}}>{user.chargeMultiplier.toFixed(2)}</span><br/>
                 已验证QQ号：<span className="info-value">{user.qqid ?? "无"}</span>&#x3000;{user.pendingQqid && <>待验证：<span className="info-value" style={{ color: 'var(--color-disabled2)'}}>{user.pendingQqid}</span></>}<br/>
                 {enteredOrLeftInfo}
-            </div>
-
-            <div className="invwindow master-width bipartite">
-                <NavigateButton href={`/manage/users/${user.id}/ledgers`} buttonText="查看余额变动" buttonColor="action" />
-                <NavigateButton href={`/manage/users/${user.id}/visits`} buttonText="查看来店记录" buttonColor="action" />
             </div>
 
             <DepositDietsPanel userId={user.id} diets={await getUserAvailDepositDiets(user.id)} manual={true} />

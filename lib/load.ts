@@ -18,3 +18,17 @@ export function loadCurrentPricing() {
     };
     return loadedPricing;
 }
+
+export function loadCurrentPassGara() {
+    const passGaras = JSON.parse(fs.readFileSync(path.join(process.cwd(), "profiles", "pass_gara.json"), "utf-8"));
+    const now = new Date();
+    const currentPassGara = passGaras.find((p: any) => {
+        const useFrom = new Date(p.useFrom);
+        const useTill = new Date(p.useTill);
+        return now >= useFrom && now <= useTill;
+    });
+    if (!currentPassGara) {
+        throw new Error("No applicable pass gara profile found");
+    }
+    return currentPassGara;
+}

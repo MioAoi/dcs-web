@@ -2,11 +2,18 @@
 import Link from "next/dist/client/link";
 import SvgIcon from "@/app/components/SvgIcon";
 
-export default function NavigateButton({ href, buttonText, buttonColor } : { href: string, buttonText: string, buttonColor?: string }) {
+export default function NavigateButton({ href, buttonText, buttonColor, inline = false } : { href: string, buttonText: string, buttonColor?: string, inline?: boolean }) {
     let actualText = buttonText;
     actualText = actualText.replaceAll("^", "▲\uFE0E").replaceAll("▲", "▲\uFE0E").replaceAll(">", "▶\uFE0E").replaceAll("<", "◀\uFE0E");
     const iconName = actualText.match(/\[(.+)\]/)?.[1];
-    return (
+    if (inline) {
+        return (
+            <span onClick={() => window.location.href = href} className={`Button-inline ${buttonColor ?? "default"}`}>
+                {iconName ? <SvgIcon name={iconName} /> : null}
+                {"\u2009" + actualText.replace(/\[(.+)\]/, "")}
+            </span>
+        );
+    } else return (
         <Link href={href} className={`Button ${buttonColor ?? "default"}`}>
             {iconName ? <SvgIcon name={iconName} /> : null}
             {"\u2009" + actualText.replace(/\[(.+)\]/, "")}

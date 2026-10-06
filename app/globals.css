@@ -27,6 +27,7 @@
   --half-white: rgba(255, 255, 255, 0.6);
   --color-shadow: #2224;
   --shadow: 0.05rem 0.1rem var(--color-shadow);
+  --revshadow: -0.05rem -0.1rem var(--color-shadow);
 
   --border-width: 0.16rem;
   --default-margin: 0.25rem;
@@ -68,7 +69,7 @@ main {
   background: var(--background);
   background-image:
     linear-gradient(rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.75)), 
-    url('/images/bg.webp');
+    url('/images/bg2.webp');
   background-position: center center;
   background-repeat: no-repeat;
   background-size: 30rem auto;
@@ -86,6 +87,7 @@ main {
 button,
 .Button {
   font-weight: bold;
+  font-size: 1rem;
   margin: 0;
   border: var(--border-width) solid var(--color-action);
   border-radius: var(--default-border-radius);
@@ -96,6 +98,24 @@ button,
 
   display: flex;
   padding: var(--button-padding);
+  background-color: var(--half-white);
+  color: var(--color-action);
+  cursor: pointer;
+
+  box-shadow: var(--shadow);
+}
+
+.Button-inline {
+  font-weight: bold;
+  font-size: 1rem;
+  margin: 0;
+  border: var(--border-width) solid var(--color-action);
+  border-radius: var(--default-border-radius);
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+  
+  padding: 0;
   background-color: var(--half-white);
   color: var(--color-action);
   cursor: pointer;
@@ -147,20 +167,29 @@ textarea {
   color: inherit;
 }
 
+.numberBox-money {
+  width: 5.75rem;
+  font-size: 1rem;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  font-weight: bold;
+  text-align: right;
+  justify-self: end;
+
+  color: var(--color-status);
+}
+
 .gold {
-  color: var(--cnt-yellow);
-  background: #777;
-}
-.silver {
-  color: var(--cnt-blue3);
-  background: #eee;
-}
-.bronze {
   color: var(--cnt-orange);
   background: var(--cnt-yellow);
 }
-.info-value-graphite {
-  color: var(--graphite);
+.silver {
+  color: #fff;
+  background: var(--cnt-blue1);
+}
+.bronze {
+  color: var(--cnt-yellow);
+  background: var(--cnt-orange);
 }
 
 .info-input       { color: var(--color-prime); font-size: 1.25rem; }
@@ -237,11 +266,13 @@ textarea {
 .multiplier-input { width: 4rem; }
 .short-input      { width: 8rem; }
 
-.change-field { display: grid; grid-template-columns: 2fr 1fr; gap: 0.5rem; }
-  .change-field .old-value { grid-column: 1;          grid-row: 1; }
-  .change-field .new-value { grid-column: 1;          grid-row: 2; }
-  .change-field button     { grid-column: 2;          grid-row: 1 / span 2; }
-  .change-field .misc      { grid-column: 1 / span 2; grid-row: 3; }
+.change-field { display: grid; grid-template-columns: 1fr 2fr 1fr; gap: 0.5rem; }
+  .change-field .old-label { grid-column: 1; grid-row: 1; text-align: right; }
+  .change-field .old-value { grid-column: 2; grid-row: 1; }
+  .change-field .new-label { grid-column: 1; grid-row: 2; text-align: right; }
+  .change-field .new-value { grid-column: 2; grid-row: 2; }
+  .change-field button     { grid-column: 3; grid-row: 1 / span 2; }
+  .change-field .misc      { grid-column: 1 / span 3; grid-row: 3; }
 
 .bipartite {
   display: grid;
@@ -460,23 +491,23 @@ li.disabled {
   background-repeat: no-repeat;
 
   color: #fff;
-  text-shadow: var(--shadow);
   position: relative;
+  text-shadow: var(--shadow);
 }
 .passCard .passName {
   position: absolute;
-  top: 0.25rem;
+  top: 0rem;
   left: 0.5rem;
   font-size: 1.25rem;
 }
 .passCard .passEffect {
   position: absolute;
-  top: 0.25rem;
+  top: 0rem;
   right: 0.5rem;
 }
 .passCard .date {
   position: absolute;
-  bottom: 0.25rem;
+  bottom: 0rem;
   right: 0.5rem;
 }
 

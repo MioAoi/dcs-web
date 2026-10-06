@@ -46,20 +46,21 @@ export default function RoleEditPanel({ userId, userCurrentRole, chargeMultiplie
             <h3>权限编辑</h3>
                 <div className="generic-vert-grid">
                 <div className="change-field">
-                    <span className="old-value">当前倍率：<span className="info-value">{initialChargeMultiplier}</span></span>
-                    <span className="new-value"><label className="info-label">扣费倍率：</label>
+                    <span className="old-label">当前倍率</span>
+                    <span className="new-label info-label">新倍率</span>
+                    <span className="old-value"><span className="info-value">{initialChargeMultiplier}</span></span>
                     <input 
                         className="info-input-small multiplier-input"
                         type="number" min="0" step="0.01"
                         value={chargeMultiplier}
                         onChange={(e) => setChargeMultiplier(parseFloat(e.target.value))}
-                    /></span>
+                    />
                     <button onClick={() => handleChargeMultiplierChange(chargeMultiplier)}>
                         更新倍率
                     </button>
                 </div>
                 <div className="bipartite">
-                { userCurrentRole !== "STAFF" ? (
+                { userCurrentRole !== "STAFF" && userCurrentRole !== "ADMIN" ? (
                     <div className="Button" onClick={() => handleRoleChange("STAFF")}>
                         设为士大夫
                     </div>
@@ -67,7 +68,7 @@ export default function RoleEditPanel({ userId, userCurrentRole, chargeMultiplie
                         设为士大夫
                     </div>
                 }
-                { userCurrentRole !== "CUSTOMER" ? (
+                { userCurrentRole !== "CUSTOMER" && userCurrentRole !== "ADMIN" ? (
                     <div className="Button" onClick={() => handleRoleChange("CUSTOMER")}>
                         设为普通用户
                     </div>

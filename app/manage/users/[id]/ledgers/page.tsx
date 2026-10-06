@@ -5,6 +5,7 @@ import { getUserLatestLedgers } from "@/lib/users";
 import { formatFLTToMinutes } from "@/lib/datetime";
 import { formatMoneyFen, translateLedgerType } from "@/lib/money";
 import NavigateButton from "@/app/components/NavigateButton";
+import ManageNavigation from "@/app/components/ManageNavigation";
 
 export default async function UserLedgersPage({
     params,
@@ -21,10 +22,8 @@ export default async function UserLedgersPage({
     const ledgers = await getUserLatestLedgers(Number(id));
     return (
         <main>
-            <h2>余额变动 <UserOneline user={user} /></h2>
-            <div className="invwindow master-width">
-                <NavigateButton href={`/manage/users/${id}`} buttonText="▲返回用户" buttonColor="escape"/>
-            </div>
+            <ManageNavigation buttonLogout={false} />
+            <h2>余额变动 <UserOneline user={user} clickable={true} /></h2>
             <div className="windowlike master-width generic-vert-grid">
                 <p>只显示最近 15 条</p>
                 <div className="ledgerListing table-header">

@@ -30,7 +30,7 @@ export default async function LeaderboardPage() {
                         <span>
                             <UserOneline user={spender} />
                         </span>
-                        <span className={`info-value ${index == 0 ? "gold" : index == 1 ? "silver" : index == 2 ? "bronze" : "graphite"}`}>{"\u00a0"+formatMoneyFen(spender.spent)}</span>
+                        <span className={`numberBox-money ${index == 0 ? "gold" : index == 1 ? "silver" : index == 2 ? "bronze" : ""}`}>{"\u00a0"+formatMoneyFen(spender.spent)}</span>
                     </div>
                 ))}
             </div>
