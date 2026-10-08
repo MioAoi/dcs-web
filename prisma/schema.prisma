@@ -147,3 +147,10 @@ enum PaymentPurpose {
   DEPOSIT
   OTHER
 }
+
+model Bot {
+  id Int @id @default(autoincrement())
+  nickname String @unique
+  key String @unique
+  permissions String
+}

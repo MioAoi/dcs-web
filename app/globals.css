@@ -71,9 +71,9 @@ main {
     linear-gradient(rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.75)), 
     url('/images/bg2.webp');
   background-position: center center;
-  background-repeat: no-repeat;
+  background-repeat: repeat;
   background-size: 30rem auto;
-  background-attachment: scroll;  
+  background-attachment: scroll;
 
   display: flex;
   flex-direction: column;
@@ -265,6 +265,8 @@ textarea {
 .amount-input     { width: 8rem; max-width: 100%; }
 .multiplier-input { width: 4rem; }
 .short-input      { width: 8rem; }
+.medium-input      { width: 12rem; }
+.long-input       { width: 20rem; }
 
 .change-field { display: grid; grid-template-columns: 1fr 2fr 1fr; gap: 0.5rem; }
   .change-field .old-label { grid-column: 1; grid-row: 1; text-align: right; }
@@ -517,3 +519,22 @@ li.disabled {
   fill: currentColor;
   height: 1.25em;
 }
+
+.botPanel {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 0.5rem;
+}
+  .botPanel .name {
+    grid-column: 1; grid-row: 1;
+  }
+  .botPanel .buttonCreate {
+    grid-column: 2; grid-row: 1;
+  }
+  .botPanel .permissions {
+    grid-column: 1; grid-row: 2;
+  }
+  .botPanel .key {
+    grid-column: 1 / span 2; grid-row: 3;
+  }
+  

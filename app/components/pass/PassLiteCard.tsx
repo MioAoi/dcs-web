@@ -16,7 +16,7 @@ export default function PassLiteCard() {
                 全日 <b><span style={{fontSize: "1.25rem"}}>9.7</span> 折</b>
             </div>
             <div className="date">
-                <b>30d</b> 内消费 <b>&#x2265;&#xa5;300</b> 时自动持有
+                <b>30&thinsp;d</b> 内消费 <b>&#x2265;&#xa5;300</b> 时自动持有
             </div>
         </div>
     );

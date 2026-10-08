@@ -13,11 +13,15 @@ export const messages = {
         "这笔钱已经上过账了",
     e400_peekCommand:
         "无效的命令",
+    e400:
+        "请求参数错误",
 
     e401: 
         "未登录",
     e401_loginCredentials:
         "用户名或密码错误",
+    e401_botKey:
+        "Bot明钥无效",
 
     e402_enter:
         "余额低于最低入场值",
