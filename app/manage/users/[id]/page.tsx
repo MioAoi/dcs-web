@@ -18,8 +18,6 @@ export default async function CurrentUserPage({
 } : {
     params: Promise<{ id: string }>
 }) {
-    const deposit_diets = JSON.parse(fs.readFileSync('profiles/deposit_diets.json', 'utf-8'));
-
     const { id } = await params;
     const user = await prisma.user.findUnique({
         where: { id: Number(id) }

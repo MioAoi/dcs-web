@@ -33,19 +33,21 @@ export default function StaffLogin() {
             setError("用户名或密码错误，或无权限");
         }
     }
-    return ( <main><h2>管理登录</h2>
+    return ( <main><h1>管理登录</h1>
         <form className="windowlike generic-vert-grid" onSubmit={handleSubmit}>
             <div><label className="info-label">用户名</label><br/>
             <input
                     type="text"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
+                    className="long-input info-input"
             /></div>
             <div><label className="info-label">密码</label><br/>
             <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                className="long-input info-input"
             /></div>
 
             <button type="submit" className="primary">登录</button>

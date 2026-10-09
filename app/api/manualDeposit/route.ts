@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma"
 import { messages } from "@/lib/messages"
 import fs from 'fs'
+import path from 'path'
 interface Diet {
     name: string;
     availFrom: string | null;
@@ -8,7 +9,7 @@ interface Diet {
     cash: number;
     bonus: number;
 }
-const DEPOSIT_DIETS: Diet[] = JSON.parse(fs.readFileSync('profiles/deposit_diets.json', 'utf-8'));
+const DEPOSIT_DIETS: Diet[] = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'profiles', 'deposit_diets.json'), 'utf-8'));
 
 export async function POST(req: Request) {
     const { userId, dietName, manualTimeStamp } = await req.json()

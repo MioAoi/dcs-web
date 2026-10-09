@@ -48,34 +48,34 @@ export default function Register() {
     }
 
     return (
-        <main><h2>注册</h2>
+        <main><h1>注册</h1>
 
             <form className="windowlike generic-vert-grid" onSubmit={handleSubmit}>
                 <div><label className="info-label">用户名</label><br/>
                     <input
-                        className="long-input"
+                        className="long-input info-input"
                         type="text"
                         value={username}
-                        placeholder="/^(!?[1-9][0-9]{4,10})[a-zA-Z0-9_]{3,31}$/"
+                        placeholder="/^(!?[1-9]\d{4,10})\w{3,}$/"
                         onChange={(e) => setUsername(e.target.value)}
                 /> </div>
                 <div><label className="info-label">显示名</label><br/>
                     <input
-                        className="long-input"
+                        className="long-input info-input"
                         type="text"
                         value={nickname}
                         onChange={(e) => setNickname(e.target.value)}
                 /></div>
                 <div><label className="info-label">密码</label><br/>
                     <input
-                        className="long-input"
+                        className="long-input info-input"
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                 /></div>
                 <div><label className="info-label">再次输入密码</label><br/>
                     <input
-                        className="long-input"
+                        className="long-input info-input"
                         type="password"
                         value={password2}
                         onChange={(e) => setPassword2(e.target.value)}

@@ -44,5 +44,13 @@ export async function POST(req: Request) {
         });
     }
     const result = await handleAction(body);
+    if (result == "error") {
+        return Response.json({ success: false, message: messages.e500 }, {
+            status: 500,
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+    }
     return Response.json({ success: true, data: result });
 }

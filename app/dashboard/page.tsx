@@ -8,6 +8,7 @@ import { formatMoneyFen } from "@/lib/money";
 import ChargeTimer from "@/app/components/ChargeTimer";
 import { loadCurrentPricing } from "@/lib/load";
 import fs from "fs";
+import path from "path";
 import { formatFLTToMinutes, greeting } from "@/lib/datetime";
 import { getUserPass, getUserTotalSpent } from "@/lib/users";
 import { QRCodeSVG } from "qrcode.react";
@@ -26,11 +27,13 @@ export default async function Dashboard() {
 
     const timeString = formatFLTToMinutes(now, false);
 
-    const announcements: { message4All: string[], message4Paid: string[] } = JSON.parse(fs.readFileSync("profiles/announcements.json", "utf-8"));
+    const announcements: { message4All: string[], message4Paid: string[] } = JSON.parse(fs.readFileSync(path.join(process.cwd(), "profiles", "announcements.json"), "utf-8"));
     
     const displayName = user.nickname || user.username || "棍母";
     const currentVisit = await getCurrentVisit(user.id);
     const notInVenue = (!currentVisit || currentVisit.leftAt);
+
+    const scanDoorActive = fs.readFileSync(path.join(process.cwd(), "扫码开门启用否.txt"), "utf-8").charAt(0) === "y";
 
     const condStayTimer = !notInVenue ? <StayTimer enterTime={currentVisit?.enteredAt?.getTime() ?? 0}/> : <span className="info-value">不在店</span>;
     const condChargeTimer = !notInVenue ? <ChargeTimer enterTime={currentVisit?.enteredAt?.getTime() ?? 0} chargeMultiplier={user.chargeMultiplier ?? 1} pricing={currentPricing} /> : <span className="info-value"/>;
@@ -65,13 +68,19 @@ export default async function Dashboard() {
                     </div>
 
                     <div style={{ alignItems: "center", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-                        {currentVisit?.token ?<div className="entranceQr">
+                        {!scanDoorActive ?
+                        <div className="entranceQr" style={{ display: "flex", alignItems: "center", justifyContent: "center", background: "#fff", writingMode: "vertical-rl" }}>
+                            <b style={{ fontSize: "1.6rem", textAlign: "center"}}>扫码开门<br/>尚未启用</b>
+                        </div>
+                        :
+                        currentVisit?.token ?<div className="entranceQr">
                             <QRCodeSVG 
                                 value={currentVisit?.token}
                                 size={160}
                                 marginSize={4}
                             />
-                        </div> :
+                        </div>
+                        :
                         <div className="entranceQr" style={{ display: "flex", alignItems: "center", justifyContent: "center", background: "#fff", writingMode: "vertical-rl" }}>
                             <b style={{ fontSize: "1.6rem", textAlign: "center"}}>进店后启用<br/>离店前有效</b>
                         </div>}

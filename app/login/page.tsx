@@ -36,19 +36,21 @@ export default function Login() {
     }
 
     return (
-        <main><h2>登录</h2>
+        <main><h1>登录</h1>
             <form className="windowlike generic-vert-grid" onSubmit={handleSubmit}>
                 <div><label className="info-label">用户名</label><br/>
                 <input
                         type="text"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
+                        className="long-input info-input"
                 /><br/></div>
                 <div><label className="info-label">密码</label><br/>
                 <input
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    className="long-input info-input"
                 /></div>
 
                 <button type="submit" className="primary">登录</button>

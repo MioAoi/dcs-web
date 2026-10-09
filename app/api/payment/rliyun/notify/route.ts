@@ -4,8 +4,9 @@ import fs from "fs";
 import { bytesToBase260 } from "@/lib/base260";
 import crypto from "crypto";
 import { updateBalanceCache } from "@/lib/balance";
+import path from "path";
 
-const depositDiets = JSON.parse(fs.readFileSync("profiles/deposit_diets.json", "utf-8"));
+const depositDiets = JSON.parse(fs.readFileSync(path.join(process.cwd(), "profiles", "deposit_diets.json"), "utf-8"));
 
 export async function POST(request: Request) {
     const formData = await request.formData();

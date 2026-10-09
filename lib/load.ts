@@ -11,7 +11,7 @@ export function loadCurrentPricing() {
     if (!currentPricing) {
         throw new Error("No applicable pricing profile found");
     }
-    const circadyRates = JSON.parse(fs.readFileSync(path.join(process.cwd(), currentPricing.circadyRates), "utf-8"));
+    const circadyRates = JSON.parse(fs.readFileSync(path.join(/*turbopackIgnore: true*/ process.cwd(), currentPricing.circadyRates), "utf-8"));
     const loadedPricing = {
         ...currentPricing,
         circadyRates: circadyRates

@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import fs from 'fs';
+import path from "path";
 import type { User } from "@/generated/prisma/client";
 
 export async function userQuery(q: string, smart: boolean): Promise<{users: User[], exact: boolean}> {
@@ -72,7 +73,7 @@ export async function getUserCoupons(userId: number) {
 }
 
 export async function getUserAvailDepositDiets(userId: number) {
-    const allDiets = JSON.parse(fs.readFileSync('profiles/deposit_diets.json', 'utf-8'));
+    const allDiets = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'profiles', 'deposit_diets.json'), 'utf-8'));
     const now = new Date();
     let availDiets = [];
     for (const diet of allDiets) {

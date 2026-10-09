@@ -124,9 +124,11 @@ button,
 }
 
 .action1  { border: var(--border-width) solid var(--color-action);   background-color: var(--half-white);            color: var(--color-action); }
+.prepare  { border: var(--border-width) solid var(--color-action);   background-color: var(--color-disabled);        color: var(--color-action); }
 .action2  { border: var(--border-width) solid transparent;           background-color: var(--color-action);    color: var(--color-back); }
 .escape   { border: var(--border-width) solid transparent;           background-color: var(--color-back);    color: var(--color-prime); }
 .escape2  { border: var(--border-width) solid var(--color-action);   background-color: var(--color-back);    color: var(--color-action); }
+
 .primary  { border: var(--border-width) solid transparent;           background-color: var(--color-prime);     color: white; }
 .disabled { border: var(--border-width) solid transparent;           background-color: var(--color-disabled);  color: white; cursor: not-allowed; }
 .danger   { border: var(--border-width) solid var(--color-error);    background-color: var(--color-error);     color: white; }
