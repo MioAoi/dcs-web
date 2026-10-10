@@ -1,10 +1,11 @@
 "use client";
-
+import { useState } from "react";
 import UserOneline from "./UserOneline";
 import { calculateCharge } from "@/lib/pricing";
 import { formatMoneyFen } from "@/lib/money";
-import { useRouter } from "next/navigation";
 import { formatFLTToMinutes } from "@/lib/datetime";
+import NavigateButton from "@/app/components/NavigateButton";
+import SvgIcon from "./SvgIcon";
 
 export default function PresentUser({ user, pricing } :{ 
 user: {
@@ -19,7 +20,7 @@ user: {
     avatar: string | null,
 },
 pricing: any }) {
-    const router = useRouter();
+    const [leaveButtonState, setLeaveButtonState] = useState<"avail" | "done">("avail");
 
     async function handleForceLeave() {
         await fetch("/api/forceleave", {
@@ -29,7 +30,7 @@ pricing: any }) {
             },
             body: JSON.stringify({ userId: user.id })
         });
-        router.refresh();
+        setLeaveButtonState("done");
     }
     return (
         <div className="windowlike master-width generic-vert-grid">
@@ -45,8 +46,12 @@ pricing: any }) {
             </div>
             { pricing && 
             <div className="bipartite">
-                <button onClick={() => router.push(`/manage/users/${user.id}`)}>查看信息</button>
-                <button className="danger" onClick={handleForceLeave}>手动离店</button>
+                <NavigateButton buttonText="查看信息" href={`/manage/users/${user.id}`} />
+                {leaveButtonState === "avail" ? (
+                    <button className="danger" onClick={handleForceLeave}>手动离店</button>
+                ) : (
+                    <button className="prepare" disabled={true}><SvgIcon name="checkmark" fill="var(--color-success-bright)"/>已手动离店</button>
+                )}
             </div>
             }
         </div>

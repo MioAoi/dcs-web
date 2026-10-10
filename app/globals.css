@@ -10,16 +10,17 @@
   
   --graphite: #444;
   --background: #fff;
-  --half-white: rgba(255, 255, 255, 0.8);
+  --half-white: #fffc;
   --color-action: var(--cnt-blue3);
   --color-frame: var(--cnt-blue1);
   --color-status: var(--cnt-blue2);
   --color-back: var(--cnt-yellow);
   --color-prime: var(--cnt-orange);
   --color-success: #090;
+  --color-success-bright: #8e8;
   --color-error: #e38;  
-  --color-disabled: #ccc;
-  --color-disabled2: #999;
+  --color-disabled: #bbb;
+  --color-disabled2: #9999;
   --color-gain: #e66;
   --color-alipay: #17f;
   --color-wechat: #1a1;
@@ -124,13 +125,13 @@ button,
 }
 
 .action1  { border: var(--border-width) solid var(--color-action);   background-color: var(--half-white);            color: var(--color-action); }
-.prepare  { border: var(--border-width) solid var(--color-action);   background-color: var(--color-disabled);        color: var(--color-action); }
+.prepare  { border: var(--border-width) solid var(--cnt-blue1); background-color: var(--color-disabled); color: white; cursor: not-allowed; box-shadow: none; }
 .action2  { border: var(--border-width) solid transparent;           background-color: var(--color-action);    color: var(--color-back); }
 .escape   { border: var(--border-width) solid transparent;           background-color: var(--color-back);    color: var(--color-prime); }
 .escape2  { border: var(--border-width) solid var(--color-action);   background-color: var(--color-back);    color: var(--color-action); }
 
 .primary  { border: var(--border-width) solid transparent;           background-color: var(--color-prime);     color: white; }
-.disabled { border: var(--border-width) solid transparent;           background-color: var(--color-disabled);  color: white; cursor: not-allowed; }
+.disabled { border: var(--border-width) solid transparent;           background-color: var(--color-disabled);  color: white; cursor: not-allowed; box-shadow: none; }
 .danger   { border: var(--border-width) solid var(--color-error);    background-color: var(--color-error);     color: white; }
 .accept   { border: var(--border-width) solid var(--color-success);  background-color: var(--half-white);            color: var(--color-success); }
 .decline  { border: var(--border-width) solid var(--color-error);    background-color: var(--half-white);            color: var(--color-error); }

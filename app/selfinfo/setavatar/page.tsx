@@ -2,9 +2,10 @@ import fs from "fs";
 import SetAvatarPanel from "@/app/components/SetAvatarPanel";
 import { requireUserOrRedirect } from "@/lib/auth";
 import PlayerNavigation from "@/app/components/PlayerNavigation";
+import path from "path";
 
 export default async function SetAvatarPage() {
-    const avatars = JSON.parse(fs.readFileSync("public/avatars/avatars.json", "utf-8"));
+    const avatars = JSON.parse(fs.readFileSync(path.join(process.cwd(), "public/avatars/avatars.json"), "utf-8"));
     const user = await requireUserOrRedirect();
     
     return (
