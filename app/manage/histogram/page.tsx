@@ -1,4 +1,4 @@
-import ManageNavigation from "@/app/components/ManageNavigation";
+import ManageNavigation from "@/components/ManageNavigation";
 export default function HistogramPage() {
     return (
         <main>
@@ -10,5 +10,5 @@ export default function HistogramPage() {
         </main>
     );
 }
-import DayVisitHistogram from "@/app/components/DayVisitHistogram";
-import WeekVisitHistogram from "@/app/components/WeekVisitHistogram";
+import DayVisitHistogram from "@/components/DayVisitHistogram";
+import WeekVisitHistogram from "@/components/WeekVisitHistogram";

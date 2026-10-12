@@ -1,7 +1,7 @@
 import fs from "fs";
-import SetAvatarPanel from "@/app/components/SetAvatarPanel";
+import SetAvatarPanel from "@/components/SetAvatarPanel";
 import { requireUserOrRedirect } from "@/lib/auth";
-import PlayerNavigation from "@/app/components/PlayerNavigation";
+import PlayerNavigation from "@/components/PlayerNavigation";
 import path from "path";
 
 export default async function SetAvatarPage() {

@@ -1,9 +1,9 @@
 import { requireUserOrRedirect } from "@/lib/auth";
 import fs from "fs";
 import path from "path";
-import DepositDietsPanel from "../components/DepositDietsPanel";
+import DepositDietsPanel from "@/components/DepositDietsPanel";
 import { getUserAvailDepositDiets } from "@/lib/users";
-import PlayerNavigation from "../components/PlayerNavigation";
+import PlayerNavigation from "@/components/PlayerNavigation";
 
 export default async function DepositPage() {
     const user = await requireUserOrRedirect();

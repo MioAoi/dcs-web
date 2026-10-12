@@ -1,6 +1,6 @@
-import OutstandingUserCard from "../../components/OutstandingUserCard";
+import OutstandingUserCard from "@/components/OutstandingUserCard";
 import { prisma } from "@/lib/prisma";
-import ManageNavigation from "@/app/components/ManageNavigation";
+import ManageNavigation from "@/components/ManageNavigation";
 
 export default async function OutstandingUsersPage() {
     const outstandingUsers = await prisma.user.findMany({

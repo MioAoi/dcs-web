@@ -1,11 +1,11 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
-import UserOneline from "@/app/components/UserOneline";
+import UserOneline from "@/components/UserOneline";
 import { getUserLatestLedgers } from "@/lib/users";
 import { formatFLTToMinutes } from "@/lib/datetime";
 import { formatMoneyFen, translateLedgerType } from "@/lib/money";
-import NavigateButton from "@/app/components/NavigateButton";
-import ManageNavigation from "@/app/components/ManageNavigation";
+import NavigateButton from "@/components/NavigateButton";
+import ManageNavigation from "@/components/ManageNavigation";
 
 export default async function UserLedgersPage({
     params,

@@ -1,10 +1,10 @@
 import fs from "fs";
 import { requireUserOrRedirect } from "@/lib/auth";
-import SelfInfoEditPanel from "@/app/components/SelfInfoEditPanel";
-import UserOneline from "@/app/components/UserOneline";
-import NavigateButton from "@/app/components/NavigateButton";
+import SelfInfoEditPanel from "@/components/SelfInfoEditPanel";
+import UserOneline from "@/components/UserOneline";
+import NavigateButton from "@/components/NavigateButton";
 import Link from "next/dist/client/link";
-import PlayerNavigation from "../components/PlayerNavigation";
+import PlayerNavigation from "@/components/PlayerNavigation";
 
 export default async function selfInfoPage() {
     const user = await requireUserOrRedirect();

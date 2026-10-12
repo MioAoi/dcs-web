@@ -1,9 +1,9 @@
-import ManageNavigation from "@/app/components/ManageNavigation";
-import UserSummaryCard from "@/app/components/UserSummaryCard";
+import ManageNavigation from "@/components/ManageNavigation";
+import UserSummaryCard from "@/components/UserSummaryCard";
 import { userQuery } from "@/lib/users"
 import { redirect } from "next/dist/client/components/navigation";
-import SvgIcon from "@/app/components/SvgIcon";
-import NavigateButton from '@/app/components/NavigateButton';
+import SvgIcon from "@/components/SvgIcon";
+import NavigateButton from '@/components/NavigateButton';
 
 export default async function UsersLookupPage(
     { searchParams,} : { searchParams: Promise<{ q?: string, mode?: string }> }

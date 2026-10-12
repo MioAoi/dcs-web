@@ -1,10 +1,10 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
-import UserOneline from "@/app/components/UserOneline";
+import UserOneline from "@/components/UserOneline";
 import { getUserLatestVisits } from "@/lib/users";
 import { formatRelativeFLTToMinutes, formatFLTToMinutes } from "@/lib/datetime";
 import { formatMoneyFen } from "@/lib/money";
-import ManageNavigation from "@/app/components/ManageNavigation";
+import ManageNavigation from "@/components/ManageNavigation";
 
 export default async function UserVisitsPage({
     params,

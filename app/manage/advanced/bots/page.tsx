@@ -1,8 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { actionList } from "@/lib/botaction";
-import BotSummaryCard from "@/app/components/BotSummaryCard";
-import BotCreatePanel from "@/app/components/BotCreatePanel";
-import ManageNavigation from "@/app/components/ManageNavigation";
+import BotSummaryCard from "@/components/BotSummaryCard";
+import BotCreatePanel from "@/components/BotCreatePanel";
+import ManageNavigation from "@/components/ManageNavigation";
 
 export default async function BotsPage() {
     const bots = await prisma.bot.findMany();

@@ -1,6 +1,6 @@
 "use server";
-import ChargeCalc from "@/app/components/ChargeCalc"
-import ManageNavigation from "@/app/components/ManageNavigation";
+import ChargeCalc from "@/components/ChargeCalc"
+import ManageNavigation from "@/components/ManageNavigation";
 import { loadCurrentPricing } from "@/lib/load";
 
 export default async function ChargeCalcPage() {

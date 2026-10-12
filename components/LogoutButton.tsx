@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import SvgIcon from "@/app/components/SvgIcon";
+import SvgIcon from "@/components/SvgIcon";
 
 export default function LogoutButton() {
     const router = useRouter();

@@ -1,8 +1,8 @@
 import { getInVenueList } from "@/lib/users";
-import NavigateButton from "@/app/components/NavigateButton";
+import NavigateButton from "@/components/NavigateButton";
 import { requireUserOrRedirect } from "@/lib/auth";
-import PresentUser from "../components/PresentUser";
-import PlayerNavigation from "../components/PlayerNavigation";
+import PresentUser from "@/components/PresentUser";
+import PlayerNavigation from "@/components/PlayerNavigation";
 
 export default async function PresentUsersBriefPage() {
     const user = await requireUserOrRedirect();

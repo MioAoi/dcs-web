@@ -1,3 +1,5 @@
+import crypto from 'crypto';
+
 const letters = "abcdefghijklmnopqrstuvwxyz"
 const capsLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 const digits = "0123456789"
@@ -21,4 +23,9 @@ export function base260ToBytes(base260: string): Uint8Array {
         bytes[i] = letters.indexOf(letter) * 10 + digits.indexOf(digit);
     }
     return bytes;
+}
+
+export function randomBytes(length: number, caps: boolean = false): string {
+    const bytes = crypto.randomBytes(length);
+    return bytesToBase260(bytes, caps);
 }

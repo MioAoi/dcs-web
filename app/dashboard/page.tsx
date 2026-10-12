@@ -1,20 +1,20 @@
 "use server";
-import EnterButton from "@/app/components/EnterButton";
+import EnterButton from "@/components/EnterButton";
 import { getCurrentVisit } from "@/lib/visits";
-import LeaveButton from "../components/LeaveButton";
-import StayTimer from "../components/StayTimer";
+import LeaveButton from "@/components/LeaveButton";
+import StayTimer from "@/components/StayTimer";
 import { requireUserOrRedirect } from "@/lib/auth";
 import { formatMoneyFen } from "@/lib/money";
-import ChargeTimer from "@/app/components/ChargeTimer";
+import ChargeTimer from "@/components/ChargeTimer";
 import { loadCurrentPricing } from "@/lib/load";
 import fs from "fs";
 import path from "path";
 import { formatFLTToMinutes, greeting } from "@/lib/datetime";
 import { getUserPass, getUserTotalSpent } from "@/lib/users";
 import { QRCodeSVG } from "qrcode.react";
-import PlayerNavigation from "../components/PlayerNavigation";
-import UserPricingSummary from "../components/UserPricingSummary";
-import PassLiteCard from "../components/pass/PassLiteCard";
+import PlayerNavigation from "@/components/PlayerNavigation";
+import UserPricingSummary from "@/components/UserPricingSummary";
+import PassLiteCard from "@/components/pass/PassLiteCard";
 
 export default async function Dashboard() {
     const now = new Date().getTime();

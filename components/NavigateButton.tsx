@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/dist/client/link";
-import SvgIcon from "@/app/components/SvgIcon";
+import SvgIcon from "@/components/SvgIcon";
 
 export default function NavigateButton({ href, buttonText, buttonColor, inline = false } : { href: string, buttonText: string, buttonColor?: string, inline?: boolean }) {
     let actualText = buttonText;

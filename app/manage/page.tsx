@@ -1,8 +1,8 @@
-import PresentUser from "../components/PresentUser";
+import PresentUser from "@/components/PresentUser";
 import { loadCurrentPricing } from "@/lib/load";
 import { getInVenueList } from "@/lib/users";
 import { connection } from "next/server";
-import ManageNavigation from "../components/ManageNavigation";
+import ManageNavigation from "@/components/ManageNavigation";
 
 export default async function PresentUsersPage() {
     await connection();

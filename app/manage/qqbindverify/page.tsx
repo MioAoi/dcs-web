@@ -1,5 +1,5 @@
-import ManageNavigation from "@/app/components/ManageNavigation";
-import QqVerifyForm from "@/app/components/QqVerifyForm"; 
+import ManageNavigation from "@/components/ManageNavigation";
+import QqVerifyForm from "@/components/QqVerifyForm"; 
 
 export default function QqBindVerifyPage() {
     return (

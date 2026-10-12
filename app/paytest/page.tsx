@@ -1,4 +1,4 @@
-import BuyDrinkButton from "@/app/components/BuyDrinkButton"
+import BuyDrinkButton from "@/components/BuyDrinkButton"
 import { requireUserOrRedirect } from "@/lib/auth";
 import { getUserCoupons } from "@/lib/users";
 import { formatMoneyFen } from "@/lib/money";

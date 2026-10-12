@@ -1,5 +1,5 @@
-import NavigateButton from "@/app/components/NavigateButton"
-import ManageNavigation from "@/app/components/ManageNavigation";
+import NavigateButton from "@/components/NavigateButton"
+import ManageNavigation from "@/components/ManageNavigation";
 
 export default function AdvancedManagePage() {
     return (

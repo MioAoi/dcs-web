@@ -2,16 +2,16 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import { formatMoneyFen } from "@/lib/money";
-import ManualBalanceChangeForm from "@/app/components/ManualBalanceChangeForm";
+import ManualBalanceChangeForm from "@/components/ManualBalanceChangeForm";
 import { getCurrentUser } from "@/lib/auth";
-import RoleEditPanel from "@/app/components/RoleEditPanel";
-import UserOneline from "@/app/components/UserOneline";
-import DepositDietsPanel from "@/app/components/DepositDietsPanel";
-import NavigateButton from "@/app/components/NavigateButton";
+import RoleEditPanel from "@/components/RoleEditPanel";
+import UserOneline from "@/components/UserOneline";
+import DepositDietsPanel from "@/components/DepositDietsPanel";
+import NavigateButton from "@/components/NavigateButton";
 import fs from "fs";
 import { formatFLTToMinutes } from "@/lib/datetime"
 import { getUserAvailDepositDiets } from "@/lib/users";
-import ManageNavigation from "@/app/components/ManageNavigation";
+import ManageNavigation from "@/components/ManageNavigation";
 
 export default async function CurrentUserPage({
     params,

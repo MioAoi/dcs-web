@@ -1,6 +1,7 @@
 
 import type { PaymentPurpose, PaymentStatus } from "@/generated/prisma/enums";
 import { prisma } from "@/lib/prisma";
+import { randomBytes } from "@/lib/base260";
 import crypto from "crypto";
 
 function makeSign(
@@ -30,7 +31,7 @@ export async function initiatePayment({ userId, amount, purpose, bank, goodsName
     goodsName: string,
     returnUrl: string,
 }) {
-    const orderNo = crypto.randomBytes(16).toString("hex");
+    const orderNo = randomBytes(16);
     await prisma.paymentOrder.create({
         data: {
             amount,

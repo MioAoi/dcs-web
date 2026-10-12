@@ -1,7 +1,7 @@
 import { getTopRecentSpenders } from "@/lib/users";
-import ManageNavigation from "@/app/components/ManageNavigation";
+import ManageNavigation from "@/components/ManageNavigation";
 import { prisma } from "@/lib/prisma";
-import UserOneline from "@/app/components/UserOneline";
+import UserOneline from "@/components/UserOneline";
 import { formatMoneyFen } from "@/lib/money";
 export default async function LeaderboardPage() {
     const topSpenders = await Promise.all(

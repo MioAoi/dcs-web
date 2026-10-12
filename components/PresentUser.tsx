@@ -4,7 +4,7 @@ import UserOneline from "./UserOneline";
 import { calculateCharge } from "@/lib/pricing";
 import { formatMoneyFen } from "@/lib/money";
 import { formatFLTToMinutes } from "@/lib/datetime";
-import NavigateButton from "@/app/components/NavigateButton";
+import NavigateButton from "@/components/NavigateButton";
 import SvgIcon from "./SvgIcon";
 
 export default function PresentUser({ user, pricing } :{ 

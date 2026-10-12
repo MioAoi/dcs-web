@@ -1,6 +1,6 @@
 import { getCurrentUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import NavigateButton from "@/app/components/NavigateButton";
+import NavigateButton from "@/components/NavigateButton";
 
 export default async function Home() {
     const user = await getCurrentUser();
