@@ -162,6 +162,9 @@ export async function getTopRecentSpenders(daysLimit = 30, userLimit = 10): Prom
         where: {
             leftAt: {
                 gte: since
+            },
+            user: {
+                role: 'CUSTOMER'
             }
         },
         orderBy: {

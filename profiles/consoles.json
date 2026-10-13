@@ -1,0 +1,12 @@
+[
+    {
+        "name": "mm_1",
+        "desc": "舞萌6号",
+        "bookable": true
+    },
+    {
+        "name": "cn_nya_1",
+        "desc": "猫台1号",
+        "bookable": true
+    }
+]
