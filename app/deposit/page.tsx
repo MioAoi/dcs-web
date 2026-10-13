@@ -11,7 +11,7 @@ export default async function DepositPage() {
     if (!webDepositUsable) {
         return (
             <main>
-                <PlayerNavigation buttonManage={user.role == "STAFF" || user.role == "ADMIN"} buttonLogout={false} />
+                <PlayerNavigation  buttonLogout={false} />
                 <h2>充值</h2>
                 <p>站内充值当前不可用。</p>
             </main>
@@ -20,7 +20,7 @@ export default async function DepositPage() {
 
     return (
         <main>
-            <PlayerNavigation buttonManage={user.role == "STAFF" || user.role == "ADMIN"} buttonLogout={false} />
+            <PlayerNavigation  buttonLogout={false} />
             <h2>充值</h2>
             <DepositDietsPanel userId={user.id} diets={await getUserAvailDepositDiets(user.id)} manual={false} />
 

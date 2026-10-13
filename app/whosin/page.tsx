@@ -11,7 +11,7 @@ export default async function PresentUsersBriefPage() {
 
     return (
         <main>
-            <PlayerNavigation buttonManage={user.role === "STAFF" || user.role === "ADMIN"} buttonLogout={false} />
+            <PlayerNavigation  buttonLogout={false} />
             <h2>在店用户</h2>
             {users.map((user) => (
                 <PresentUser

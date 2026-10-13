@@ -11,7 +11,7 @@ export default async function selfInfoPage() {
     
     return (
         <main>
-            <PlayerNavigation buttonManage={user.role == "STAFF" || user.role == "ADMIN"} buttonLogout={false} />
+            <PlayerNavigation  buttonLogout={false} />
             <div className="card-with-avatar invwindow master-width">
                 <Link href="/selfinfo/setavatar">
                     <img className="avatar" src={`/api/avatar/${user.id}`} alt={user.nickname} />

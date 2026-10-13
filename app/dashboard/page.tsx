@@ -40,7 +40,7 @@ export default async function Dashboard() {
 
     return (
         <main>
-            <PlayerNavigation buttonManage={user.role === "STAFF" || user.role === "ADMIN"} buttonLogout={true} />
+            <PlayerNavigation  buttonLogout={true} />
             <div className="master-width invwindow split">
                 <span>{greeting()}，{displayName}</span>
                 <span className="info-value bear-right">{timeString}</span>

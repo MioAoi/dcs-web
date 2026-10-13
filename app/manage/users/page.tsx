@@ -23,8 +23,8 @@ export default async function UsersLookupPage(
             <form className="windowlike master-width generic-vert-grid">
                 <input name="q" defaultValue={q} placeholder="用户名 | 昵称 | QQ" />
                 <div className="tripartite">
-                    <button type="submit" name="mode" value="auto" className="primary"><SvgIcon name="precision" size={1.6} />&thinsp;精确查询</button>
-                    <button type="submit" name="mode" value="list"><SvgIcon name="search" size={1.6} />&thinsp;一般查询</button>
+                    <button type="submit" name="mode" value="auto" className="primary"><SvgIcon name="precision" />&thinsp;精确查询</button>
+                    <button type="submit" name="mode" value="list"><SvgIcon name="search" />&thinsp;一般查询</button>
                     <NavigateButton href="/manage/outstanding" buttonText="[user!]欠费一览" />
                 </div>
             </form>

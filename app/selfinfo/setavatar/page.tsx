@@ -10,7 +10,7 @@ export default async function SetAvatarPage() {
     
     return (
         <main>
-            <PlayerNavigation buttonManage={user.role == "STAFF" || user.role == "ADMIN"} buttonLogout={false} />
+            <PlayerNavigation  buttonLogout={false} />
             <h2>设置头像</h2>
             <div className="master-width invwindow bipartite">
                 <div>

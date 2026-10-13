@@ -7,7 +7,7 @@ export default async function PayPage({ searchParams }: { searchParams: Promise<
     const { order } = await searchParams;
     const errorPage = (
         <main>
-            <PlayerNavigation buttonLogout={false} buttonManage={false}/>
+            <PlayerNavigation buttonLogout={false} />
             <h2>支付页面</h2>
             <div className="master-width windowlike">
                 <p>可能的错误原因：</p>
@@ -33,7 +33,7 @@ export default async function PayPage({ searchParams }: { searchParams: Promise<
     if (paymentOrder.status === "PAID") {
         return (
             <main>
-                <PlayerNavigation buttonLogout={false} buttonManage={false}/>
+                <PlayerNavigation buttonLogout={false} />
                 <h2>支付页面</h2>
                 <div className="master-width windowlike">
                     订单号：<br/>
@@ -47,7 +47,7 @@ export default async function PayPage({ searchParams }: { searchParams: Promise<
     }
     return (
         <main>
-            <PlayerNavigation buttonLogout={false} buttonManage={false}/>
+            <PlayerNavigation buttonLogout={false} />
             <h2>支付页面</h2>
             <div className="master-width windowlike">
                 订单号：<br/>
