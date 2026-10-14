@@ -3,23 +3,25 @@ import { useState } from "react";
 import UserOneline from "./UserOneline";
 import { calculateCharge } from "@/lib/pricing";
 import { formatMoneyFen } from "@/lib/money";
-import { formatFLTToMinutes } from "@/lib/datetime";
+import { formatRelativeFLTToMinutes } from "@/lib/datetime";
 import NavigateButton from "@/components/NavigateButton";
 import SvgIcon from "./SvgIcon";
 
-export default function PresentUser({ user, pricing } :{ 
-user: {
-    id: number,
-    qqid: string | null,
-    username: string,
-    nickname: string,
-    role: string,
-    chargeMultiplier: number,
-    balance: number,
-    enteredAt: Date
-    avatar: string | null,
-},
-pricing: any }) {
+export default function PresentUser({ user, pricing, onelineClickable = false }: { 
+    user: {
+        id: number,
+        qqid: string | null,
+        username: string,
+        nickname: string,
+        role: string,
+        chargeMultiplier: number,
+        balance: number,
+        enteredAt: Date
+        avatar: string | null,
+    },
+    pricing: any,
+    onelineClickable?: boolean
+}) {
     const [leaveButtonState, setLeaveButtonState] = useState<"avail" | "done">("avail");
 
     async function handleForceLeave() {
@@ -37,23 +39,22 @@ pricing: any }) {
             <div className="card-with-avatar">
                 <img className="avatar" src={`/api/avatar/${user.id}`} alt={user.nickname} />
                 <div>
-                    <UserOneline user={user} /><br/>
-                    <span>自 <span className="info-value">{formatFLTToMinutes(user.enteredAt.getTime())}</span></span><br/>
-                    { pricing ? (
-                        <span>预计余额：<span className="info-value">{formatMoneyFen(user.balance - calculateCharge(user.enteredAt, new Date(), pricing).total * user.chargeMultiplier)}</span></span>
-                    ) : null }
+                    <UserOneline user={user} clickable={onelineClickable} /><br/>
+                    <div className="bipartite">
+                        <span className="info-value"><SvgIcon name="enter" correctAlign={true}/>&thinsp;{formatRelativeFLTToMinutes(user.enteredAt.getTime(), Date.now())}</span>
+                        { pricing ? (
+                            <span className="info-value"><SvgIcon name="wallet" correctAlign={true}/>&thinsp;{formatMoneyFen(user.balance - calculateCharge(user.enteredAt, new Date(), pricing).total * user.chargeMultiplier)}</span>
+                        ) : null }
+                    </div>
                 </div>
-            </div>
-            { pricing && 
-            <div className="bipartite">
-                <NavigateButton buttonText="查看信息" href={`/manage/users/${user.id}`} />
-                {leaveButtonState === "avail" ? (
-                    <button className="danger" onClick={handleForceLeave}>手动离店</button>
+                {pricing && (
+                leaveButtonState === "avail" ? (
+                    <div className="Button danger" onClick={handleForceLeave} style={{ width: "5rem", height: "4rem"}}>手动<br/>离店</div>
                 ) : (
-                    <button className="prepare" disabled={true}><SvgIcon name="checkmark" fill="var(--color-success-bright)"/>已手动离店</button>
+                    <div className="Button prepare" style={{ width: "5rem", height: "4rem", display: "grid", justifyItems: "center"}}><SvgIcon name="checkmark" fill="var(--color-success-bright)"/><span>已离店</span></div>
+                )
                 )}
             </div>
-            }
         </div>
     )
 }

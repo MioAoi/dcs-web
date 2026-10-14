@@ -38,7 +38,7 @@
 
   color-scheme: only light;
 
-  font-size: min(calc(100vw / 30), 16px)
+  font-size: min(calc(100vw / 30), 16px);
 }
 
 body {
@@ -348,7 +348,7 @@ textarea {
 
 .card-with-avatar {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto 1fr auto;
   gap: 0.5rem;
   align-items: center;
 }

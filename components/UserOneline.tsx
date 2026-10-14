@@ -12,7 +12,7 @@ export default function UserOneline({ user, clickable = false } : { user: { user
     if (clickable) {
         return (
             <Link href={`/manage/users/${user.id}`}>
-                <span className={nicknameClass}>{user.nickname}</span> <span className="username">{user.username}</span>
+                <span className={nicknameClass}>{user.nickname}</span> <span className="username" style={{ color: "var(--color-action)", textDecoration: "underline", textDecorationThickness: "0.1em" }}>{user.username}</span>
             </Link>
         )
     }

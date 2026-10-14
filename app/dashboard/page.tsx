@@ -46,13 +46,23 @@ export default async function Dashboard() {
                 <span className="info-value bear-right">{timeString}</span>
             </div>
             <UserPricingSummary userId={user.id} />
-            <div className="master-width windowlike">
-                <div className="nulldiv tripartite">
-                    <span>总余额 <span className={user.balance >= admissionBalance ? "info-value" : "money-owe"}>{formatMoneyFen(user.balance ?? 0)}</span></span>
-                    <span>现金：<span className="info-value">{formatMoneyFen(user.cashBalance ?? 0)}</span></span>
-                    <span>赠点：<span className="info-value">{formatMoneyFen(user.bonusBalance ?? 0)}</span></span>
+            <div className="master-width windowlike" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", columnGap: "1rem" }}>
+                <div>
+                    总余额<br/>
+                    <div className="nulldiv" style={{ display: "flex", justifyContent: "right" }}><span className={user.balance >= admissionBalance ? "info-value" : "money-owe"}>{formatMoneyFen(user.balance ?? 0)}</span></div>
                 </div>
-                <p>{<span>近30天消费：<span className="info-value">{formatMoneyFen(recent30dSpent)}</span></span> }{ recent30dSpent > 25000 && <span>，您真壕！</span> }</p>
+                <div>
+                    现金<br/>
+                    <div className="nulldiv" style={{ display: "flex", justifyContent: "right" }}><span className="info-value">{formatMoneyFen(user.cashBalance ?? 0)}</span></div>
+                </div>
+                <div>
+                    赠点<br/>
+                    <div className="nulldiv" style={{ display: "flex", justifyContent: "right" }}><span className="info-value">{formatMoneyFen(user.bonusBalance ?? 0)}</span></div>
+                </div>
+                <div>
+                    30d 消费<br/>
+                    <div className="nulldiv" style={{ display: "flex", justifyContent: "right" }}><span className="info-value">{formatMoneyFen(recent30dSpent)}</span></div>
+                </div>
             </div>
             { userPass && <PassLiteCard /> }
             <div className="master-width windowlike generic-vert-grid">

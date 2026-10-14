@@ -20,6 +20,7 @@ export default async function PresentUsersPage() {
                     key={user.id}
                     user={user}
                     pricing={currentPricing}
+                    onelineClickable={true}
                 />
             ))}
             {indicateNemo && <p className="info">{indicateNemo}</p>}
