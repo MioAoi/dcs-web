@@ -31,10 +31,10 @@ export async function userQuery(q: string, smart: boolean): Promise<{users: User
 }
 
 export async function getInVenueCount() {
-    const users = await getInVenueList();
+    const inVenueUsers = await getInVenueList();
     let { customers, staffs } = { customers: 0, staffs: 0 };
-    users.forEach(user => {
-        if (user.role == 'CUSTOMER') {
+    inVenueUsers.forEach(inVenueUser => {
+        if (inVenueUser.user.role == 'CUSTOMER') {
             customers++;
         } else {
             staffs++;
@@ -47,8 +47,14 @@ export async function getInVenueCount() {
     }
 }
 
-export async function getInVenueList() {
-    const visits = await prisma.visit.findMany({
+type InVenueUser = {
+    user: User;
+    enteredAt: Date;
+    booked: boolean;
+}
+
+export async function getInVenueList(): Promise<InVenueUser[]> {
+    const currentUnbookedVisits = await prisma.visit.findMany({
         where: {
             leftAt: null
         },
@@ -56,11 +62,57 @@ export async function getInVenueList() {
             user: true
         }
     });
-    return visits.map(visit => ({
-        ...visit.user,
+    const currentBookings = await prisma.booking.findMany({
+        where: {
+            endTime: {
+                gt: new Date()
+            }
+        },
+        include: {
+            users: {
+                include: {
+                    user: true
+                }
+            }
+        }
+    });
+    let inVenueUsers: InVenueUser[] = [];
+    inVenueUsers = inVenueUsers.concat(currentUnbookedVisits.map(visit => ({
+        user: visit.user,
+        enteredAt: visit.enteredAt,
+        booked: false
+    })));
 
-        enteredAt: visit.enteredAt
-    }));
+    currentBookings.forEach(booking => {
+        booking.users.forEach(bookingUser => {
+            inVenueUsers.push({
+                user: bookingUser.user,
+                enteredAt: booking.startTime,
+                booked: true
+            });
+        });
+    });
+
+    return inVenueUsers;
+}
+
+export async function userHasCurrentBooking(userId: number) {
+    const currentBookings = await prisma.booking.findMany({
+        where: {
+            endTime: {
+                gt: new Date()
+            },
+            startTime: {
+                lt: new Date()
+            },
+            users: {
+                some: {
+                    userId
+                }
+            }
+        }
+    });
+    return currentBookings.length > 0;
 }
 
 export async function getUserCoupons(userId: number) {

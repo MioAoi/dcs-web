@@ -32,3 +32,8 @@ export function loadCurrentPassGara() {
     }
     return currentPassGara;
 }
+
+export function loadConsoles() {
+    const consoles = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'profiles', 'consoles.json'), 'utf-8'));
+    return consoles;
+}

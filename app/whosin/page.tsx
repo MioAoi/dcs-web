@@ -1,23 +1,25 @@
 import { getInVenueList } from "@/lib/users";
-import NavigateButton from "@/components/NavigateButton";
 import { requireUserOrRedirect } from "@/lib/auth";
 import PresentUser from "@/components/PresentUser";
 import PlayerNavigation from "@/components/PlayerNavigation";
 
 export default async function PresentUsersBriefPage() {
-    const user = await requireUserOrRedirect();
-    const users = await getInVenueList();
-    const indicateNemo = users.length === 0 ? "当前没有在店用户。" : "";
+    await requireUserOrRedirect();
+    const inVenueUsers = await getInVenueList();
+    const indicateNemo = inVenueUsers.length === 0 ? "当前没有在店用户。" : "";
 
     return (
         <main>
             <PlayerNavigation  buttonLogout={false} />
             <h2>在店用户</h2>
-            {users.map((user) => (
+            {inVenueUsers.map(({ user, enteredAt, booked }) => (
                 <PresentUser
                     key={user.id}
                     user={user}
+                    enteredAt={enteredAt}
                     pricing={null}
+                    booked={booked}
+                    onelineClickable={false}
                 />
             ))}
             {indicateNemo && <p>{indicateNemo}</p>}

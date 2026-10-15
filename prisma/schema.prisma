@@ -29,6 +29,7 @@ model User {
   ledgerEntries Ledger[]
   paymentOrders  PaymentOrder[]
   coupons       Coupon[]
+  bookings      BookingUser[]
 
   role          Role    @default(CUSTOMER)
   chargeMultiplier  Float   @default(1.0) 
@@ -153,4 +154,22 @@ model Bot {
   nickname String @unique
   key String @unique
   permissions String
+}
+
+model Booking {
+  id Int @id @default(autoincrement())
+  users BookingUser[]
+  startTime DateTime
+  endTime DateTime
+  console String
+}
+
+model BookingUser {
+  bookingId Int
+  userId Int
+
+  booking Booking @relation(fields: [bookingId], references: [id])
+  user User @relation(fields: [userId], references: [id])
+
+  @@id([bookingId, userId])
 }

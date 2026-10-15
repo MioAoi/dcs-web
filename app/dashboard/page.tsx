@@ -10,7 +10,7 @@ import { loadCurrentPricing } from "@/lib/load";
 import fs from "fs";
 import path from "path";
 import { formatFLTToMinutes, greeting } from "@/lib/datetime";
-import { getUserPass, getUserTotalSpent } from "@/lib/users";
+import { getUserPass, getUserTotalSpent, userHasCurrentBooking } from "@/lib/users";
 import { QRCodeSVG } from "qrcode.react";
 import PlayerNavigation from "@/components/PlayerNavigation";
 import UserPricingSummary from "@/components/UserPricingSummary";
@@ -32,6 +32,7 @@ export default async function Dashboard() {
     const displayName = user.nickname || user.username || "棍母";
     const currentVisit = await getCurrentVisit(user.id);
     const notInVenue = (!currentVisit || currentVisit.leftAt);
+    const hasCurrentBooking = await userHasCurrentBooking(user.id);
 
     const scanDoorActive = fs.readFileSync(path.join(process.cwd(), "扫码开门启用否.txt"), "utf-8").charAt(0) === "y";
 
@@ -68,13 +69,13 @@ export default async function Dashboard() {
             <div className="master-width windowlike generic-vert-grid">
                 <div className="bipartite">
                     <div>
-                        <EnterButton disabled={notInVenue && (user.balance >= admissionBalance || user.chargeMultiplier == 0) ? false : true} />
+                        <EnterButton disabled={notInVenue && !hasCurrentBooking && (user.balance >= admissionBalance || user.chargeMultiplier == 0) ? false : true} />
                         <div>在店时长：<br/>
-                        {condStayTimer}<br/>
+                        {hasCurrentBooking ? (<span className="info-value">包机中</span>) : condStayTimer}<br/>
                         
                         当前费用：<br/>
-                        {condChargeTimer}<br/></div>
-                        <LeaveButton disabled={notInVenue ? true : false} />
+                        {hasCurrentBooking ? (<span className="info-value">包机中</span>) : condChargeTimer}<br/></div>
+                        <LeaveButton disabled={notInVenue && hasCurrentBooking ? true : false} />
                     </div>
 
                     <div style={{ alignItems: "center", display: "flex", flexDirection: "column", justifyContent: "center" }}>

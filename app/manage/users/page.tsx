@@ -19,13 +19,17 @@ export default async function UsersLookupPage(
     return (
         <main>
             <ManageNavigation buttonLogout={false} />
-            <h2>用户查询</h2>
+            <h2>用户管理</h2>
+            <div className="invwindow master-width bipartite">
+                <NavigateButton href="/manage/outstanding" buttonText="[user!]欠费一览" />
+                <NavigateButton href="/manage/qqbindverify" buttonText="[fingerprint]QQ绑定" />
+            </div>
             <form className="windowlike master-width generic-vert-grid">
+                <h3>用户搜索</h3>
                 <input name="q" defaultValue={q} placeholder="用户名 | 昵称 | QQ" />
-                <div className="tripartite">
+                <div className="bipartite">
                     <button type="submit" name="mode" value="auto" className="primary"><SvgIcon name="precision" />&thinsp;精确查询</button>
                     <button type="submit" name="mode" value="list"><SvgIcon name="search" />&thinsp;一般查询</button>
-                    <NavigateButton href="/manage/outstanding" buttonText="[user!]欠费一览" />
                 </div>
             </form>
             {indicateNemo}

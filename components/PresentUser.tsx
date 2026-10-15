@@ -4,10 +4,9 @@ import UserOneline from "./UserOneline";
 import { calculateCharge } from "@/lib/pricing";
 import { formatMoneyFen } from "@/lib/money";
 import { formatRelativeFLTToMinutes } from "@/lib/datetime";
-import NavigateButton from "@/components/NavigateButton";
 import SvgIcon from "./SvgIcon";
 
-export default function PresentUser({ user, pricing, onelineClickable = false }: { 
+export default function PresentUser({ user, enteredAt, booked, pricing, onelineClickable = false }: { 
     user: {
         id: number,
         qqid: string | null,
@@ -16,10 +15,11 @@ export default function PresentUser({ user, pricing, onelineClickable = false }:
         role: string,
         chargeMultiplier: number,
         balance: number,
-        enteredAt: Date
         avatar: string | null,
     },
+    enteredAt: Date,
     pricing: any,
+    booked: boolean,
     onelineClickable?: boolean
 }) {
     const [leaveButtonState, setLeaveButtonState] = useState<"avail" | "done">("avail");
@@ -41,9 +41,13 @@ export default function PresentUser({ user, pricing, onelineClickable = false }:
                 <div>
                     <UserOneline user={user} clickable={onelineClickable} /><br/>
                     <div className="bipartite">
-                        <span className="info-value"><SvgIcon name="enter" correctAlign={true}/>&thinsp;{formatRelativeFLTToMinutes(user.enteredAt.getTime(), Date.now())}</span>
-                        { pricing ? (
-                            <span className="info-value"><SvgIcon name="wallet" correctAlign={true}/>&thinsp;{formatMoneyFen(user.balance - calculateCharge(user.enteredAt, new Date(), pricing).total * user.chargeMultiplier)}</span>
+                        <span className="info-value"><SvgIcon name="enter" correctAlign={true}/>&thinsp;{formatRelativeFLTToMinutes(enteredAt.getTime(), Date.now())}</span>
+                        {
+                        booked ? (
+                            <span className="info-value"><SvgIcon name="event" correctAlign={true}/>&thinsp;包机中</span>
+                        ) :
+                        pricing ? (
+                            <span className="info-value"><SvgIcon name="wallet" correctAlign={true}/>&thinsp;{formatMoneyFen(user.balance - calculateCharge(enteredAt, new Date(), pricing).total * user.chargeMultiplier)}</span>
                         ) : null }
                     </div>
                 </div>
