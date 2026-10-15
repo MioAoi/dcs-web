@@ -8,13 +8,13 @@ export const actionList = [
 import { getInVenueList } from "@/lib/users"
 import { prisma } from "@/lib/prisma";
 
-export async function handleAction({ qqid, action, payload}: { qqid: string, action: string, payload: string }): Promise<Object> {
+export async function handleAction({ qqid, action, payload}: { qqid: string, action: string, payload: string }): Promise<any> {
     if (!actionList.includes(action)) {
         return "error";
     }
     switch (action) {
         case "getPresentUsers":
-            return await getInVenueList();
+            return await getPresentUsers();
         case "purchase":
             return {
                 message: "现在店里没有东西可以买，也不会扣钱"
@@ -24,6 +24,14 @@ export async function handleAction({ qqid, action, payload}: { qqid: string, act
         default:
             return "error";
     }
+}
+
+async function getPresentUsers(): Promise<{ nickname: string, enteredAt: Date }[]> {
+    const inVenueList = await getInVenueList();
+    return inVenueList.map(({ user, visit }) => ({
+        nickname: user.nickname,
+        enteredAt: visit?.enteredAt || new Date()
+    }));
 }
 
 async function handleBindQq(qqid: string, token: string): Promise<Object> {

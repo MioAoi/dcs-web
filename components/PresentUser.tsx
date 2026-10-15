@@ -45,7 +45,9 @@ export default function PresentUser({ user, visit, booking, pricing, onelineClic
                     ) :
                     pricing ? (
                         <span className="info-value"><SvgIcon name="wallet" correctAlign={true}/>&thinsp;{formatMoneyFen(user.balance - calculateCharge(visit!.enteredAt, new Date(), pricing).total * user.chargeMultiplier)}</span>
-                    ) : null }
+                    ) :
+                    <span className="info-value">非包机</span>
+                    }
                 </div>
             </div>
             {pricing && (
