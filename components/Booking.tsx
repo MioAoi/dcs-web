@@ -1,5 +1,22 @@
 'use client';
 import { useState } from "react";
+import UserOneline from "@/components/UserOneline";
+import type { User } from "@/generated/prisma/client";
+import SvgIcon from "@/components/SvgIcon";
+import { formatFLTToMinutes, formatRelativeFLTToMinutes } from "@/lib/datetime";
+
+type Booking = {
+    id: number;
+    startTime: Date;
+    endTime: Date;
+    console: string;
+    users: {
+        user: {
+            id: number;
+            username: string;
+        }
+    }[];
+}
 
 export function BookingCreatePanel({ consoles }: { consoles: { name: string, desc: string }[] }) {
     const [startTime, setStartTime] = useState("");
@@ -23,7 +40,7 @@ export function BookingCreatePanel({ consoles }: { consoles: { name: string, des
     
     return (
         <div className="windowlike master-width">
-            <h3>新建包机场</h3>
+            <h3>新建包机场事件</h3>
             <div style={{ display: "grid", columnGap: "1rem", gridTemplateColumns: "1fr 3fr", alignItems: "baseline" }}>
                 <label className="info-label">开始时间</label><input className="info-input" type="datetime-local" value={startTime} onChange={(e) => setStartTime(e.target.value)} />
             </div>
@@ -51,13 +68,21 @@ export function BookingCreatePanel({ consoles }: { consoles: { name: string, des
     );
 }
 
-export function BookingSummaryCard({ booking }: { booking: { startTime: Date, endTime: Date, console: string, usernames: string } }) {
+export function BookingSummaryCard({ booking, users, consoleDesc }: { booking: Booking, users: { user: User }[], consoleDesc: string }) {
     return (
         <div className="windowlike master-width">
-            <p>开始时间: {booking.startTime.toISOString()}</p>
-            <p>结束时间: {booking.endTime.toISOString()}</p>
-            <p>机台: {booking.console}</p>
-            <p>用户名: {booking.usernames}</p>
+            <h5>{consoleDesc} {users.length}人</h5>
+            <div style={{ display: "grid", rowGap: "0rem", margin: "0" }}>
+                {users.map((u) => {
+                    return (
+                        <UserOneline key={u.user.id} user={u.user} clickable={true}/>
+                    );
+                })}
+            </div>
+            <div className="leftwide" style={{ marginTop: "0.5rem" }}>
+                <span className="info-value"><SvgIcon name="enter" correctAlign={true}/> {formatFLTToMinutes(booking.startTime.getTime(), false)}</span>
+                <span className="info-value"><SvgIcon name="exit" correctAlign={true}/> {formatRelativeFLTToMinutes(booking.endTime.getTime(), booking.startTime.getTime())}</span>
+            </div>
         </div>
     );
 }

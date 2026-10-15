@@ -42,7 +42,7 @@ export default async function Dashboard() {
     return (
         <main>
             <PlayerNavigation  buttonLogout={true} />
-            <div className="master-width invwindow split">
+            <div className="master-width invwindow split" style={{ marginBottom: "0rem", paddingBottom: "0rem" }} >
                 <span>{greeting()}，{displayName}</span>
                 <span className="info-value bear-right">{timeString}</span>
             </div>

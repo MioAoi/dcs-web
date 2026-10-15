@@ -24,9 +24,9 @@ export default async function BookingPage() {
             <ManageNavigation buttonLogout={false} />
             <h2>包机场管理</h2>
             <BookingCreatePanel consoles={consoles} />
-            <h3>当前包机场</h3>
+            <h3>当前包机场事件</h3>
             {bookings.map((booking) => (
-                <BookingSummaryCard key={booking.startTime + booking.console} booking={{...booking, usernames: booking.users.map(u => u.user.username).join(', ')}} />
+                <BookingSummaryCard key={booking.id} booking={booking} users={booking.users} consoleDesc={consoles.find(c => c.name === booking.console)?.desc || ""} />
             ))}
         </main>
     );

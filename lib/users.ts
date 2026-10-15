@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import fs from 'fs';
 import path from "path";
-import type { User } from "@/generated/prisma/client";
+import type { User, Booking, Visit } from "@/generated/prisma/client";
 
 export async function userQuery(q: string, smart: boolean): Promise<{users: User[], exact: boolean}> {
     // 开启智能查询时，唯一一致和完全一致的情况返回单体
@@ -49,8 +49,8 @@ export async function getInVenueCount() {
 
 type InVenueUser = {
     user: User;
-    enteredAt: Date;
-    booked: boolean;
+    visit: Visit | null;
+    booking: Booking | null;
 }
 
 export async function getInVenueList(): Promise<InVenueUser[]> {
@@ -66,6 +66,9 @@ export async function getInVenueList(): Promise<InVenueUser[]> {
         where: {
             endTime: {
                 gt: new Date()
+            },
+            startTime: {
+                lt: new Date()
             }
         },
         include: {
@@ -79,16 +82,16 @@ export async function getInVenueList(): Promise<InVenueUser[]> {
     let inVenueUsers: InVenueUser[] = [];
     inVenueUsers = inVenueUsers.concat(currentUnbookedVisits.map(visit => ({
         user: visit.user,
-        enteredAt: visit.enteredAt,
-        booked: false
+        visit: visit,
+        booking: null
     })));
 
     currentBookings.forEach(booking => {
         booking.users.forEach(bookingUser => {
             inVenueUsers.push({
                 user: bookingUser.user,
-                enteredAt: booking.startTime,
-                booked: true
+                visit: null,
+                booking: booking
             });
         });
     });

@@ -33,7 +33,13 @@ export function loadCurrentPassGara() {
     return currentPassGara;
 }
 
-export function loadConsoles() {
+export function loadConsoles(): {
+    name: string;
+    desc: string;
+}[] {
     const consoles = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'profiles', 'consoles.json'), 'utf-8'));
-    return consoles;
+    return consoles.concat({
+        name: "all",
+        desc: "全场"
+    });
 }

@@ -9,7 +9,7 @@ export default async function PlayerNavigation({ buttonLogout }: { buttonLogout:
     return (
         <div className="invwindow playerNavigation">
             <NavigateButton href="/selfinfo" buttonText="[account]个人信息" buttonColor="action1" />
-            <div/>
+            <NavigateButton href="/userbooking" buttonText="[event]包机场" />
             <NavigateButton href="/deposit" buttonText="[deposit]去充值" buttonColor="action1"/>
             <NavigateButton href="/about" buttonText="[info]关于我们" buttonColor="action1" />
             {buttonLogout ? <LogoutButton /> : <NavigateButton href="/dashboard" buttonText="[back]返回" buttonColor="escape"/>}
