@@ -31,7 +31,7 @@ export default function PresentUser({ user, visit, booking, pricing, onelineClic
         <div className="windowlike master-width card-with-avatar">
             <img className="avatar" src={`/api/avatar/${user.id}`} alt={user.nickname} />
             <div style={{ display: "grid", rowGap: "0rem" }}>
-                <UserOneline user={user} clickable={onelineClickable} /><br/>
+                <UserOneline user={user} clickable={onelineClickable} />
                 <div className="bipartite">
                     <span className="info-value"><SvgIcon name="enter" correctAlign={true}/>&thinsp;{formatRelativeFLTToMinutes(visit?.enteredAt.getTime() || booking!.startTime.getTime(), Date.now())}</span>
                     {booking ? (

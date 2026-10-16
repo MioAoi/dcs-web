@@ -53,7 +53,7 @@ export default function Register() {
             <form className="windowlike generic-vert-grid" onSubmit={handleSubmit}>
                 <div><label className="info-label">用户名</label><br/>
                     <input
-                        className="long-input info-input"
+                        className="long-input info-input username"
                         type="text"
                         value={username}
                         placeholder="/^(!?[1-9]\d{4,10})\w{3,}$/"

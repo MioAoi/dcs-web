@@ -259,7 +259,6 @@ textarea {
   text-decoration: underline;
 }
 
-.username  { font-family: var(--font-display); font-size: 1rem; }
 .nickname { font-size: 1.25rem; font-weight: normal; }
 .nickname.staff { border-left: 0.5rem solid var(--color-status); padding-left: 0.2rem; }
 .nickname.admin { border-left: 0.5rem solid var(--color-success); padding-left: 0.2rem; }
@@ -329,10 +328,10 @@ textarea {
   gap: 0.5rem;
 }
 
-.text-token {
+.text-token, .username {
   overflow-wrap: anywhere;
   font-weight: normal;
-  font-family: var(--font-display);
+  font-family: var(--font-code);
 }
 
 .avatar-selection {

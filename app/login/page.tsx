@@ -43,7 +43,7 @@ export default function Login() {
                         type="text"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
-                        className="long-input info-input"
+                        className="long-input info-input username"
                 /><br/></div>
                 <div><label className="info-label">密码</label><br/>
                 <input

@@ -14,7 +14,7 @@ export default function RootLayout({
     return (
         <html
             lang="zh-CN"
-            className={`${latinFont.variable} ${displayFont.variable}`}
+            className={`${latinFont.variable} ${codeFont.variable}`}
         >
             <body className="min-h-full flex flex-col">{children}</body>
         </html>
@@ -30,10 +30,10 @@ const latinFont = localFont({
     display: "swap",
 });
 
-const displayFont = localFont({
+const codeFont = localFont({
     src: [
-        { path: "./fonts/AllerDisplay.woff2" },
+        { path: "./fonts/UbuntuSansMono-Bold-latin-minimal.woff2", style: "normal" },
     ],
-    variable: "--font-display",
+    variable: "--font-code",
     display: "swap",
 });

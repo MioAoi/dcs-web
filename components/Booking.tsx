@@ -60,7 +60,7 @@ export function BookingCreatePanel({ consoles }: { consoles: { name: string, des
                 </select>
             </div>
             <div style={{ display: "grid", columnGap: "1rem", gridTemplateColumns: "1fr 3fr", alignItems: "baseline" }}>
-                <label className="info-label">用户名</label><input className="info-input" type="text" value={usernames} onChange={(e) => setUsernames(e.target.value)} />
+                <label className="info-label">用户名</label><input className="info-input username" type="text" value={usernames} onChange={(e) => setUsernames(e.target.value)} />
             </div>
             <p>多个用户以逗号分隔</p>
             <button onClick={handleSubmit}>提交</button>
