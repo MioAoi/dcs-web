@@ -1,3 +1,5 @@
+import { User } from "@/generated/prisma/client";
+
 export const actionList = [
     "getPresentUsers",
     "purchase",
@@ -26,10 +28,12 @@ export async function handleAction({ qqid, action, payload}: { qqid: string, act
     }
 }
 
-async function getPresentUsers(): Promise<{ nickname: string, enteredAt: Date }[]> {
+async function getPresentUsers(): Promise<{ nickname: string, role: string, chargeMultiplier: number, enteredAt: Date }[]> {
     const inVenueList = await getInVenueList();
     return inVenueList.map(({ user, visit }) => ({
         nickname: user.nickname,
+        role: user.role,
+        chargeMultiplier: user.chargeMultiplier,
         enteredAt: visit?.enteredAt || new Date()
     }));
 }
