@@ -71,14 +71,16 @@ export default function ManualBalanceChangeForm({
     return (
         <div className="windowlike master-width">
             <h3>手动余额变动</h3><div className="generic-vert-grid">
-                <div><label className="info-label">变动金额：</label>
-                    <input
-                        type="string"
-                        value={balanceDelta}
-                        onChange={(e) => setBalanceDelta(e.target.value)}
-                        className="info-input amount-input"
-                    />
-                    <label className="info-label">&#x3000;备注：</label>
+                <div className="bipartite">
+                    <span>
+                        <label className="info-label">金额：</label>
+                        <input
+                            type="string"
+                            value={balanceDelta}
+                            onChange={(e) => setBalanceDelta(e.target.value)}
+                            className="info-input amount-input"
+                        />
+                    </span>
                 </div>
                 <textarea
                     value={note}

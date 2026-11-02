@@ -60,13 +60,23 @@ const iconPaths = [
     },{
         name: "event",
         path: "M509-269q-29-29-29-71t29-71q29-29 71-29t71 29q29 29 29 71t-29 71q-29 29-71 29t-71-29ZM200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Zm0-480h560v-80H200v80Zm0 0v-80 80Z"
+    },{
+        name: "Shop",
+        path: "M5.53,21q-0.67,0-1.2-0.41Q3.8,20.18 3.6,19.52L1.05,10.27Q0.93,9.8 1.21,9.4T2,9H6.75l4.4-6.55q0.13-0.2 0.35-0.32T11.98,2t0.47,0.13T12.8,2.45L17.2,9H22q0.5,0 0.79,0.4t0.16,0.88L20.4,19.52q-0.2,0.65-0.73,1.06T18.48,21H5.53ZM5.5,19h13l2.2-8H3.3l2.2,8Zm7.91-2.59Q14,15.83 14,15t-0.59-1.41T12,13t-1.41,0.59Q10,14.18 10,15t0.59,1.41T12,17t1.41-0.59ZM9.18,9H14.8L11.98,4.8L9.18,9ZM12,15Z"
     }
 ];
 
 export default function SvgIcon({ name, size = 1.25, fill = "currentColor", correctAlign = false }: { name: string, size?: number, fill?: string, correctAlign?: boolean }) {
     const path = iconPaths.find(icon => icon.name === name)?.path || "";
+    if (/^\p{Ll}/u.test(name)) {
+        return (
+            <svg className="inlineIcon" viewBox="0 -960 960 960" style={{ height: `${size}em`, fill: fill, transform: correctAlign ? "translateY(-0.08em)" : undefined }}>
+                <path d={path} />
+            </svg>
+        );
+    }
     return (
-        <svg className="inlineIcon" viewBox="0 -960 960 960" style={{ height: `${size}em`, fill: fill, transform: correctAlign ? "translateY(-0.08em)" : undefined }}>
+        <svg className="inlineIcon" viewBox="0 0 24 24" style={{ height: `${size}em`, fill: fill, transform: correctAlign ? "translateY(-0.08em)" : undefined }}>
             <path d={path} />
         </svg>
     );

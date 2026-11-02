@@ -43,3 +43,12 @@ export function loadConsoles(): {
         desc: "全场"
     });
 }
+
+export function loadGoods(): {
+    name: string;
+    dispName: string;
+    price: number;
+}[] {
+    const goods = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'profiles', 'goods.json'), 'utf-8')).filter((g: any) => g.avail);
+    return goods;
+}

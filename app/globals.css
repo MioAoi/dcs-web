@@ -351,8 +351,7 @@ textarea {
   gap: 0.5rem;
   align-items: center;
 }
-
-.avatar {
+.card-with-avatar .avatar, .card-goods .avatar {
   width: 4rem;
   aspect-ratio: 1;
   object-fit: cover;
@@ -360,6 +359,13 @@ textarea {
 }
 .avatar.inline {
   display: inline-block;
+}
+
+.card-goods {
+  display: grid;
+  grid-template-columns: auto 2fr 1fr;
+  gap: 0.5rem;
+  align-items: center;
 }
 
 .visitListing {

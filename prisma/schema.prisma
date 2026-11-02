@@ -30,6 +30,7 @@ model User {
   paymentOrders  PaymentOrder[]
   coupons       Coupon[]
   bookings      BookingUser[]
+  purchases     Purchase[]
 
   role          Role    @default(CUSTOMER)
   chargeMultiplier  Float   @default(1.0) 
@@ -83,6 +84,9 @@ model Ledger {
   deposit Deposit?
   paymentOrderId Int? @unique
   paymentOrder PaymentOrder? @relation(fields: [paymentOrderId], references: [id])
+
+  purchaseId Int? @unique
+  purchase Purchase? @relation(fields: [purchaseId], references: [id])
   
   createdAt DateTime @default(now())
 }
@@ -134,6 +138,7 @@ enum LedgerEntryType {
   VISIT_CHARGE
   REFUND
   MANUAL
+  SHOP
 }
 
 enum PaymentStatus {
@@ -172,4 +177,14 @@ model BookingUser {
   user User @relation(fields: [userId], references: [id])
 
   @@id([bookingId, userId])
+}
+
+model Purchase {
+  id Int @id @default(autoincrement())
+  userId Int
+  goodsName String
+  amount Int
+  ledgerEntry Ledger?
+  user User @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
 }

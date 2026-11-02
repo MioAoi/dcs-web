@@ -51,16 +51,6 @@ export async function completeVisit(userId: number) {
         const bonusChange = -Math.min(charge, visit.user.bonusBalance);
         const cashChange = -(charge + bonusChange);
 
-        await tx.ledger.create({
-            data: {
-                userId: userId,
-                cashChange: cashChange,
-                bonusChange: bonusChange,
-                note: "离店扣费",
-                type: LedgerEntryType.VISIT_CHARGE
-            }
-        });
-
         await tx.visit.update({
             where: {
                 id: visit.id,
@@ -68,6 +58,15 @@ export async function completeVisit(userId: number) {
             data: {
                 leftAt: leftAt,
                 charge: charge,
+                ledgerEntry: {
+                    create: {
+                        userId: userId,
+                        cashChange: cashChange,
+                        bonusChange: bonusChange,
+                        note: "离店扣费",
+                        type: LedgerEntryType.VISIT_CHARGE
+                    }
+                }
             },
         });
         

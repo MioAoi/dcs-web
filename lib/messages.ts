@@ -25,6 +25,8 @@ export const messages = {
 
     e402_enter:
         "余额低于最低入场值",
+    e402_notEnoughCash:
+        "现金余额不足",
 
     e403: 
         "无权限",
@@ -37,6 +39,8 @@ export const messages = {
 
     e404_depositDiet:
         "非可用充值套餐",
+    e404_goods:
+        "商品不存在",
 
     e409_regUsername: 
         "用户名已存在",

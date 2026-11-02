@@ -50,3 +50,6 @@ next-env.d.ts
 
 profiles/staffs.json
 profiles/announcements.json
+profiles/goods.json
+
+public/goodspics/
