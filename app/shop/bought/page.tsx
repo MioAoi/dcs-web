@@ -2,9 +2,12 @@ import PlayerNavigation from "@/components/PlayerNavigation"
 import { prisma } from "@/lib/prisma";
 import { loadGoods } from "@/lib/load";
 import { formatFLTToMinutes } from "@/lib/datetime"
+import { requireUserOrRedirect } from "@/lib/auth"
 
 export default async function BoughtPage() {
+    const user = await requireUserOrRedirect();
     const purchases = await prisma.purchase.findMany({
+        where: { userId: user.id },
         orderBy: { createdAt: 'desc' },
         take: 5
     });
