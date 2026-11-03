@@ -52,3 +52,13 @@ export function loadGoods(): {
     const goods = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'profiles', 'goods.json'), 'utf-8')).filter((g: any) => g.avail);
     return goods;
 }
+
+export function loadAllGoods(): {
+    name: string;
+    dispName: string;
+    price: number;
+    avail: boolean;
+}[] {
+    const goods = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'profiles', 'goods.json'), 'utf-8'));
+    return goods;
+}

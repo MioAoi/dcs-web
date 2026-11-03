@@ -1,4 +1,9 @@
 export const messages = {
+    s201_goodsCreated:
+        "商品创建成功",
+    s200_goodsUpdated:
+        "商品更新成功",
+
     e400_regUsername: 
         "用户名格式不正确",
     e400_regPassword: 
@@ -13,6 +18,8 @@ export const messages = {
         "这笔钱已经上过账了",
     e400_peekCommand:
         "无效的命令",
+    e400_goodsExists:
+        "商品已存在",
     e400:
         "请求参数错误",
 

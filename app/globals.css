@@ -302,6 +302,12 @@ textarea {
   gap: 0.5rem;
   align-items: center;
 }
+.leftverywide {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 0.5rem;
+  align-items: center;
+}
 .split {
   display: flex;
   justify-content: space-between;
