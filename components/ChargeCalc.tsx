@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { formatMoneyFen } from "@/lib/money";
 import { calculateCharge } from "@/lib/pricing";
+import DatetimeInput from "@/components/DatetimeInput";
 
 type RateSegment = {
     startMinute: number;
@@ -12,8 +13,8 @@ type RateSegment = {
 };
 
 export default function ChargeCalc({ pricing }: { pricing: { circadyRates: RateSegment[]; globalDiscount: number } }) {
-    const [enterTime, setEnterTime] = useState("");
-    const [leaveTime, setLeaveTime] = useState("");
+    const [enterTime, setEnterTime] = useState(Date.now());
+    const [leaveTime, setLeaveTime] = useState(Date.now());
 
     let price = null;
     if (enterTime && leaveTime) {
@@ -23,10 +24,16 @@ export default function ChargeCalc({ pricing }: { pricing: { circadyRates: RateS
     return (<>
             <div className="windowlike generic-vert-grid"><h3>输入时间</h3>
                 <div><label><span className="info-label">进店</span><br/>
-                    <input type="datetime-local" className="info-input" value={enterTime} onChange={(e) => setEnterTime(e.target.value)}/>
+                    <DatetimeInput 
+                        value={enterTime ? new Date(enterTime).getTime() : 0} 
+                        onChange={(value) => setEnterTime(value)} 
+                    />
                 </label></div>
                 <div><label><span className="info-label">离店</span><br/>
-                    <input type="datetime-local" className="info-input" value={leaveTime} onChange={(e) => setLeaveTime(e.target.value)}/>
+                    <DatetimeInput 
+                        value={leaveTime ? new Date(leaveTime).getTime() : 0} 
+                        onChange={(value) => setLeaveTime(value)} 
+                    />
                 </label></div>
             </div>
             <div className="master-width windowlike"><h3>结果</h3>

@@ -1,7 +1,8 @@
 // FLT stands for Fixed Lyangtjoq (Liangzhu) Time i.e. UTC+8.  I'm hardcoding it, ain't implementing for any other timezone.
 
 const DATE_BOUNDARY_HOUR = 4;
-type datetime = {
+const FLT_OFFSET = 28800000; // UTC+8 in milliseconds
+export type Datetime = {
     year: number;
     month: number;
     day: number;
@@ -10,9 +11,12 @@ type datetime = {
     second: number;
     ms: number;
 };
+export function toUnix(time: Datetime): number {
+    return Date.UTC(time.year, time.month - 1, 1, 0, 0, 0, 0) - FLT_OFFSET + (time.day - 1) * 86400000 + time.hour * 3600000 + time.minute * 60000 + time.second * 1000 + time.ms;
+}
 
-export function toFLT(time: number): datetime {
-    let ms = time + 28800000;
+export function toFLT(time: number): Datetime {
+    let ms = time + FLT_OFFSET;
     let date = new Date(ms - DATE_BOUNDARY_HOUR * 3600000);
     const year = date.getUTCFullYear();
     const month = date.getUTCMonth() + 1;
@@ -27,12 +31,12 @@ export function toFLT(time: number): datetime {
 }
 
 export function toFLTStamp(time: number): string {
-    const isoString = (new Date(time + 28800000)).toISOString();
+    const isoString = (new Date(time + FLT_OFFSET)).toISOString();
     return isoString.replace(/[^0-9]/g, '');
 }
 
 export function dayNumber(time: number): number {
-    return (time + 28800000 - DATE_BOUNDARY_HOUR * 3600000) / 86400000 | 0;
+    return (time + FLT_OFFSET - DATE_BOUNDARY_HOUR * 3600000) / 86400000 | 0;
 }
 
 export function formatFLTToMinutes(time: number, dayRelative = true, refTime = Date.now()) {
@@ -54,7 +58,7 @@ export function formatFLTToMinutes(time: number, dayRelative = true, refTime = D
             return "前天 " + hms;
         }
         if (dayNumber(time) > dayNumber(refTime) && dayNumber(time) < dayNumber(refTime) + 7) {
-            return "周" + ["日", "一", "二", "三", "四", "五", "六"][(new Date(time + 28800000 - DATE_BOUNDARY_HOUR * 3600000)).getUTCDay()] + " " + hms;
+            return "周" + ["日", "一", "二", "三", "四", "五", "六"][(new Date(time + FLT_OFFSET - DATE_BOUNDARY_HOUR * 3600000)).getUTCDay()] + " " + hms;
         }
         if (flt.year === fltRef.year) {
             return `${flt.month.toString()}月${flt.day.toString().padStart(2, '\u2007')}日 ${hms}`;
