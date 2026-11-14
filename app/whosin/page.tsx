@@ -19,9 +19,8 @@ export default async function PresentUsersBriefPage() {
                     key={user.id}
                     user={user}
                     visit={visit}
-                    pricing={null}
+                    manageView={false}
                     booking={booking}
-                    onelineClickable={false}
                     bookedConsoleDesc={booking ? consoles.find(c => c.name === booking.console)?.desc || null : null}
                 />
             ))}

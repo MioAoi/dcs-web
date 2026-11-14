@@ -1,7 +1,7 @@
 "use client";
 import { toUnix, toFLT } from '@/lib/datetime';
 import { useEffect, useState } from 'react';
-import { isWorkday, isHoliday } from "chinese-days";
+import { isHoliday } from "chinese-days";
 
 type DatetimeInputProps = {
     value: number;
@@ -11,20 +11,26 @@ type DatetimeInputProps = {
 
 type Parts = {
     year: number;
-    month: string;
-    day: string;
-    hour: string;
-    minute: string;
+    month: number;
+    dayTens: number;
+    dayOnes: number;
+    hourTens: number;
+    hourOnes: number;
+    minuteTens: number;
+    minuteOnes: number;
 }
 
 function splitDatetime(value: number): Parts {
     const flt = toFLT(value);
     return {
         year: flt.year,
-        month: String(flt.month).padStart(2, '\u2007'),
-        day: String(flt.day).padStart(2, '\u2007'),
-        hour: String(flt.hour).padStart(2, '\u2007'),
-        minute: String(flt.minute).padStart(2, '0')
+        month: flt.month,
+        dayTens: Math.floor(flt.day / 10),
+        dayOnes: flt.day % 10,
+        hourTens: Math.floor(flt.hour / 10),
+        hourOnes: flt.hour % 10,
+        minuteTens: Math.floor(flt.minute / 10),
+        minuteOnes: flt.minute % 10
     };
 }
 
@@ -43,10 +49,10 @@ export default function DatetimeInput({
         setParts(next);
         onChange(toUnix({
             year: next.year,
-            month: parseInt(next.month),
-            day: parseInt(next.day),
-            hour: parseInt(next.hour),
-            minute: parseInt(next.minute),
+            month: next.month,
+            day: next.dayTens * 10 + next.dayOnes,
+            hour: next.hourTens * 10 + next.hourOnes,
+            minute: next.minuteTens * 10 + next.minuteOnes,
             second: 0,
             ms: 0
         }));
@@ -59,89 +65,76 @@ export default function DatetimeInput({
                 value={parts.year} 
                 onChange={e => update('year', parseInt(e.target.value))} 
                 disabled={disabled}
-                className="info-input"
-                style={{ width: "3.4em" }}
+                style={{ width: "3.5em" }}
             />
             <label> 年 </label>
-            <input 
-                type="text"
-                inputMode="numeric" 
-                value={parts.month} 
-                onChange={e => update('month', parseInt(e.target.value))} 
-                onKeyDown={e => {
-                    if (e.key === 'ArrowUp') {
-                        update('month', String(parseInt(parts.month) + 1).padStart(2, '\u2007'));
-                        e.preventDefault();
-                    } else if (e.key === 'ArrowDown') {
-                        update('month', String(parseInt(parts.month) - 1).padStart(2, '\u2007'));
-                        e.preventDefault();
-                    }
-                }}
-                disabled={disabled} 
-                className="info-input"
-                style={{ width: "1.2em" }}
-            />
-            <label> 月 </label>
-            <input 
-                type="text" 
-                inputMode="numeric" 
-                value={parts.day} 
-                onChange={e => update('day', parseInt(e.target.value))} 
-                onKeyDown={e => {
-                    if (e.key === 'ArrowUp') {
-                        update('day', String(parseInt(parts.day) + 1).padStart(2, '0'));
-                        e.preventDefault();
-                    } else if (e.key === 'ArrowDown') {
-                        update('day', String(parseInt(parts.day) - 1).padStart(2, '0'));
-                        e.preventDefault();
-                    }
-                }}
-                disabled={disabled} 
-                className="info-input"
-                style={{ width: "1.2em" }}
-            />
-            <label> 日<b style={{
-                color: isHoliday(`${parts.year}-${parts.month}-${parts.day}`) ? 'var(--color-success)' : 'var(--cnt-blue2)' 
-            }}>({weekdays[new Date(`${parts.year}-${parts.month}-${parts.day}`).getDay()]})</b> </label>
+            <select value={parts.month} onChange={e => {
+                update('month', parseInt(e.target.value));
+            }}>
+                {Array.from({ length: 14 }, (_, i) => (
+                    <option key={i} value={i}>
+                        {i == 0 ? '\u2212' : i == 13 ? '+' : String(i).padStart(2, '\u2007') + '月'}
+                    </option>
+                ))}
+            </select>
+            <select value={parts.dayTens} onChange={e => {
+                update('dayTens', parseInt(e.target.value));
+            }}>
+                {Array.from({ length: 6 }, (_, i) => (
+                    <option key={i} value={i - 1}>
+                        {i - 1 < 0 ? '\u2212' : i - 1 > 3 ? '+' : i - 1}
+                    </option>
+                ))}
+            </select>
+            <select value={parts.dayOnes} onChange={e => {
+                update('dayOnes', parseInt(e.target.value));
+            }}>
+                {Array.from({ length: 12 }, (_, i) => (
+                    <option key={i} value={i - 1}>
+                        {i - 1 < 0 ? '\u2212' : i - 1 > 9 ? '+' : String(i - 1) + '日'}
+                    </option>
+                ))}
+            </select>
+            <b style={{
+                color: isHoliday(value) ? 'var(--color-success)' : 'var(--cnt-blue2)' 
+            }}>({weekdays[new Date(value - 14400000).getDay()]})</b>
             
-            <input 
-                type="text"
-                inputMode="numeric" 
-                value={parts.hour} 
-                onChange={e => update('hour', parseInt(e.target.value))} 
-                onKeyDown={e => {
-                    if (e.key === 'ArrowUp') {
-                        update('hour', String(parseInt(parts.hour) + 1).padStart(2, '0'));
-                        e.preventDefault();
-                    } else if (e.key === 'ArrowDown') {
-                        update('hour', String(parseInt(parts.hour) - 1).padStart(2, '0'));
-                        e.preventDefault();
-                    }
-                }}
-                disabled={disabled} 
-                className="info-input"
-                style={{ width: "1.2em" }}
-            />
-            <label> 点 </label>
-            <input 
-                type="text" 
-                inputMode="numeric"
-                value={parts.minute} 
-                onChange={e => update('minute', parseInt(e.target.value))} 
-                onKeyDown={e => {
-                    if (e.key === 'ArrowUp') {
-                        update('minute', String(parseInt(parts.minute) + 1).padStart(2, '0'));
-                        e.preventDefault();
-                    } else if (e.key === 'ArrowDown') {
-                        update('minute', String(parseInt(parts.minute) - 1).padStart(2, '0'));
-                        e.preventDefault();
-                    }
-                }}
-                disabled={disabled} 
-                className="info-input"
-                style={{ width: "1.2em" }}
-            />
-            <label> 分 </label> 
+            <select value={parts.hourTens} onChange={e => {
+                update('hourTens', parseInt(e.target.value));
+            }}>
+                {Array.from({ length: 5 }, (_, i) => (
+                    <option key={i} value={i - 1}>
+                        {i - 1 < 0 ? '\u2212' : i - 1 > 2 ? '+' : i - 1}
+                    </option>
+                ))}
+            </select>
+            <select value={parts.hourOnes} onChange={e => {
+                update('hourOnes', parseInt(e.target.value));
+            }}>
+                {Array.from({ length: 12 }, (_, i) => (
+                    <option key={i} value={i - 1}>
+                        {i - 1 < 0 ? '\u2212' : i - 1 > 9 ? '+' : String(i - 1) + '点'}
+                    </option>
+                ))}
+            </select>
+            <select value={parts.minuteTens} onChange={e => {
+                update('minuteTens', parseInt(e.target.value));
+            }}>
+                {Array.from({ length: 8 }, (_, i) => (
+                    <option key={i} value={i - 1}>
+                        {i - 1 < 0 ? '\u2212' : i - 1 > 5 ? '+' : i - 1}
+                    </option>
+                ))}
+            </select>
+            <select value={parts.minuteOnes} onChange={e => {
+                update('minuteOnes', parseInt(e.target.value));
+            }}>
+                {Array.from({ length: 12 }, (_, i) => (
+                    <option key={i} value={i - 1}>
+                        {i - 1 < 0 ? '\u2212' : i - 1 > 9 ? '+' : String(i - 1) + '分'}
+                    </option>
+                ))}
+            </select>
             <div style={{ display: 'flex', justifyContent: 'right' }}>
                 <span style={{ color: '#999', fontFeatureSettings: 'unic' }}>Unix: {(value / 1000).toFixed(0)}</span>
             </div>

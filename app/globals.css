@@ -364,6 +364,7 @@ textarea {
   border-radius: var(--default-border-radius);
 }
 .avatar.inline {
+  width: 6.3rem;
   display: inline-block;
 }
 

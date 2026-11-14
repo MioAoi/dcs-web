@@ -1,8 +1,8 @@
 import { prisma } from "@/lib/prisma";
-import { calculateCharge } from "@/lib/pricing";
+import { calculateCharge } from "@/lib/pricingv2";
 import { LedgerEntryType } from "@/generated/prisma/enums";
 import { updateBalanceCache } from "@/lib/balance";
-import { loadCurrentPricing } from "@/lib/load";
+import { loadCurrentPricingv2 } from "@/lib/load";
 import { getUserPassMultiplier } from "@/lib/users";
 
 export async function getCurrentVisit(userID: number) {
@@ -30,7 +30,7 @@ export async function getLastVisitDuration(userID: number) {
 }
 
 export async function completeVisit(userId: number) {
-    const currentPricing = await loadCurrentPricing();
+    const currentPricing = await loadCurrentPricingv2();
     await prisma.$transaction(async (tx) => {
         const visit = await tx.visit.findFirst({
             where: {
@@ -46,7 +46,7 @@ export async function completeVisit(userId: number) {
         
         const leftAt = new Date();
         const userPassMultiplier = await getUserPassMultiplier(userId);
-        const charge = calculateCharge(visit.enteredAt, leftAt, currentPricing).total * (Math.abs(visit.user.chargeMultiplier) ?? 1) * userPassMultiplier;
+        const charge = calculateCharge(visit.enteredAt, leftAt, currentPricing.rater).total * (Math.abs(visit.user.chargeMultiplier) ?? 1) * userPassMultiplier;
 
         const bonusChange = -Math.min(charge, visit.user.bonusBalance);
         const cashChange = -(charge + bonusChange);

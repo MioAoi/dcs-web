@@ -1,18 +1,17 @@
 "use client";
 import { useState } from "react";
 import UserOneline from "./UserOneline";
-import { calculateCharge } from "@/lib/pricing";
 import { formatMoneyFen } from "@/lib/money";
 import { formatRelativeFLTToMinutes } from "@/lib/datetime";
 import SvgIcon from "./SvgIcon";
 import type { User, Booking, Visit } from "@/generated/prisma/client"
 
-export default function PresentUser({ user, visit, booking, pricing, onelineClickable = false, bookedConsoleDesc, }: { 
+export default function PresentUser({ user, visit, booking, manageView, antcpCharge, bookedConsoleDesc, }: { 
     user: User,
     visit: Visit | null,
-    pricing: any,
+    manageView: boolean,
+    antcpCharge?: number,
     booking: Booking | null,
-    onelineClickable?: boolean,
     bookedConsoleDesc: string | null
 }) {
     const [leaveButtonState, setLeaveButtonState] = useState<"avail" | "done">("avail");
@@ -31,7 +30,7 @@ export default function PresentUser({ user, visit, booking, pricing, onelineClic
         <div className="windowlike master-width card-with-avatar">
             <img className="avatar" src={`/api/avatar/${user.id}`} alt={user.nickname} />
             <div style={{ display: "grid", rowGap: "0rem" }}>
-                <UserOneline user={user} clickable={onelineClickable} />
+                <UserOneline user={user} clickable={manageView} />
                 <div className="bipartite">
                     <span className="info-value"><SvgIcon name="enter" correctAlign={true}/>&thinsp;{formatRelativeFLTToMinutes(visit?.enteredAt.getTime() || booking!.startTime.getTime(), Date.now())}</span>
                     {booking ? (
@@ -43,14 +42,14 @@ export default function PresentUser({ user, visit, booking, pricing, onelineClic
                     booking ? (
                         <span className="info-value"><SvgIcon name="event" correctAlign={true}/>&thinsp;{bookedConsoleDesc}</span>
                     ) :
-                    pricing ? (
-                        <span className="info-value"><SvgIcon name="wallet" correctAlign={true}/>&thinsp;{formatMoneyFen(user.balance - calculateCharge(visit!.enteredAt, new Date(), pricing).total * user.chargeMultiplier)}</span>
+                    manageView ? (
+                        <span className="info-value"><SvgIcon name="wallet" correctAlign={true}/>&thinsp;{formatMoneyFen(user.balance - (antcpCharge ?? 0))}</span>
                     ) :
                     <span className="info-value">非包机</span>
                     }
                 </div>
             </div>
-            {pricing && (
+            {manageView && (
             leaveButtonState === "avail" ? (
                 <div className="Button danger" onClick={handleForceLeave} style={{ width: "5rem", height: "4rem"}}>手动<br/>离店</div>
             ) : (

@@ -24,7 +24,10 @@ export function calculateCharge (
         circadyRates: RateSegment[];
         globalDiscount: number;
     }
-) {
+): {
+    total: number;
+    priceDetail: string;
+} {
     const { circadyRates, globalDiscount } = pricing;
 
     function formatTimeMinutes(minutes: number) {

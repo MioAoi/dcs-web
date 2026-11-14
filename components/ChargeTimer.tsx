@@ -1,11 +1,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { calculateCharge } from "@/lib/pricing";
+import { calculateCharge } from "@/lib/pricingv2";
 import { formatMoneyFen } from "@/lib/money";
+import { loadCurrentPricingv2 } from "@/lib/load";
 
-export default function ChargeTimer({ enterTime, chargeMultiplier, pricing }: { enterTime: number, chargeMultiplier: number, pricing: { circadyRates: any[], globalDiscount: number } }) {
+export default async function ChargeTimer({ enterTime, chargeMultiplier }: { enterTime: number, chargeMultiplier: number }) {
     const [charge, setCharge] = useState(0);
+    const rater = await loadCurrentPricingv2().then(pricing => pricing.rater);
 
     if (!enterTime) {
         return (
@@ -16,7 +18,7 @@ export default function ChargeTimer({ enterTime, chargeMultiplier, pricing }: { 
     useEffect(() => {
         function updateCharge() {
             const now = new Date();
-            const charge = calculateCharge(new Date(enterTime), now, pricing).total * chargeMultiplier;
+            const charge = calculateCharge(new Date(enterTime), now, rater).total * chargeMultiplier;
             setCharge(charge);
         }
         updateCharge();
@@ -40,4 +42,3 @@ export default function ChargeTimer({ enterTime, chargeMultiplier, pricing }: { 
         <span className="info-value">{formatMoneyFen(charge)}</span>
     );
 }
-

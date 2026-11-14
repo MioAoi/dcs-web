@@ -99,6 +99,21 @@ export async function getInVenueList(): Promise<InVenueUser[]> {
     return inVenueUsers;
 }
 
+export async function getVenueBooking() {
+    const currentVenueBooking = await prisma.booking.findFirst({
+        where: {
+            endTime: {
+                gt: new Date()
+            },
+            startTime: {
+                lt: new Date()
+            },
+            console: "all"
+        }
+    });
+    return currentVenueBooking;
+}
+
 export async function userHasCurrentBooking(userId: number) {
     const currentBookings = await prisma.booking.findMany({
         where: {

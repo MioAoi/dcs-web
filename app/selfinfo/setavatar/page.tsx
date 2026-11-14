@@ -11,8 +11,9 @@ export default async function SetAvatarPage() {
     return (
         <main>
             <PlayerNavigation  buttonLogout={false} />
-            <h2>设置头像</h2>
+            
             <div className="master-width invwindow bipartite">
+                <h2>设置头像</h2>
                 <div>
                     当前头像：
                     <img className="avatar inline" src={`/api/avatar/${user.id}`} alt={user.nickname} />

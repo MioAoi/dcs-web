@@ -19,6 +19,34 @@ export function loadCurrentPricing() {
     return loadedPricing;
 }
 
+const raters = {
+    "test": await import(path.join("../profiles/ratev2", "test")),
+    "normal": await import(path.join("../profiles/ratev2", "normal"))
+}
+
+export async function loadCurrentPricingv2(): Promise<{
+    rater: (time: number, states: { rate: number, gauge: number }) => { rate: number, gauge: number },
+    admissionBalance: number
+}> {
+    const pricings = JSON.parse(fs.readFileSync(path.join(process.cwd(), "profiles", "pricingv2.json"), "utf-8"));
+    const currentPricing: {
+        admissionBalance: number;
+        raterFile: string;
+    } = pricings.find((p: any) => {
+        const now = new Date();
+        const validFrom = new Date(p.validFrom);
+        return now >= validFrom;
+    });
+    if (!currentPricing) {
+        throw new Error("No applicable pricingv2 profile found");
+    }
+    const rater = raters[currentPricing.raterFile as keyof typeof raters].default;
+    return {
+        ...currentPricing,
+        rater
+    };
+}
+
 export function loadCurrentPassGara() {
     const passGaras = JSON.parse(fs.readFileSync(path.join(process.cwd(), "profiles", "pass_gara.json"), "utf-8"));
     const now = new Date();

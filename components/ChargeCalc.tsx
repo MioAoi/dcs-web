@@ -1,8 +1,9 @@
 "use client";
 import { useState } from "react";
 import { formatMoneyFen } from "@/lib/money";
-import { calculateCharge } from "@/lib/pricing";
+import { calculateCharge } from "@/lib/pricingv2";
 import DatetimeInput from "@/components/DatetimeInput";
+import rater from "@/profiles/ratev2/test";
 
 type RateSegment = {
     startMinute: number;
@@ -12,13 +13,13 @@ type RateSegment = {
     globalDiscountApply?: boolean;
 };
 
-export default function ChargeCalc({ pricing }: { pricing: { circadyRates: RateSegment[]; globalDiscount: number } }) {
+export default function ChargeCalc() {
     const [enterTime, setEnterTime] = useState(Date.now());
     const [leaveTime, setLeaveTime] = useState(Date.now());
 
     let price = null;
     if (enterTime && leaveTime) {
-        price = calculateCharge(new Date(enterTime), new Date(leaveTime), pricing);
+        price = calculateCharge(new Date(enterTime), new Date(leaveTime), rater);
     }
     
     return (<>
